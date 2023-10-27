@@ -27,6 +27,24 @@ pip install seamapi
 ```
 {% endtab %}
 
+{% tab title="Java" %}
+For Gradle, add the dependency in your `build.gradle`:
+```groovy
+dependencies {
+    implementation 'io.github.seamapi:java:0.x.x'
+}
+```
+
+For Maven, add the dependency in your `pom.xml`:
+```xml
+<dependency>
+    <groupId>io.github.seamapi</groupId>
+    <artifactId>java</artifactId>
+    <version>0.x.x</version>
+</dependency>
+```
+{% endtab %}
+
 {% tab title="Ruby" %}
 ```bash
 bundle add seamapi
