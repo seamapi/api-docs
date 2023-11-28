@@ -184,6 +184,7 @@
 * [August Locks](device-guides/august-locks.md)
 * [Avigilon Alta Access System](device-guides/avigilon-alta-access-system.md)
 * [Brivo Access](device-guides/brivo-access.md)
+* [ButterflyMX Intercoms](device-guides/butterflymx-intercoms.md)
 * [dormakaba Oracode Locks](device-guides/dormakaba-oracode-locks.md)
 * [Ecobee Thermostats](device-guides/ecobee-thermostats.md)
 * [Hubitat Elevation Hub](device-guides/hubitat-elevation-hub.md)

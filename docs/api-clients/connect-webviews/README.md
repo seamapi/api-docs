@@ -40,6 +40,7 @@ To enable a user to connect their device account to Seam through your app, you m
 | [Noiseaware](https://noiseaware.com/)                                          | `noiseaware`        | [Noise Detection](broken-reference/)                                         |
 | [Schlage Connect](https://www.schlage.com/en/home/smart-locks/connect.html)    | `schlage`           | [Access Codes](../access-codes/), [Locks](../locks/)                         |
 | [SmartThings](https://www.smartthings.com/)                                    | `smartthings`       | [Access Codes](../access-codes/), [Locks](../locks/)                         |
+| [ButterflyMX](https://butterflymx.com/)                                        | `butterflymx`       | [Locks](../locks/)                                                           |
 | [Genie Aladdin Connect](https://www.geniecompany.com/aladdin-connect-by-genie) | `genie`             | [Locks](../locks/)                                                           |
 | [Salto](https://saltosystems.com/)                                             | `salto`             | [Access Codes](../access-codes/), [Locks](../locks/)                         |
 | [Yale](https://www.yalehome.com/)                                              | `yale_access`       | [Access Codes](../access-codes/), [Locks](../locks/)                         |

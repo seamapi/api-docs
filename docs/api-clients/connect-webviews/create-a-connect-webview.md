@@ -68,13 +68,13 @@ Alternative URL to redirect the user on error. If this is not set, falls back to
 {
   "error": {
     "type": "invalid_input",
-    "message": "Invalid enum value. Expected 'akuvox' | 'august' |  'schlage' | 'smartthings' | 'yale' | 'noiseaware' | 'salto' | 'doorking' | 'salto' | 'genie' | 'linear' | 'seam_relay_admin' for provided \"accepted_providers.0\"",
+    "message": "Invalid enum value. Expected 'akuvox' | 'august' | 'butterflymx' | 'schlage' | 'smartthings' | 'yale' | 'noiseaware' | 'salto' | 'doorking' | 'salto' | 'genie' | 'linear' | 'seam_relay_admin' for provided \"accepted_providers.0\"",
     "validation_errors": {
       "_errors": [],
       "accepted_providers": {
         "0": {
           "_errors": [
-            "Invalid enum value. Expected 'akuvox' | 'august' |  'schlage' | 'smartthings' | 'yale' | 'noiseaware' | 'salto' | 'doorking' | 'salto' | 'genie' | 'linear' | 'seam_relay_admin'"
+            "Invalid enum value. Expected 'akuvox' | 'august' | 'butterflymx' | 'schlage' | 'smartthings' | 'yale' | 'noiseaware' | 'salto' | 'doorking' | 'salto' | 'genie' | 'linear' | 'seam_relay_admin'"
           ]
         },
         "_errors": []
