@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "test": "ava -T 2m",
-    "cli": "esr ./src/cli.ts"
+    "cli": "esr ./src/cli.ts",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
