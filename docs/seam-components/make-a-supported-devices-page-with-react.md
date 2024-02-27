@@ -14,8 +14,6 @@ This guide will show you how to drop [`<SupportedDeviceTable />`](https://react.
 
 ```bash
 npm install --save @seamapi/react
-# or via yarn
-yarn add @seamapi/react
 ```
 
 ## 2 - Get a Publishable Key from the Seam Console

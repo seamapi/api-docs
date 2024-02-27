@@ -67,7 +67,7 @@ console.log(unmanagedDevice)
 
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 seam = Seam()
 
 device_id = "aaa5664a-a959-499d-82a7-c25516565788"
@@ -238,7 +238,7 @@ console.log(device)
 
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 seam = Seam()
 
 device_id = "0e2e6262-7f91-4970-a58d-47ef30b41e2e"

@@ -80,7 +80,7 @@ console.log(workspace);
 
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 # Seam automatically uses the SEAM_API_KEY environment variable if you
 # do not provide an api_key to `Seam()`.

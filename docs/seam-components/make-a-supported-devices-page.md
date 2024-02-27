@@ -54,8 +54,6 @@ Install `@seamapi/react` in your React application
 
 ```bash
 npm install --save @seamapi/react
-# or via yarn
-yarn add @seamapi/react
 ```
 
 Add the components anywhere in your React app
@@ -80,8 +78,6 @@ Install `@seamapi/react` in your application
 
 ```bash
 npm install --save @seamapi/react
-# or via yarn
-yarn add @seamapi/react
 ```
 
 Then import the custom elements bundle in your application entrypoint:

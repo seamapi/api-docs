@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import random
-from seamapi import Seam
+from seam import Seam
 from pprint import pprint
 
 seam = Seam(

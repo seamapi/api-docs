@@ -29,7 +29,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 ```
 {% endtab %}
 

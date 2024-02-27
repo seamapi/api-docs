@@ -47,7 +47,7 @@ checkAuth();
 {% tab title="Python" %}
 
 ```python
-from seamapi import Seam
+from seam import Seam
 
 # Seam will automatically use the SEAM_API_KEY environment variable if you
 # don't provide an api_key to `Seam()`

@@ -25,7 +25,8 @@ Retrieves the details of a thermostat.
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python">from seamapi import Seam
+```python
+from seam import Seam
 
 seam = Seam()
 device_id = "123e4567-e89b-12d3-a456-426614174000"
@@ -35,8 +36,8 @@ print(thermostat)
 
 # Thermostat(
 #     device_id="123e4567-e89b-12d3-a456-426614174000",
-<strong>#     device_type="ecobee_thermostat",
-</strong>#     capabilities_supported=["thermostat"], 
+#     device_type="ecobee_thermostat",
+#     capabilities_supported=["thermostat"], 
 #     properties={
 #         "name": "Entryway",
 #         "online": True,
@@ -47,17 +48,17 @@ print(thermostat)
 #         "available_hvac_mode_settings": [
 #             "cool",
 #             "heat",
-<strong>#             "heat_cool",
-</strong>#             "off"
+#             "heat_cool",
+#             "off"
 #         ],
 #         "current_climate_setting": {
 #             "automatic_heating_enabled": True,
-<strong>#             "automatic_cooling_enabled": True,
-</strong>#             "hvac_mode_setting": "heat_cool",
+#             "automatic_cooling_enabled": True,
+#             "hvac_mode_setting": "heat_cool",
 #             "cooling_set_point_fahrenheit": 75,
 #             "heating_set_point_fahrenheit": 65,
-<strong>#             "manual_override_allowed": False  
-</strong>#         }
+#             "manual_override_allowed": False  
+#         }
 #     },
 #     location=None,
 #     connected_account_id="123e4567-e89b-12d3-a456-426614174001",
@@ -65,7 +66,7 @@ print(thermostat)
 #     created_at="2023-06-01T11:14:37.116Z",
 #     errors=[]
 # )
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Javascript" %}

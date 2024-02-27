@@ -15,17 +15,11 @@ Install one of the Seam SDKs in the programming language of your choice. Seam su
 ```bash
 npm i seam
 ```
-
-or
-
-```bash
-$ yarn add seamapi
-```
 {% endtab %}
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}

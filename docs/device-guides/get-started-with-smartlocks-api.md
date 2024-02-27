@@ -21,7 +21,7 @@ Let's get started.
 Seam provides client libraries for many languages such as Javascript, Python, Ruby, and PHP, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * **Javascript:** `npm i seam` ([npm](https://www.npmjs.com/package/seam), [github](https://github.com/seamapi/javascript))
-* **Python:** `pip install seamapi` ([pip](https://pypi.org/project/seamapi/), [github](https://github.com/seamapi/python))
+* **Python:** `pip install seam` ([pip](https://pypi.org/project/seam/), [github](https://github.com/seamapi/python))
 * **Ruby:** `bundle add seamapi` ([rubygem](https://rubygems.org/gems/seamapi), [github](https://github.com/seamapi/ruby))
 * **PHP:** `composer require seamapi/seam` ([packagist](https://packagist.org/packages/seamapi/seam), [github](https://github.com/seamapi/php))
 
@@ -46,7 +46,7 @@ To start, we will create a Connect Webview and pass "stable" as the `provider_ca
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 seam = Seam()
 

@@ -22,8 +22,6 @@ Install the npm package
 
 ```bash
 npm install --save @seamapi/react
-# or via yarn
-yarn add @seamapi/react
 ```
 
 Then import the custom elements bundle in you `main.ts` application entrypoint:

@@ -19,7 +19,7 @@ Make sure to install the relevant Seam package for your language...
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 seam = Seam()
 
