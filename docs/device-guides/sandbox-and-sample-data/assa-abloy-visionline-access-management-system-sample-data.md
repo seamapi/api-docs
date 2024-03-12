@@ -10,4 +10,7 @@ To use the virtual Visionline Access Control System (ACS) with the virtual [Seam
 3. Connect the virtual Visionline ACS using a Connect Webview and the Visionline sample credentials.&#x20;
 {% endhint %}
 
-<table><thead><tr><th width="192">Username</th><th width="197">Password</th><th>Local IP Address of the Visionline Server</th></tr></thead><tbody><tr><td>jane</td><td>1234</td><td>192.168.1.100</td></tr></tbody></table>
+
+| Username  | Password | Lock Service Code | Local IP Address of the Visionline Server  |
+| --------- | -------- | ----------------- | ------------------------------------------ |
+| jane      | 1234     | 1234              | 192.168.1.100                              |
