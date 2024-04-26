@@ -4,7 +4,7 @@ description: Revoke access to a specified device from a specified user identity
 
 # Revoke Access to a Device from a User Identity
 
-Revokes access to a specified [device](../../core-concepts/devices/) (`device` object) from a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Revokes access to a specified [device](../../core-concepts/devices/) from a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/revoke_access_to_device" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

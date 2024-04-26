@@ -4,7 +4,7 @@ description: Get all enrollment automations for a specified user identity
 
 # List Enrollment Automations
 
-Returns a list of all [enrollment automations](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md) (`enrollment_automation` objects) for a specified [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Returns a list of all [enrollment automations](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md) for a specified [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/enrollment_automations/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

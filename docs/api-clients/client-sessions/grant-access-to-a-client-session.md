@@ -4,7 +4,7 @@ description: Grant a client session access to resources
 
 # Grant Access to a Client Session
 
-Grants a [client session](../../core-concepts/authentication/client-session-tokens/) (`client_session` object) access to one or more resources, such as [Connect Webviews](../../core-concepts/connect-webviews/), [user identities](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity), and so on.
+Grants a [client session](../../core-concepts/authentication/client-session-tokens/) access to one or more resources, such as [Connect Webviews](../../core-concepts/connect-webviews/), [user identities](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity), and so on.
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/client_sessions/grant_access" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

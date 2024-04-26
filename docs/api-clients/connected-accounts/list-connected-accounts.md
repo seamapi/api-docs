@@ -4,7 +4,7 @@ description: Get all Connected accounts
 
 # List Connected Accounts
 
-Returns a list of all [connected accounts](./) (`connected_account` objects).
+Returns a list of all [connected accounts](./).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/connected_accounts/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

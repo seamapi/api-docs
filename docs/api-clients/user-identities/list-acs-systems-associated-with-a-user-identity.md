@@ -4,7 +4,7 @@ description: Get all access control systems associated with a specified user ide
 
 # List ACS Systems Associated with a User Identity
 
-Returns a list of all [access control systems](../../products/access-systems/) (`acs_system` objects) associated with a [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Returns a list of all [access control systems](../../products/access-systems/) associated with a [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/list_acs_systems" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

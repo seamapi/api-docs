@@ -27,7 +27,7 @@ To get started with Seam, first connect a set of devices.
 
 Once authorized, the devices associated with this test account appear in your workspace.
 
-{% @supademo/embed demoid="h1y5QMki-7vzlghMzobuf" url="https://app.supademo.com/demo/h1y5QMki-7vzlghMzobuf" %}
+{% @supademo/embed demoId="h1y5QMki-7vzlghMzobuf" url="https://app.supademo.com/demo/h1y5QMki-7vzlghMzobuf" %}
 
 ## Step 2 — Get an API Key and SDK
 
@@ -40,7 +40,7 @@ To control the devices that you connected in [Step 1](quickstart.md#step-1-conne
 3. In the **Add API Key** dialog, type a name for your new API key and then click **Create API Key**.
 4. Copy the newly-created API key and store it for future use.
 
-{% @supademo/embed demoid="vLRzYM2Nwoi4j_cH9WCNQ" url="https://app.supademo.com/demo/vLRzYM2Nwoi4j_cH9WCNQ" %}
+{% @supademo/embed demoId="vLRzYM2Nwoi4j_cH9WCNQ" url="https://app.supademo.com/demo/vLRzYM2Nwoi4j_cH9WCNQ" %}
 
 ### Install the Seam SDK
 
@@ -138,8 +138,8 @@ const seam = new Seam(); // SEAM_API_KEY environment variable picked up here.
 // Retrieve all authorized locks and select the first lock.
 const [someLock] = await seam.locks.list();
 
-<strong>// Inspect this device to see which capabilities it supports.
-</strong>console.log(someLock.capabilities_supported);
+// Inspect this device to see which capabilities it supports.
+console.log(someLock.capabilities_supported);
 /*
   [ 'access_code', 'lock' ] 
 */

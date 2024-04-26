@@ -4,7 +4,7 @@ description: Update the properties of a specified connected account.
 
 # Update a Connected Account
 
-Updates any of the following properties of a specified [connected account](./) (`connected_account` object):
+Updates any of the following properties of a specified [connected account](./):
 
 * `automatically_manage_new_devices`
 * `custom_metadata`

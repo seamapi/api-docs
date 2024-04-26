@@ -28,10 +28,16 @@ To install the Seam Bridge, first install the Seam Bridge application on an on-p
 2.  Run the downloaded `SeamBridge.exe`.
 
     This application opens a webpage containing the Seam Bridge settings.
-3. Click on "Create Pairing Code".
+3.  Click on "Create Pairing Code".\
+
+
+    <figure><img src="../.gitbook/assets/Screenshot 2024-04-12 at 5.31.18 PM.png" alt=""><figcaption></figcaption></figure>
 4.  Copy the pairing code that the webpage displays.
 
-    The installer uses this code to pair the Seam Bridge to the workspace, using a Connect Webview.
+    The installer uses this code to pair the Seam Bridge to the workspace, using a Connect Webview.\
+
+
+    <figure><img src="../.gitbook/assets/Screenshot 2024-04-12 at 5.36.00 PM.png" alt=""><figcaption></figcaption></figure>
 
 ### Pairing the Seam Bridge with Your Workspace
 

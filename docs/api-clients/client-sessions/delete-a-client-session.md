@@ -4,7 +4,7 @@ description: Delete a specified client session
 
 # Delete a Client Session
 
-Deletes a specified [client session](../../core-concepts/authentication/client-session-tokens/) (`client_session` object).
+Deletes a specified [client session](../../core-concepts/authentication/client-session-tokens/).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/client_sessions/delete" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

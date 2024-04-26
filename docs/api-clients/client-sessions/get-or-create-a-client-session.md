@@ -6,7 +6,7 @@ description: >-
 
 # Get or Create a Client Session
 
-Gets a [client session](../../core-concepts/authentication/client-session-tokens/) (`client_session` object) with specific characteristics or create a new client session with these characteristics if it does not yet exist.
+Gets a [client session](../../core-concepts/authentication/client-session-tokens/) with specific characteristics or create a new client session with these characteristics if it does not yet exist.
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/client_sessions/get_or_create" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

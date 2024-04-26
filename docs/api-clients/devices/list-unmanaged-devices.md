@@ -4,7 +4,7 @@ description: Get all unmanaged devices
 
 # List Unmanaged Devices
 
-Returns a list of all [unmanaged devices](../../core-concepts/devices/#managed-devices-and-unmanaged-devices) (`device` objects). An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](../../products/smart-locks/access-codes/) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](../../core-concepts/devices/#convert-an-unmanaged-device-to-managed).
+Returns a list of all [unmanaged devices](../../core-concepts/devices/#managed-devices-and-unmanaged-devices). An unmanaged device has a limited set of visible properties and a subset of supported events. You cannot control an unmanaged device. Any [access codes](../../products/smart-locks/access-codes/) on an unmanaged device are unmanaged. To control an unmanaged device with Seam, [convert it to a managed device](../../core-concepts/devices/#convert-an-unmanaged-device-to-managed).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/devices/unmanaged/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

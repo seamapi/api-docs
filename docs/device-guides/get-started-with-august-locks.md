@@ -276,15 +276,15 @@ Next, you can perform the basic action of locking and unlocking the door.
 [openapi (1).json](<../.gitbook/assets/openapi (1).json>)
 {% endswagger %}
 
-{% swagger method="post" path="/locks/unlock_door" baseUrl="https://connect.getseam.com" summary="Unlock a door" %}
-{% swagger-description %}
+## Unlock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/unlock_door`
 
-{% swagger-parameter in="body" name="device_id" required="false" %}
+#### Request Body
 
-{% endswagger-parameter %}
-{% endswagger %}
+| Name       | Type   | Description |
+| ---------- | ------ | ----------- |
+| device\_id | String |             |
 
 {% tabs %}
 {% tab title="Python" %}
@@ -469,7 +469,7 @@ seam.access_codes.list(some_lock)
 {% endtab %}
 {% endtabs %}
 
-###
+
 
 ## Next Steps
 
@@ -484,3 +484,7 @@ In addition, if you'd like to explore other aspects of Seam, here is a list of h
 * [Core Concepts](broken-reference/)
 
 If you have any questions or want to report an issue, email us at support@seam.co.
+
+## Quick links
+
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th data-hidden></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Get</strong> <strong>API Key</strong> (free)</td><td>Sign up for the Seam Console and get your API keys. →</td><td></td><td><a href="../.gitbook/assets/seam-api-key.png">seam-api-key.png</a></td><td><a href="https://console.seam.co/">https://console.seam.co/</a></td></tr><tr><td><strong>Contact Sales</strong></td><td>Got a project or a specific question? Contact our team to get answers. →</td><td></td><td><a href="../.gitbook/assets/seam-contact-us-light.png">seam-contact-us-light.png</a></td><td><a href="https://www.seam.co/contact-us">https://www.seam.co/contact-us</a></td></tr></tbody></table>

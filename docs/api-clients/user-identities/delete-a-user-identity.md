@@ -4,7 +4,7 @@ description: Delete a specified user identity
 
 # Delete a User Identity
 
-Deletes a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object). To delete a user identity, you must first delete any [ACS credentials](../access-control-systems/credentials/delete-credential.md) and [enrollment automations](enrollment-automations/delete-an-enrollment-automation.md) associated with the user identity. You must also deactivate any associated phones.
+Deletes a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity). To delete a user identity, you must first delete any [ACS credentials](../access-control-systems/credentials/delete-credential.md) and [enrollment automations](enrollment-automations/delete-an-enrollment-automation.md) associated with the user identity. You must also deactivate any associated phones.
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/delete" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

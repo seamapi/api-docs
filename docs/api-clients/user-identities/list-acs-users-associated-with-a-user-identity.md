@@ -4,7 +4,7 @@ description: Get all ACS users for a specified user identity
 
 # List ACS Users Associated with a User Identity
 
-Returns a list of all [ACS users](../../products/access-systems/#what-is-a-user) (`acs_user` objects) assigned to a [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Returns a list of all [ACS users](../../products/access-systems/#what-is-a-user) assigned to a [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/list_acs_users" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

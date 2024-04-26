@@ -4,7 +4,7 @@ description: Get a specified user identity
 
 # Get a User Identity
 
-Returns a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Returns a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/get" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

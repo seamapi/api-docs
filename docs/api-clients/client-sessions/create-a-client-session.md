@@ -4,7 +4,7 @@ description: Create a new client session
 
 # Create a Client Session
 
-Creates a new [client session](../../core-concepts/authentication/client-session-tokens/) (`client_session` object).
+Creates a new [client session](../../core-concepts/authentication/client-session-tokens/).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/client_sessions/create" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

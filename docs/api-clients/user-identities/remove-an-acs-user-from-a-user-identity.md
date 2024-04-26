@@ -4,7 +4,7 @@ description: Remove a specified ACS user from a specified user identity
 
 # Remove an ACS User from a User Identity
 
-Removes a specified [ACS user](../../products/access-systems/#what-is-a-user) (`acs_user` object) from a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Removes a specified [ACS user](../../products/access-systems/#what-is-a-user) from a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/remove_acs_user" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

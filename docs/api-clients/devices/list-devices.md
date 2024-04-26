@@ -4,7 +4,7 @@ description: Get all devices
 
 # List Devices
 
-Returns a list of all [devices](../../core-concepts/devices/) (`device` objects).
+Returns a list of all [devices](../../core-concepts/devices/).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/devices/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

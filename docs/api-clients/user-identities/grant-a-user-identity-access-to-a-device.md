@@ -4,7 +4,7 @@ description: Grant a specified user identity access to a specified device
 
 # Grant a User Identity Access to a Device
 
-Grants a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object) access to a specified [device](../../core-concepts/devices/) (`device` object).
+Grants a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) access to a specified [device](../../core-concepts/devices/).
 
 {% hint style="info" %}
 You can only grant user identities access to [managed](../../core-concepts/devices/managed-and-unmanaged-devices.md) devices.

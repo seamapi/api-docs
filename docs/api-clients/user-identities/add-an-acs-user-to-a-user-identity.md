@@ -4,7 +4,7 @@ description: Add a specified ACS user to a specified user identity
 
 # Add an ACS User to a User Identity
 
-Adds a specified [ACS user](../../products/access-systems/#what-is-a-user) (`acs_user` object) to a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Adds a specified [ACS user](../../products/access-systems/#what-is-a-user) to a specified [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/add_acs_user" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

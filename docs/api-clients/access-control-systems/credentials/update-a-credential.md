@@ -1,30 +1,31 @@
 ---
-description: Get a specified credential
+description: Update the code for a specified credential
 ---
 
-# Get a Credential
+# Update a Credential
 
-Returns a specified [credential](../../../products/access-systems/#what-is-a-credential) (`acs_credential` object).
+Updates the code for a specified [credential](../../../products/access-systems/#what-is-a-credential) (`acs_credential` object).
 
-{% swagger src="https://connect.getseam.com/openapi.json" path="/acs/credentials/get" method="post" %}
+{% swagger src="https://connect.getseam.com/openapi.json" path="/acs/credentials/update" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)
 {% endswagger %}
 
 ## Request
 
-Specify the desired credential by including the corresponding `acs_credential_id` in the request body.
+Specify the desired credential and updated code by including the corresponding `acs_credential_id` and `code` parameters, respectively, in the request body.
 
 ### Request Body Parameters
 
-<table><thead><tr><th>Parameter</th><th width="112.33333333333331">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_credential_id</code></td><td>String (UUID)<br><em>Required</em></td><td>ID of the desired credential</td></tr></tbody></table>
+<table><thead><tr><th>Parameter</th><th width="112.33333333333331">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_credential_id</code></td><td>String (UUID)<br><em>Required</em></td><td>ID of the desired credential</td></tr><tr><td><code>code</code></td><td>String<br><em>Required</em></td><td>Replacement access (PIN) code for the credential</td></tr></tbody></table>
 
 ### Sample Request
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-seam.acs.credentials.get(
-  acs_credential_id="66666666-6666-6666-6666-666666666666"
+seam.acs.credentials.update(
+  acs_credential_id="66666666-6666-6666-6666-666666666666",
+  code="7890"
 )
 ```
 {% endtab %}
@@ -32,19 +33,22 @@ seam.acs.credentials.get(
 {% tab title="cURL (bash)" %}
 ```bash
 curl -X 'POST' \
-  'https://connect.getseam.com/acs/credentials/get' \
+  "https://connect.getseam.com/acs/credentials/update" \
+  -H 'accept: application/json' \
   -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
-  "acs_credential_id": "66666666-6666-6666-6666-666666666666"
+  "acs_credential_id": "66666666-6666-6666-6666-666666666666",
+  "code": "7890"
 }'
 ```
 {% endtab %}
 
 {% tab title="JavaScript" %}
 ```javascript
-await seam.acs.credentials.get({
-  acs_credential_id: "66666666-6666-6666-6666-666666666666"
+await seam.acs.credentials.update({
+  acs_credential_id: "66666666-6666-6666-6666-666666666666",
+  code: "7890"
 });
 ```
 {% endtab %}
@@ -57,16 +61,18 @@ await seam.acs.credentials.get({
 
 {% tab title="PHP" %}
 ```php
-$seam->acs->credentials->get(
-  acs_credential_id: "66666666-6666-6666-6666-66666666"
+$seam->acs->credentials->update(
+  acs_credential_id: "66666666-6666-6666-6666-666666666666",
+  code: "7890"
 );
 ```
 {% endtab %}
 
 {% tab title="C#" %}
 ```csharp
-seam.CredentialsAcs.Get(
-  acsCredentialId: "66666666-6666-6666-6666-66666666"
+seam.CredentialsAcs.Update(
+  acsCredentialId: "66666666-6666-6666-6666-666666666666",
+  code: "7890"
 );
 ```
 {% endtab %}
@@ -79,9 +85,10 @@ seam.CredentialsAcs.Get(
 
 {% tab title="Go" %}
 ```go
-acs_credential, uErr := client.Acs.Credentials.Get(
-  context.Background(), &acs.CredentialsGetRequest{
-    AcsCredentialId: "66666666-6666-6666-6666-66666666",
+acs_credential, uErr := client.Acs.Credentials.Update(
+  context.Background(), &acs.CredentialsUpdateRequest{
+    AcsCredentialId: api.String("66666666-6666-6666-6666-666666666666"),
+    Code: "7890",
   },
 )
 ```
@@ -107,7 +114,7 @@ AcsCredential(
   acs_credential_id='99999999-9999-9999-9999-999999999999',
   acs_user_id='33333333-3333-3333-3333-333333333333',
   display_name='Multi Phone Sync Credential',
-  code=null,
+  code='7890',
   acs_system_id='11111111-1111-1111-1111-111111111111',
   access_method='mobile_key',
   workspace_id='00000000-0000-0000-0000-000000000000',
@@ -125,7 +132,7 @@ AcsCredential(
     "acs_credential_id": "99999999-9999-9999-9999-999999999999",
     "acs_user_id": "33333333-3333-3333-3333-333333333333",
     "display_name": "Multi Phone Sync Credential",
-    "code": null,
+    "code": "7890",
     "acs_system_id": "11111111-1111-1111-1111-111111111111",
     "access_method": "mobile_key",
     "workspace_id": "00000000-0000-0000-0000-000000000000",
@@ -144,7 +151,7 @@ AcsCredential(
   acs_credential_id: '99999999-9999-9999-9999-999999999999',
   acs_user_id: '33333333-3333-3333-3333-333333333333',
   display_name: 'Multi Phone Sync Credential',
-  code: null,
+  code: '7890',
   acs_system_id: '11111111-1111-1111-1111-111111111111',
   access_method: 'mobile_key',
   workspace_id: '00000000-0000-0000-0000-000000000000',
@@ -167,7 +174,7 @@ AcsCredential(
   "acs_credential_id": "99999999-9999-9999-9999-999999999999",
   "acs_user_id": "33333333-3333-3333-3333-333333333333",
   "display_name": "Multi Phone Sync Credential",
-  "code": null,
+  "code": "7890",
   "acs_system_id": "11111111-1111-1111-1111-111111111111",
   "access_method": "mobile_key",
   "workspace_id": "00000000-0000-0000-0000-000000000000",
@@ -184,7 +191,7 @@ AcsCredential(
   "acs_credential_id": "99999999-9999-9999-9999-999999999999",
   "acs_user_id": "33333333-3333-3333-3333-333333333333",
   "display_name": "Multi Phone Sync Credential",
-  "code": null,
+  "code": "7890",
   "acs_system_id": "11111111-1111-1111-1111-111111111111",
   "access_method": "mobile_key",
   "workspace_id": "00000000-0000-0000-0000-000000000000",
@@ -208,7 +215,7 @@ AcsCredential(
     "acs_credential_id": "99999999-9999-9999-9999-999999999999",
     "acs_user_id": "33333333-3333-3333-3333-333333333333",
     "display_name": "Multi Phone Sync Credential",
-    "code": null,
+    "code": "7890",
     "acs_system_id": "11111111-1111-1111-1111-111111111111",
     "access_method": "mobile_key",
     "workspace_id": "00000000-0000-0000-0000-000000000000",

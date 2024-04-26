@@ -4,7 +4,7 @@ description: List all Connect Webviews
 
 # List Connect Webviews
 
-Returns a list of all [Connect Webviews](../../core-concepts/connect-webviews/) (`connect_webview`objects).
+Returns a list of all [Connect Webviews](../../core-concepts/connect-webviews/).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/connect_webviews/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

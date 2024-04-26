@@ -4,7 +4,7 @@ description: Update the properties of a specified device
 
 # Update a Device
 
-Updates any of the following properties of a specified [device](../../core-concepts/devices/) (`device` object):
+Updates any of the following properties of a specified [device](../../core-concepts/devices/):
 
 * `name` (or `properties.name`)
 * `custom_metadata`

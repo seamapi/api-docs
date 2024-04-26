@@ -4,7 +4,7 @@ description: Initialize a specified user identity with a specified credential ma
 
 # Launch an Enrollment Automation
 
-Sets up a new [enrollment automation](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md) (`enrollment_automation` object) for a specified [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object) with a specified [credential manager](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md).
+Sets up a new [enrollment automation](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md) for a specified [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) with a specified [credential manager](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/enrollment_automations/launch" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

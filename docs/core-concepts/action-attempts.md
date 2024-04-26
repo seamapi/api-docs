@@ -1,6 +1,6 @@
 # Action Attempts
 
-As seen in the [Device Capabilities](broken-reference) section, you can perform actions against a device. However, devices exist in the physical world. The physical world is intrinsically asynchronous.
+As seen in the [Capability Guides](broken-reference) section, you can perform actions against a device. However, devices exist in the physical world. The physical world is intrinsically asynchronous.
 
 This means that certain actions can take seconds, minutes, or even days to complete. Furthermore, an action can fail and you may also not find out until later.
 

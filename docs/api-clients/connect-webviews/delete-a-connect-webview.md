@@ -4,7 +4,7 @@ description: Delete a specified Connect Webview
 
 # Delete a Connect Webview
 
-Deletes a specified [Connect Webview](../../core-concepts/connect-webviews/) (`connect_webview` object).
+Deletes a specified [Connect Webview](../../core-concepts/connect-webviews/).
 
 {% hint style="info" %}
 You do not need to delete a Connect Webview once a user completes it. Instead, you can simply ignore completed Connect Webviews.

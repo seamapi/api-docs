@@ -4,7 +4,7 @@ description: Get a specified device
 
 # Get a Device
 
-Returns a specified [device](../../core-concepts/devices/) (`device` object).
+Returns a specified [device](../../core-concepts/devices/).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/devices/get" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

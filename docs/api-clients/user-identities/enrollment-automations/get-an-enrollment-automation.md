@@ -4,7 +4,7 @@ description: Get a specified enrollment automation
 
 # Get an Enrollment Automation
 
-Returns a specified [enrollment automation](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md) (`enrollment_automation` object).
+Returns a specified [enrollment automation](../../../products/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/enrollment_automations/get" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

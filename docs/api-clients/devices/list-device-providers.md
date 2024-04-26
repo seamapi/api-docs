@@ -4,7 +4,7 @@ description: Get all device providers
 
 # List Device Providers
 
-Returns a list of all [device providers](./#device-providers) (`device_provider` objects).
+Returns a list of all [device providers](./#device-providers).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/devices/list_device_providers" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

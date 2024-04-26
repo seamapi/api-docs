@@ -16,6 +16,14 @@ Seam currently only supports issuing guest mobile credentials. We will extend su
 
 When creating a Seam mobile key for a Visionline ACS, you must set `is_multi_phone_sync_credential` to `true`.
 
+***
+
+## Granting Users Access to Entrances
+
+Your ACS type determines the method that you use to grant users access to entrances. When managing mobile credentials for a Visionline ACS, grant access by creating credentials. For details, see [Managing Credentials](../../capability-guides/access-systems/managing-credentials.md).
+
+***
+
 ## Guest Mobile Credential Properties
 
 When issuing a guest mobile credential, you can use the following relevant properties:

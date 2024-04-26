@@ -4,7 +4,7 @@ description: List accessible devices for a specified user identity
 
 # List Accessible Devices for a User Identity
 
-Returns a list of all [device](../../core-concepts/devices/) (`device` objects) associated with a [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) (`user_identity` object).
+Returns a list of all [device](../../core-concepts/devices/) associated with a [user identity](../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/user_identities/list_accessible_devices" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)
