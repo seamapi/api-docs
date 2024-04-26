@@ -1,20 +1,20 @@
 ---
 description: >-
-  Learn how to connect and control your Dormakaba Oracode 480 and 660 locks with
+  Learn how to connect and control your dormakaba Oracode 480 and 660 locks with
   the Seam API.
 ---
 
-# Get started with Dormakaba Oracode Locks
+# Get started with dormakaba Oracode Locks
 
 <figure><img src="../.gitbook/assets/guides/dormakaba-oracode-getting-started-seo-cover.jpg" alt=""><figcaption><p>Dormakaba Locks</p></figcaption></figure>
 
 ## Overview
 
-Seam provides a universal API to connect and control many brands of locks. This guide provides a rapid introduction to connecting and controlling your [Dormakaba Oracode](https://www.seam.co/manufacturers/dormakaba) locks using the Seam API. To learn more about other device brands supported by the Seam API, such as Yale, Schlage, and August, head over to our [integration page](https://www.seam.co/supported-devices-and-systems).
+Seam provides a universal API to connect and control many brands of locks. This guide provides a rapid introduction to connecting and controlling your [dormakaba Oracode](https://www.seam.co/manufacturers/dormakaba) locks using the Seam API. To learn more about other device brands supported by the Seam API, such as Yale, Schlage, and August, head over to our [integration page](https://www.seam.co/supported-devices-and-systems).
 
-Note that Dormakaba offers multiple lines of products: Lyazon, Sapphire, Oracode, and more. This guide is specifically for Dormakaba Oracode.
+Note that dormakaba offers multiple lines of products, including Lyazon, Sapphire, Oracode, and more. This guide is specifically for dormakaba Oracode.
 
-## 1 — Install Seam SDK
+## 1 — Install the Seam SDK
 
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
@@ -92,19 +92,15 @@ $ export SEAM_API_KEY=seam_test2ZTo_0mEYQW2TvNDCxG5Atpj85Ffw
 ```
 
 {% hint style="info" %}
-This guide uses a Sandbox Workspace. Only virtual devices can be connected. If you need to connect a real Oracode device, use a non-sandbox workspace and API key.
+This guide uses a sandbox [workspace](../core-concepts/workspaces/). You can only connect virtual devices to a sandbox workspace. If you need to connect real Oracode devices, use a non-sandbox workspace and API key.
 {% endhint %}
 
-## 2 — Link Your Dormakaba Oracode Account with Seam
+## 2 — Link Your dormakaba Oracode Account with Seam
 
-To control your Dormakaba Oracode locks via the Seam API, you must first authorize your Seam workspace against your Dormakaba Oracode account. To do so, Seam provides[ Connect Webviews](../core-concepts/connect-webviews/): pre-built UX flows that walk you through authorizing your application to control Oracode locks.
-
-#### Obtain an Oracode Live Service API Token
-
-To start, contact Dormakaba Oracode support to request a Live Services API token. This token will then be provided to Seam to connect your account.
+To control your dormakaba Oracode locks using the Seam API, the owner or manager of these locks must first authorize your Seam workspace to access their dormakaba Oracode account. To do so, Seam provides[ Connect Webviews](../core-concepts/connect-webviews/), which are pre-built UX flows that walk the device owner or manager through authorizing your application to control Oracode locks.
 
 {% hint style="info" %}
-Note that of this writing, obtaining a Dormakaba Oracode Live Services API token is a manual process. We are working with Dormakaba to automate this and simplify onboarding of devices.
+This guide discusses using a Seam sandbox workspace with virtual devices. However, to connect real devices to Seam, some manufacturers may require additional prerequisite setup steps. For dormakaba Oracode-specific instructions, see the [dormakaba Oracode device integration guide](dormakaba-oracode-locks.md#setup-instructions).
 {% endhint %}
 
 #### Request a Connect Webview
@@ -120,12 +116,12 @@ webview = seam.connect_webviews.create(accepted_providers=["dormakaba_oracode"])
 
 assert webview.login_successful is False
 
-# Send the webview URL to your user
+# Send the Connect Webview URL to your user.
 print(webview.url)
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 ```javascript
 import { Seam } from 'seam'
 
@@ -137,7 +133,7 @@ const { connect_webview: connectWebview } = await seam.connectWebviews.create({
 
 console.log(connectWebview.login_successful) // false
 
-// Send the webview URL to your user
+// Send the Connect Webview URL to your user.
 console.log(connectWebview.url)
 ```
 {% endtab %}
@@ -152,7 +148,7 @@ webview = seam.connect_webviews.create(accepted_providers: %w[dormakaba_oracode]
 
 puts webview.login_successful # false
 
-# Send the webview URL to your user
+# Send the Connect Webview URL to your user.
 puts webview.url
 ```
 {% endtab %}
@@ -172,15 +168,14 @@ $webview = $seam->connect_webviews->create(
 
 #### Authorize Your Workspace
 
-Navigate to the URL returned by the Webview object. Since you are using a sandbox workspace, complete the login flow by entering the Dormakaba Oracode [sandbox test accounts ](https://docs.seam.co/latest/device-guides/sandbox-and-sample-data)credentials below:
+Navigate to the URL that the Connect Webview object returned. Because you are using a sandbox workspace, complete the login flow by entering the following dormakaba Oracode [sandbox test account ](sandbox-and-sample-data/dormakaba-oracode-sample-data.md)credentials:
 
 * **username:** jane
 * **password:** 1234
-* **api-token:** 123456
 
-<figure><img src="../.gitbook/assets/guides/dormakaba-oracode-connect-flow-screens.png" alt=""><figcaption><p>Seam Connect Webview flow to connect Dormakaba Oracode account with Seam</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/dormakaba-oracode_connect-flow-screens.png" alt="Seam Connect Webview flow to connect dormakaba Oracode account with Seam"><figcaption><p>Seam Connect Webview flow to connect dormakaba Oracode account with Seam</p></figcaption></figure>
 
-Confirm the Connect Webview was successful by querying its status:
+Confirm the Connect Webview was successful by querying the status.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -191,7 +186,7 @@ assert updated_webview.login_successful # true
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 ```javascript
 const updatedWebview = await seam.connectWebviews.get(
   connectWebview.connect_webview_id,
@@ -217,9 +212,9 @@ assert($webview->status == 'pending');
 {% endtab %}
 {% endtabs %}
 
-## 3 — Retrieve Dormakaba Oracode Devices
+## 3 — Retrieve dormakaba Oracode Devices
 
-After a Dormakaba Oracode account is linked with Seam, you can retrieve its devices.
+After a dormakaba Oracode account is linked with Seam, you can retrieve the connected devices.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -234,7 +229,7 @@ print(some_lock)
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 ```javascript
 const allLocks = await seam.locks.list()
 
@@ -273,49 +268,48 @@ echo json_encode($locks);
 {% endtab %}
 {% endtabs %}
 
-### 4 — Programming Access Code on a Dormakaba Oracode Lock
+### 4 — Programming Access Codes on a dormakaba Oracode Lock
 
-The Seam API lets you create access codes on Dormakaba Oracode devices such as the 480i and 660i locks. These codes can then be entered to unlock the door. You can find out more info about how Seam access codes in our [core concept section on access codes.](../products/smart-locks/access-codes/)
+The Seam API enables you to create access codes on dormakaba Oracode devices, such as the 480i and 660i locks. Users can then enter these codes to unlock the door. To learn more, see [Managing Access Codes](../products/smart-locks/access-codes/).
 
 {% hint style="info" %}
-Dormakaba Oracode does not let you specify a code for an access code. Instead it auto-generates a 6-digit code, which the Seam API returns. If you try to pass the code argument to the access code create function, the Seam API will return an error.
+dormakaba Oracode does not let you specify a code for an access code. Instead it auto-generates a six-digit code, which the Seam API returns. If you try to pass the `code` argument to the access code `create` function, the Seam API returns an error.
 {% endhint %}
 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-# create an ongoing code
+# Create an ongoing code.
 seam.access_codes.create(
   device=some_lock,
   name="Personal Access Code")
 
-# create a timebound code
+# Create a time-bound code.
 seam.access_codes.create(
   device=some_lock,
   name="My Temp Access Code",
   starts_at="2028-08-12T19:23:42+0000",
   ends_at="2028-08-13T19:23:42+0000")
 
-# you can use a device or a device_id as the "device" parameter
+# You can use a device or a device_id as the `device` parameter.
 seam.access_codes.list(device=some_lock)
 
 # [
 #   AccessCode(access_code_id='631a3a30-3fa7-462a-b3bc-65528ccf8765', type='time_bound', code=None, starts_at='2028-08-12T19:24:00.000Z', ends_at='2028-08-13T19:24:00.000Z', name='My Temp Access Code', status='unset', common_code_key=None),
 #  AccessCode(access_code_id='4d2f4952-5446-4051-ba7e-a6fc01a376d7', type='ongoing', code='123*12346', starts_at=None, ends_at=None, name='Personal Access Code', status='set', common_code_key=None)
 #  ]
-
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 ```javascript
-// create an ongoing code
+// Create an ongoing code.
 await seam.accessCodes.create({
   device_id: someLock.device_id,
   name: 'Personal Access Code',
 })
 
-// create a timebound code
+// Create a time-bound code.
 await seam.accessCodes.create({
   device_id: someLock.device_id,
   name: 'My Temp Access Code',
@@ -323,7 +317,7 @@ await seam.accessCodes.create({
   ends_at: '2028-11-13T19:23:42+0000',
 })
 
-// use a device_id as the "device_id" parameter
+// Use a device_id as the `device_id` parameter.
 await seam.accessCodes.list({
   device_id: someLock.device_id,
 })
@@ -364,12 +358,12 @@ await seam.accessCodes.list({
 
 {% tab title="Ruby" %}
 ```ruby
-# create an ongoing code
+# Create an ongoing code.
 seam.access_codes.create(
   device_id: some_lock.device_id, name: 'Personal Access Code'
 )
 
-# create a timebound code
+# Create a time-bound code.
 seam.access_codes.create(
   device_id: some_lock.device_id,
   name: 'My Temp Access Code',
@@ -377,7 +371,7 @@ seam.access_codes.create(
   ends_at: '2028-08-13T19:23:42+0000'
 )
 
-# you can use a device or a device_id as the "device" parameter
+# You can use a device or a device_id as the `device` parameter.
 seam.access_codes.list(some_lock)
 
 # [<Seam::AccessCode:0x00690
@@ -424,18 +418,16 @@ echo json_encode($access_code)
 {% endtab %}
 {% endtabs %}
 
-###
-
 ## Next Steps
 
-Now that you've completed this guide, you can try to connect a real Dormakaba Oracode device. To do so, make sure to switch to a non-sandbox workspace and API key as real devices cannot be connected to sandbox workspaces.
+Now that you've completed this guide, you can try to connect a real dormakaba Oracode device. To do so, make sure to switch to a non-sandbox workspace and API key because you cannot connect real devices to sandbox workspaces.
 
-In addition, if you'd like to explore other aspects of Seam, here is a list of helpful resources:
+In addition, if you'd like to explore other aspects of Seam, check out the following helpful resources:
 
-* [Schlage Getting Started Guide](broken-reference/)
+* [Schlage Getting Started Guide](get-started-with-schlage-locks.md)
 * [Yale Getting Started Guide](get-started-with-yale-locks.md)
 * [SmartThings Getting Started Guide](get-started-with-smartthings-hubs-+-smart-locks.md)
-* [Receiving webhook](../core-concepts/webhooks.md) for [device events](../api-clients/events/list-events.md)
-* [Core Concepts](broken-reference/)
+* [Configuring webhooks](../core-concepts/webhooks.md) for [device events](../api-clients/events/list-events.md)
+* [Core Concepts](broken-reference)
 
-If you have any questions or want to report an issue, email us at support@seam.co.
+If you have any questions or want to report an issue, email us at [support@seam.co](mailto:support@seam.co).

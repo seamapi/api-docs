@@ -4,4 +4,4 @@ Use the following set of credentials to add virtual [Brivo Access](../brivo-acce
 
 | Brivo Access API Key | Username         | Password |
 | -------------------- | ---------------- | -------- |
-| fake-brivo-api-key   | john@example.com | 1234     |
+| 1234                 | jane@example.com | 1234     |

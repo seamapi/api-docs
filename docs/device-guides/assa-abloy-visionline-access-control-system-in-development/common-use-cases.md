@@ -1,88 +1,165 @@
 # Common Use Cases
 
-When integrating with the Visionline system, Assa Abloy requires handling a set of common scenarios to meet their integration requirements. Below are some of these key scenarios:
+When integrating with the Visionline system, ASSA ABLOY requires handling a set of common scenarios to meet their integration requirements. This topic explains some of these key scenarios.
 
 ***
 
-## Issuing Guest Mobile Credentials
+## Issue Guest Mobile Credentials
 
-### Single guest in a single room
+This section describes how to issue guest mobile credentials of various types.&#x20;
 
-```
-// Some code
-```
+### Single Guest in a Single Room
 
-### Returning guest to a single room
+```python
+acs_user = seam.acs.user.get(acs_user_id="xxx")
 
-<pre><code>acs_user = seam.acs.user.get(acs_user_id="xxx)
-
-# Revoking all previous entrances
-<strong>seam.acs.users.revoke_access_to_all_entrances(
-</strong>    acs_user_id=acs_user.acs_user_id
-)
-
-# Granting new reservation's entrances
-for each entrance in new_reservation_entrances:
-    seam.acs.entrances.grant_access(
-        acs_user_id=acs_user.acs_user_id
-        acs_entrance_id=entrance.acs_entrance_id
-    )
+guest_room = seam.acs.entrances.list(
+  acs_system_id=hotel_acs_system_id
+)[0]
 
 seam.acs.credentials.create(
-    acs_user_id=acs_user.acs_user_id
-    credential_manager_acs_system_id="xxx"
-    is_multi_phone_sync_credential=True,
-    access_method="mobile_key",
-    starts_at="2023-01-01 10:40:00.000",
-    ends_at="2023-01-04 10:40:00.000"
-    visionline_metadata={
-        "cardFormat": "rfid48",
-        "label": "%ROOMNUM% - %SITENAME%",
-        "is_override_key": True
-    }
+  acs_user_id=acs_user.acs_user_id
+  credential_manager_acs_system_id="xxx"
+  is_multi_phone_sync_credential=True,
+  access_method="mobile_key",
+  starts_at="2023-01-01 10:40:00.000",
+  ends_at="2023-01-04 10:40:00.000",
+  allowed_acs_entrance_ids=[
+    guest_room.acs_entrance_id,
+    main_entrance.acs_entrance_id
+  ],
+  visionline_metadata={
+    "cardFormat": "rfid48",
+    "cardType": "guest",
+    "label": "%ROOMNUM% - %SITENAME%",
+    "is_override_key": True
+  }
+)
+```
+
+### Returning Guest to a Single Room
+
+A new mobile key automatically overrides a previously issued mobile credential.
+
+<pre class="language-python"><code class="lang-python"><strong>acs_user = seam.acs.user.get(acs_user_id="xxx")
+</strong>
+new_guest_room = seam.acs.entrances.list(
+  acs_system_id=hotel_acs_system_id
+)[0]
+
+seam.acs.credentials.create(
+  acs_user_id=acs_user.acs_user_id
+  credential_manager_acs_system_id="xxx"
+  is_multi_phone_sync_credential=True,
+  access_method="mobile_key",
+  starts_at="2023-01-01 10:40:00.000",
+  ends_at="2023-01-04 10:40:00.000",
+  allowed_acs_entrance_ids=[
+    new_guest_room.acs_entrance_id,
+    main_entrance.acs_entrance_id
+  ],
+  visionline_metadata={
+    "cardFormat": "rfid48",
+    "cardType": "guest",
+    "label": "%ROOMNUM% - %SITENAME%",
+    "is_override_key": True
+  }
 )
 </code></pre>
 
-### Multiple guests in multiple rooms
+### Multiple Guests in Multiple Rooms
 
-```
-// Some code
-```
+<pre class="language-python"><code class="lang-python"><strong>guest_room_1 = seam.acs.entrances.list(
+</strong>  acs_system_id=hotel_acs_system_id
+)[0]
+
+guest_room_2 = seam.acs.entrances.list(
+  acs_system_id=hotel_acs_system_id
+)[0]
+
+first_acs_user = seam.acs.user.get(acs_user_id="xxx")
+
+# First credential should be an override credential.
+first_credential = seam.acs.credentials.create(
+  acs_user_id=first_acs_user.acs_user_id
+  credential_manager_acs_system_id="xxx"
+  is_multi_phone_sync_credential=True,
+  access_method="mobile_key",
+  starts_at="2023-01-01 10:40:00.000",
+  ends_at="2023-01-04 10:40:00.000",
+  allowed_acs_entrance_ids=[
+    guest_room_1.acs_entrance_id,
+    guest_room_2.acs_entrance_id,
+    main_entrance.acs_entrance_id
+  ],
+  visionline_metadata={
+    "cardFormat": "rfid48",
+    "cardType": "guest",
+    "label": "%ROOMNUM% - %SITENAME%",
+    "is_override_key": True
+  }
+)
+
+second_acs_user = seam.acs.user.get(acs_user_id="yyy")
+
+# Subsequent credentials should be joiners to the first credential.
+seam.acs.credentials.create(
+  acs_user_id=second_acs_user.acs_user_id
+  credential_manager_acs_system_id="xxx"
+  is_multi_phone_sync_credential=True,
+  access_method="mobile_key",
+  starts_at="2023-01-01 10:40:00.000",
+  ends_at="2023-01-04 10:40:00.000",
+  allowed_acs_entrance_ids=[
+    guest_room_1.acs_entrance_id,
+    guest_room_2.acs_entrance_id,
+    main_entrance.acs_entrance_id
+  ],
+  visionline_metadata={
+    "cardFormat": "rfid48",
+    "cardType": "guest",
+    "label": "%ROOMNUM% - %SITENAME%",
+    "joiner_acs_credential_ids": [first_credential.acs_credential_id]
+  }
+)
+</code></pre>
 
 ***
 
-## Issuing Joiner Credentials
+## Issue Joiner Credentials
 
-### Joining to a Seam Mobile Credential
+This section describes how to issue joiner credentials of various types.&#x20;
 
-You can select either the multi-phone sync credential or its child credentials. Make sure to grab its `acs_credential_id` to include in the `joiner_acs_credential_ids` list.
+### Join to a Seam Mobile Credential
 
-<pre><code><strong>joiners = [joiner_mobile_parent_sync_credential, joiner_mobile_child_credential]
+You can select either the multi-phone sync credential or its child credentials. Make sure to grab the `acs_credential_id` to include in the `joiner_acs_credential_ids` list.
+
+<pre class="language-python"><code class="lang-python"><strong>joiners = [joiner_mobile_parent_sync_credential, joiner_mobile_child_credential]
 </strong><strong>
-</strong><strong># Creating the mobile credential
+</strong><strong># Create the mobile credential.
 </strong>cred = seam.acs.credentials.create({
-    acs_user_id: "xxx",
-    credential_manager_acs_system_id="xxs"
-    is_multi_phone_sync_credential: True,
-    access_method = "mobile_key",
-    starts_at: "2023-01-01 10:40:00.000",
-    ends_at: "2023-01-04 10:40:00.000",
-    visionline_metadata: {
-        "cardFormat": "rfid48",
-        "label": "%ROOMNUM% - %SITENAME%",
-        "joiner_acs_credential_ids": [
-            joiner.acs_credential_id for joiner in joiners
-        ]
-    }
+  acs_user_id: "xxx",
+  credential_manager_acs_system_id="xxs"
+  is_multi_phone_sync_credential: True,
+  access_method = "mobile_key",
+  starts_at: "2023-01-01 10:40:00.000",
+  ends_at: "2023-01-04 10:40:00.000",
+  visionline_metadata: {
+    "cardFormat": "rfid48",
+    "label": "%ROOMNUM% - %SITENAME%",
+    "joiner_acs_credential_ids": [
+      joiner.acs_credential_id for joiner in joiners
+    ]
+  }
 })
 </code></pre>
 
-### Joining to a Plastic Card
+### Join to a Plastic Card
 
-```
+```python
 joiners = [joiner_plastic_card_credential]
 
-# Creating the mobile credential
+# Create the mobile credential.
 cred = seam.acs.credentials.create({
     acs_user_id: "xxx",
     credential_manager_acs_system_id="xxs"
@@ -102,12 +179,13 @@ cred = seam.acs.credentials.create({
 
 ***
 
-## Updating Guest Mobile Credentials
+## Update Guest Mobile Credentials
 
-Instead of updating the guest credential, you can issue a new joiner credential with the updated parameters. The old credential will automatically get replaced with the new one.
+Instead of updating the guest credential, you can issue a new joiner credential with the updated parameters. Seam automatically replaces the old credential with the new one.
 
-```javascript
-# Creating a new mobile credential will automatically revoke the previous one.
+```python
+# Creating a new mobile credential automatically revokes 
+# the previous one.
 seam.acs.credentials.create({
     acs_user_id: "xxx",
     credential_manager_acs_system_id="xxx"
@@ -127,9 +205,9 @@ seam.acs.credentials.create({
 
 ***
 
-## Revoking a Mobile Credential
+## Revoke a Mobile Credential
 
-Seam will issue a discard command for the Visionline card. If deleting a multi-phone sync credential, Seam will discard all of the credentials that were created underneath it.
+Seam issues a discard command for the Visionline card. If deleting a multi-phone sync credential, Seam discards all of the credentials that were created underneath it.
 
 ```javascript
 seam.acs.credentials.delete({
@@ -139,7 +217,7 @@ seam.acs.credentials.delete({
 
 ***
 
-## Removing a User Identity
+## Remove a User Identity
 
 To delete a user identity, you must first delete any [ACS credentials](../../api-clients/access-control-systems/credentials/delete-credential.md) and [enrollment automations](../../api-clients/user-identities/enrollment-automations/) associated with the user identity. You must also deactivate any associated phones. Then, delete the user identity.
 
@@ -147,7 +225,7 @@ To delete a user identity, you must first delete any [ACS credentials](../../api
 import asyncio
 
 async def delete_user_identity(user_identity_id):
-    # Delete the Client Sessions
+    # Delete the client sessions.
     client_sessions = await seam.client_sessions.list(
         user_identity_id=user_identity_id
     )
@@ -157,7 +235,7 @@ async def delete_user_identity(user_identity_id):
             session_id=session['client_session_id']
         )
     
-    # Delete the ACS Users and Credentials
+    # Delete the ACS users and credentials.
     acs_users = await seam.acs.users.list(
         user_identity_id=user_identity_id
     )
@@ -185,7 +263,7 @@ async def delete_user_identity(user_identity_id):
         wait_for_acs_user_deleted(acs_user) for acs_user in acs_users
     ])
     
-    # Delete the Enrollment Automations
+    # Delete the enrollment automations.
     enrollment_automations = await seam.user_identities.enrollment_automations.list(
         user_identity_id=user_identity_id
     )
@@ -200,7 +278,7 @@ async def delete_user_identity(user_identity_id):
         for automation in enrollment_automations
     ])
     
-    # Delete the Phones
+    # Delete the phones.
     phones = await seam.phones.list(
         owner_user_identity_id=user_identity_id
     )
@@ -214,7 +292,7 @@ async def delete_user_identity(user_identity_id):
         wait_for_phone_deactivated(phone) for phone in phones
     ])
     
-    # Finally, delete the User Identity
+    # Finally, delete the user identity.
     await seam.user_identities.delete(
         user_identity_id=user_identity_id
     )

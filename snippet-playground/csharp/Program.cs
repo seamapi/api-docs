@@ -48,6 +48,13 @@ var seam = new SeamClient(
 //   Console.WriteLine(device);
 // }
 
+// foreach (var device in seam.Devices.List(
+  // deviceTypes: new() {Seam.Api.Devices.ListRequest.DeviceTypesEnum.MinutSensor, Seam.Api.Devices.ListRequest.DeviceTypesEnum.AugustLock}
+  // includeIf: new() {"CanRemotelyUnlock"}
+// )) {Console.WriteLine(device);};
+
+Console.WriteLine(seam.Devices.Get(deviceId: "13c59a88-7808-42d3-be0b-adb8f2f1d076"));
+
 // var deviceProviders = seam.Devices.ListDeviceProviders(providerCategory: Seam.Api.Devices.ListDeviceProvidersRequest.ProviderCategoryEnum.Stable);
 // foreach (var deviceProvider in deviceProviders)
 // {
@@ -655,19 +662,19 @@ var seam = new SeamClient(
 //   phoneNumber: "+15555550101"
 // );
 
-seam.UsersAcs.Create(
-  acsSystemId: "14a43ebe-a1a3-4f95-ba34-ffdc909f86d3",
-  userIdentityId: "3cb62920-6a5e-4226-8db8-9e9c795f15a6",
-  acsAccessGroupIds: new List<string>(new string[] {"b1626096-1a2f-4de6-8bdc-f194e6c141ef"}),
-  fullName: "Jane Doe",
-  emailAddress: "jane@example.com",
-  phoneNumber: "+15555550101",
-  accessSchedule: new Dictionary<string, string>()
-    {
-      {"starts_at", "2024-03-01T10:40:00Z"},
-      {"ends_at", "2024-03-04T10:40:00Z"}
-    }
-);
+// seam.UsersAcs.Create(
+//   acsSystemId: "14a43ebe-a1a3-4f95-ba34-ffdc909f86d3",
+//   userIdentityId: "3cb62920-6a5e-4226-8db8-9e9c795f15a6",
+//   acsAccessGroupIds: new List<string>(new string[] {"b1626096-1a2f-4de6-8bdc-f194e6c141ef"}),
+//   fullName: "Jane Doe",
+//   emailAddress: "jane@example.com",
+//   phoneNumber: "+15555550101",
+//   accessSchedule: new Dictionary<string, string>()
+//     {
+//       {"starts_at", "2024-03-01T10:40:00Z"},
+//       {"ends_at", "2024-03-04T10:40:00Z"}
+//     }
+// );
 
 // seam.UsersAcs.Update(
 //   // acsUserId: "33333333-3333-3333-3333-333333333333",

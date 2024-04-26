@@ -6,19 +6,17 @@ description: >-
 
 # Attaching Custom Metadata to the Connect Webview
 
-You can use custom metadata to store a custom payload or object, tailored to the specific needs of your app. For example, this feature is useful for tracking customer information, internal user IDs, or other internal resources for whom your app created a [Connect Webview](./). Storing custom metadata in a Seam Connect Webview also stores this information in any associated [connected accounts](../connected-accounts/), enabling you to look up an internal resource from directly within your Seam [workspace](../workspaces/). Then, you can [filter Connect Webviews](filtering-connect-webviews-by-custom-metadata.md) (or [connected accounts](../connected-accounts/filtering-connected-accounts-by-custom-metadata.md)) by the desired metadata.
+Adding Custom Metadata to a Connect Webview enables you to store custom information, like customer details or internal IDs from your application. The `custom_metadata` is then transferred to any connected accounts connected via the connect webview, making it easy to find and filter these resources in your Seam workspace.
 
-The `connect_webview` object includes an optional `custom_metadata` property that accepts up to 50 JSON key:value pairs. For more information about this property, see [`connect_webview` Properties](../../api-clients/connect-webviews/#connect\_webview-properties). When a Connect Webview completes successfully, Seam creates a connected account ([`connected_account`](../../api-clients/connected-accounts/) object) to represent the device account that your user has authorized Seam to access. As part of this `connected_account` creation, Seam copies any `custom_metadata` from the associated `connect_webview` and stores this information in an analogous `custom_metadata` property for the `connected_account`.
+The `custom_metadata` property supports up to 50 JSON key:value pairs. Upon an account is  successfully connected via a connect webview, Seam creates a connected account and copies the `custom_metadata` to it.&#x20;
 
 {% hint style="info" %}
-If you leave the `custom_metadata` property empty for a `connect_webview`, Seam sets the `custom_metadata` for the `connect_webview` and the `custom_metadata` for the `connected_account` to `{}` by default.
+If the `custom_metadata` property is left blank, Seam will store an empty set (`{}`) on both the connect webview and connected account resource.
 {% endhint %}
 
-If you store an internal ID from your app in the `custom_metadata` for the Connect Webview, then, when Seam creates a resulting connected account, the `custom_metadata` property for the connected account also contains this internal ID.
+To add `custom_metadata` to a Connect Webview:
 
-This transfer of custom metadata process occurs as follows:
-
-1. You app calls [`/connect_webviews/create`](../../api-clients/connect-webviews/create-a-connect-webview.md), specifying the internal ID as a key:value pair in the `custom_metadata`.\
+1. Execute [`/connect_webviews/create`](../../api-clients/connect-webviews/create-a-connect-webview.md) and specify the internal ID as a key:value pair in the `custom_metadata`.\
    For example:
 
 {% tabs %}
@@ -26,29 +24,25 @@ This transfer of custom metadata process occurs as follows:
 **Request:**
 
 ```python
-internal_id = "internal_id_1"
-
-created_connect_webview = seam.connect_webviews.create(
+seam.connect_webviews.create(
   provider_category = "stable",
   custom_metadata = {
-    "id": internal_id
+    "your_app_user_id": "xxxx" # Insert your custom data here.
   }
 )
-
-pprint(created_connect_webview)
 ```
 
 **Response:**
 
 ```
-ConnectWebview(workspace_id='398d80b7-3f96-47c2-b85a-6f8ba21d07be',
-               connect_webview_id='49e050d9-cb4c-4600-b24d-cdf9dd2f92b7',
-               status='pending',
-               url='https://connect.getseam.com/connect_webviews/view?connect_webview_id=49e050d9-cb4c-4600-b24d-cdf9dd2f92b7&auth_token=C1r8ff3GLSr2L1ifEaCopAgrq2Faht2Dh',
-               ...
-               custom_metadata={'id': 'internal_id_1'},
-               ...
-               )
+ConnectWebview(
+  workspace_id='398d80b7-3f96-47c2-b85a-6f8ba21d07be',
+  connect_webview_id='49e050d9-cb4c-4600-b24d-cdf9dd2f92b7',
+  status='pending',
+  url='https://connect.getseam.com/connect_webviews/view?connect_webview_id=49e050d9-cb4c-4600-b24d-cdf9dd2f92b7&auth_token=C1r8ff3GLSr2L1ifEaCopAgrq2Faht2Dh',
+  custom_metadata={'id': 'internal_id_1'},
+  ...
+)
 ```
 {% endtab %}
 
@@ -64,7 +58,7 @@ curl -X 'POST' \
   -d '{
   "provider_category": "stable",
   "custom_metadata": {
-    "id": "internal_id_1"
+    "your_app_user_id": "xxxx"
   }
 }'
 ```
@@ -91,16 +85,12 @@ curl -X 'POST' \
 **Request:**
 
 ```javascript
-const internalId = "internalId1"
-
-const createdConnectWebview = await seam.connectWebviews.create({
+await seam.connectWebviews.create({
   provider_category: "stable",
   custom_metadata: {
-    "id": internalId
+    "your_app_user_id": "xxxx" // Insert your custom data here.
   }
 })
-
-console.log(createdConnectWebview)
 ```
 
 **Response:**
@@ -120,16 +110,12 @@ console.log(createdConnectWebview)
 **Request:**
 
 ```ruby
-internal_id = "internal_id_1"
-
-created_connect_webview = client.connect_webviews.create(
+client.connect_webviews.create(
   provider_category: "stable",
   custom_metadata: {
-    "id": internal_id
+    "your_app_user_id": "xxxx" # Insert your custom data here.
   }
 )
-
-puts created_connect_webview.inspect
 ```
 
 **Response:**
@@ -141,7 +127,7 @@ puts created_connect_webview.inspect
   workspace_id="398d80b7-3f96-47c2-b85a-6f8ba21d07be"
   custom_metadata={"id"=>"internal_id_1"}
   ...
-  >
+>
 ```
 {% endtab %}
 
@@ -149,18 +135,15 @@ puts created_connect_webview.inspect
 **Request:**
 
 ```csharp
-var internalId = "internalId1";
 var customMetadata = new Dictionary<string, string>()
 {
-  {"id", internalId}
+  {"id", "internal-user-id"}
 };
 
-var createdConnectWebview = seam.ConnectWebviews.Create(
+seam.ConnectWebviews.Create(
   providerCategory: Seam.Api.ConnectWebviews.CreateRequest.ProviderCategoryEnum.Stable,
   customMetadata: customMetadata
 );
-
-Console.WriteLine(createdConnectWebview);
 ```
 
 **Response:**
@@ -185,11 +168,10 @@ Console.WriteLine(createdConnectWebview);
 Map<String, CustomMetadataValue> customMetadata =
     Map.of("id", CustomMetadataValue.of(Optional.of("internalId1")));
 
-ConnectWebview createdConnectWebview = seam.connectWebviews().create(ConnectWebviewsCreateRequest.builder()
-                .providerCategory(ProviderCategory.STABLE)
-                .customMetadata(customMetadata)
-                .build());
-System.out.println(createdConnectWebview);
+seam.connectWebviews().create(ConnectWebviewsCreateRequest.builder()
+    .providerCategory(ProviderCategory.STABLE)
+    .customMetadata(customMetadata)
+    .build());
 ```
 
 **Response:**

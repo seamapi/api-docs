@@ -2,7 +2,7 @@
 description: Use the Seam Bridge to connect on-premises systems to Seam.
 ---
 
-# 🌩 Seam Bridge - In Development
+# 🌩️ Seam Bridge
 
 ## Overview
 
@@ -28,12 +28,10 @@ To install the Seam Bridge, first install the Seam Bridge application on an on-p
 2.  Run the downloaded `SeamBridge.exe`.
 
     This application opens a webpage containing the Seam Bridge settings.
-3.  Copy the invitation code that the webpage displays.
+3. Click on "Create Pairing Code".
+4.  Copy the pairing code that the webpage displays.
 
-    The installer uses this code to pair the Seam Bridge to the workspace.\
-
-
-    <figure><img src="../.gitbook/assets/image (10).png" alt="Copy the invitation code that the Seam Bridge application screen shows." width="563"><figcaption></figcaption></figure>
+    The installer uses this code to pair the Seam Bridge to the workspace, using a Connect Webview.
 
 ### Pairing the Seam Bridge with Your Workspace
 
@@ -75,4 +73,4 @@ Next, your end user performs the following steps:
 
 After installing the Seam Bridge application and connecting the Seam Bridge to your workspace, connect your on-premises software system to Seam using a Connect Webview. For detailed instructions on how to connect your system, see the setup instructions in the appropriate brand-specific guide within the [Device Guides](broken-reference) section.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><strong>Device Guides</strong></td><td>Get started →</td><td></td><td><a href="broken-reference">Broken link</a></td><td><a href="../.gitbook/assets/image.png">image.png</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><strong>Device Guides</strong></td><td>Get started →</td><td></td><td><a href="broken-reference">Broken link</a></td><td><a href="../.gitbook/assets/image (9).png">image (9).png</a></td></tr></tbody></table>

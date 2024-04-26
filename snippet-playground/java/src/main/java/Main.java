@@ -100,6 +100,13 @@ public class Main {
 // var devices = seam.devices().list();
 // System.out.println(devices);
 
+System.out.println(seam.devices()
+  .list(DevicesListRequest.builder()
+    .deviceTypes(List.of(DeviceType.AUGUST_LOCK, DeviceType.MINUT_SENSOR))
+    // .includeIf(List.of("canRemotelyUnlock"))
+    .build())
+);
+
 // var deviceProviders = seam.devices()
 //         .listDeviceProviders(DevicesListDeviceProvidersRequest.builder()
 //                 .providerCategory(DevicesListDeviceProvidersRequestProviderCategory.STABLE)

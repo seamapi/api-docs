@@ -34,7 +34,7 @@ Leverage Seam's API for the following applications:
 
 To learn how to manage locks and access codes, see the following guides:
 
-* [Lock ad Unlock](lock-and-unlock.md)
+* [Lock and Unlock](lock-and-unlock.md)
 * [Access Codes](access-codes/)
 
 For the corresponding Seam API references, see [Locks](../../api-clients/locks/) and [Access Codes](../../api-clients/access-codes/).

@@ -19,6 +19,11 @@ client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test8yup_77ut771wVzF
 
 # # print client.devices.list
 # puts client.devices.list().inspect
+
+puts client.devices.list(
+  include_if: ["can_remotely_unlock"]
+).inspect
+
 # puts client.devices.list_device_providers(provider_category: "stable").inspect
 # puts client.devices.get("30fd243b-3054-4384-a713-5487076a3826").inspect
 

@@ -4,7 +4,7 @@ description: >-
   control these devices with the Seam API.
 ---
 
-# Connect Webviews
+# 🔌 Connect Webviews
 
 <figure><img src="../../.gitbook/assets/connect-webview-cover.png" alt=""><figcaption></figcaption></figure>
 

@@ -11,7 +11,7 @@ import (
   api "github.com/seamapi/go"
 	seam "github.com/seamapi/go/client"
   // "github.com/seamapi/go/useridentities"
-  "github.com/seamapi/go/acs"
+  // "github.com/seamapi/go/acs"
 
 
 
@@ -37,6 +37,21 @@ func run() error {
 	// }
 	// fmt.Println(devices)
 	// return nil
+
+devices, uErr := client.Devices.List(
+  context.Background(),
+  &api.DevicesListRequest{
+    IncludeIf: []api.DevicesListRequestIncludeIfItem{
+      api.DevicesListRequestIncludeIfItemCanRemotelyUnlock,
+    },
+  })
+
+if uErr != nil {
+    return uErr
+}
+
+fmt.Println(devices)
+return nil
 
 // userIdentityKey := "jenny_lee"
 // email := "jenny@example.com"
@@ -805,24 +820,24 @@ func run() error {
 //   return err
 // }
 
-credential, uErr := client.Acs.Credentials.Create(
-  context.Background(), &acs.CredentialsCreateRequest{
-    // AcsUserId: "33333333-3333-3333-3333-333333333333",
-    AcsUserId: "0cc73a31-db4b-4b4e-a7ce-ada9b71ced15",
-    AllowedEntranceIds: {
-        // "55555555-5555-5555-5555-555555555555",
-        "e961348a-2ffb-4a17-a7d2-943bf304d782",
-        // "55555555-5555-5555-5555-000000000000",
-        "fb6565fa-f9c6-4f7e-899d-f7f061260c17",
-      },
-    // CredentialManagerAcsSystemId: api.String("88888888-8888-8888-8888-888888888888"),
-    CredentialManagerAcsSystemId: api.String("f43c0c38-ae6e-4a54-911d-8c802302eced"),
-    AccessMethod: "mobile_key",
-    IsMultiPhoneSyncCredential: api.Bool(true),
-	  // StartsAt: api.Time(startsAt),
-    // EndsAt: api.Time(endsAt),
-  },
-)
+// credential, uErr := client.Acs.Credentials.Create(
+//   context.Background(), &acs.CredentialsCreateRequest{
+//     // AcsUserId: "33333333-3333-3333-3333-333333333333",
+//     AcsUserId: "0cc73a31-db4b-4b4e-a7ce-ada9b71ced15",
+//     AllowedEntranceIds: {
+//         // "55555555-5555-5555-5555-555555555555",
+//         "e961348a-2ffb-4a17-a7d2-943bf304d782",
+//         // "55555555-5555-5555-5555-000000000000",
+//         "fb6565fa-f9c6-4f7e-899d-f7f061260c17",
+//       },
+//     // CredentialManagerAcsSystemId: api.String("88888888-8888-8888-8888-888888888888"),
+//     CredentialManagerAcsSystemId: api.String("f43c0c38-ae6e-4a54-911d-8c802302eced"),
+//     AccessMethod: "mobile_key",
+//     IsMultiPhoneSyncCredential: api.Bool(true),
+// 	  // StartsAt: api.Time(startsAt),
+//     // EndsAt: api.Time(endsAt),
+//   },
+// )
 
 // credential, uErr := client.Acs.Credentials.Create(
 //   context.Background(), &acs.CredentialsCreateRequest{
@@ -870,10 +885,99 @@ credential, uErr := client.Acs.Credentials.Create(
 //   },
 // )
 
-if uErr != nil {
-  return uErr
-}
-fmt.Println(credential)
-return nil
+// acs_access_groups, uErr := client.Acs.AccessGroups.List(
+//   context.Background(), &acs.AccessGroupsListRequest{
+//     AcsSystemId: api.String("449c8955-4741-4c44-aa41-943c79a46368"),
+//     AcsUserId: api.String("412b7bd5-d6ca-4836-9b41-0c5a0ce360a1"),
+//   },
+// )
+
+// acs_access_group, uErr := client.Acs.AccessGroups.Get(
+//   context.Background(), &acs.AccessGroupsGetRequest{
+//     AcsAccessGroupId: "d959202c-d9cc-4469-a053-74fb7d85b2fa",
+//   },
+// )
+
+// add, uErr := client.Acs.Users.AddToAccessGroup(
+//   context.Background(), &acs.UsersAddToAccessGroupRequest{
+//     AcsUserId: "412b7bd5-d6ca-4836-9b41-0c5a0ce360a1",
+//     AcsAccessGroupId: "d959202c-d9cc-4469-a053-74fb7d85b2fa",
+//   },
+// )
+
+// remove, uErr := client.Acs.Users.RemoveFromAccessGroup(
+//   context.Background(), &acs.UsersRemoveFromAccessGroupRequest{
+//     AcsUserId: "412b7bd5-d6ca-4836-9b41-0c5a0ce360a1",
+//     AcsAccessGroupId: "d959202c-d9cc-4469-a053-74fb7d85b2fa",
+//   },
+// )
+
+// add, uErr := client.Acs.AccessGroups.AddUser(
+//   context.Background(), &acs.AccessGroupsAddUserRequest{
+//     AcsAccessGroupId: "d959202c-d9cc-4469-a053-74fb7d85b2fa",
+//     AcsUserId: "412b7bd5-d6ca-4836-9b41-0c5a0ce360a1",
+//   },
+// )
+
+// remove, uErr := client.Acs.AccessGroups.RemoveUser(
+//   context.Background(), &acs.AccessGroupsRemoveUserRequest{
+//     AcsAccessGroupId: "d959202c-d9cc-4469-a053-74fb7d85b2fa",
+//     AcsUserId: "412b7bd5-d6ca-4836-9b41-0c5a0ce360a1",
+//   },
+// )
+
+// acs_users, uErr := client.Acs.AccessGroups.ListUsers(
+//   context.Background(), &acs.AccessGroupsListUsersRequest{
+//     AcsAccessGroupId: "d959202c-d9cc-4469-a053-74fb7d85b2fa",
+//   },
+// )
+
+// assign, uErr := client.Acs.Credentials.Assign(
+//     context.Background(), &acs.CredentialsAssignRequest{
+//       AcsUserId: "412b7bd5-d6ca-4836-9b41-0c5a0ce360a1",
+//       AcsCredentialId: "15a42839-3517-40fe-ab07-17d78b410b23",
+//     },
+//   )
+
+// acs_credentials, uErr := client.Acs.Credentials.List(
+//     context.Background(), &acs.CredentialsListRequest{
+//       AcsUserId: api.String("412b7bd5-d6ca-4836-9b41-0c5a0ce360a1"),
+//       AcsSystemId: api.String("449c8955-4741-4c44-aa41-943c79a46368"),
+//       UserIdentityId: api.String("3cb62920-6a5e-4226-8db8-9e9c795f15a6"),
+//       IsMultiPhoneSyncCredential: api.Bool(true),
+//     },
+//   )
+
+// acs_credential, uErr := client.Acs.Credentials.Get(
+//     context.Background(), &acs.CredentialsGetRequest{
+//       AcsCredentialId: "15a42839-3517-40fe-ab07-17d78b410b23",
+//     },
+//   )
+
+// acs_credential, uErr := client.Acs.Credentials.Update(
+//     context.Background(), &acs.CredentialsUpdateRequest{
+//       AcsCredentialId: "15a42839-3517-40fe-ab07-17d78b410b23",
+//       Code: "7890",
+//     },
+//   )
+
+// acs_credential, uErr := client.Acs.Credentials.Unassign(
+//     context.Background(), &acs.CredentialsUnassignRequest{
+//       AcsUserId: "412b7bd5-d6ca-4836-9b41-0c5a0ce360a1",
+//       AcsCredentialId: "15a42839-3517-40fe-ab07-17d78b410b23",
+// },
+//   )
+
+// deletion, uErr := client.Acs.Credentials.Delete(
+//   context.Background(), &acs.CredentialsDeleteRequest{
+//     AcsCredentialId: "15a42839-3517-40fe-ab07-17d78b410b23",
+//   },
+// )
+
+// if uErr != nil {
+//   return uErr
+// }
+// fmt.Println(deletion)
+// return nil
 
 }

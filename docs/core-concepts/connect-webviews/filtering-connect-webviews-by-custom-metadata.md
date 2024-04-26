@@ -23,14 +23,17 @@ pprint(connect_webviews)
 **Response:**
 
 ```
-[ConnectWebview(workspace_id='398d80b7-3f96-47c2-b85a-6f8ba21d07be',
-               connect_webview_id='3c3f4c15-e7db-47c6-bc5a-1bf206ff269c',
-               status='pending',
-               url='https://connect.getseam.com/connect_webviews/view?connect_webview_id=3c3f4c15-e7db-47c6-bc5a-1bf206ff269c&auth_token=LrpMC4MVHAY8YJRcNFeX1nQcb7tGNwpot',
-               ...
-               custom_metadata={"internal_account_id": "user-1"},
-               ...),
-...]
+[
+  ConnectWebview(
+    workspace_id='398d80b7-3f96-47c2-b85a-6f8ba21d07be',
+    connect_webview_id='3c3f4c15-e7db-47c6-bc5a-1bf206ff269c',
+    status='pending',
+    url='https://connect.getseam.com/connect_webviews/view?connect_webview_id=xxxx&auth_token=yyyy',
+    custom_metadata={"internal_account_id": "user-1"},
+    ...
+  ),
+  ...
+]
 ```
 {% endtab %}
 
@@ -116,14 +119,17 @@ puts connect_webviews.inspect
 
 **Response:**
 
-<pre><code><strong>[&#x3C;Seam::ConnectWebview:0x00438
-</strong><strong>  connect_webview_id="3c3f4c15-e7db-47c6-bc5a-1bf206ff269c"
-</strong>  url="https://connect.getseam.com/connect_webviews/view?connect_webview_id=3c3f4c15-e7db-47c6-bc5a-1bf206ff269c&#x26;auth_token=LrpMC4MVHAY8YJRcNFeX1nQcb7tGNwpot"
-  status="pending"
-  workspace_id="398d80b7-3f96-47c2-b85a-6f8ba21d07be"
-  custom_metadata={"internal_account_id"=>"user-1"}
+<pre><code><strong>[
+</strong><strong>  &#x3C;Seam::ConnectWebview:0x00438
+</strong><strong>    connect_webview_id="3c3f4c15-e7db-47c6-bc5a-1bf206ff269c"
+</strong>    url="https://connect.getseam.com/connect_webviews/view?connect_webview_id=3c3f4c15-e7db-47c6-bc5a-1bf206ff269c&#x26;auth_token=LrpMC4MVHAY8YJRcNFeX1nQcb7tGNwpot"
+    status="pending"
+    workspace_id="398d80b7-3f96-47c2-b85a-6f8ba21d07be"
+    custom_metadata={"internal_account_id"=>"user-1"}
+    ...
+  >,
   ...
-  >,...]
+]
 </code></pre>
 {% endtab %}
 
@@ -142,7 +148,17 @@ echo json_encode($webviews);
 
 {% code overflow="wrap" %}
 ```json
-[{"connect_webview_id":"3c3f4c15-e7db-47c6-bc5a-1bf206ff269c","url="https://connect.getseam.com/connect_webviews/view?connect_webview_id=3c3f4c15-e7db-47c6-bc5a-1bf206ff269c&auth_token=LrpMC4MVHAY8YJRcNFeX1nQcb7tGNwpot","status"="pending","workspace_id"="398d80b7-3f96-47c2-b85a-6f8ba21d07be","custom_metadata"={"internal_account_id"=>"user-1"},...},...]
+[
+  {
+    "connect_webview_id":"3c3f4c15-e7db-47c6-bc5a-1bf206ff269c",
+    "url="https://connect.getseam.com/connect_webviews/view?connect_webview_id=xxxx&auth_token=yyyy",
+    "status"="pending",
+    "workspace_id"="398d80b7-3f96-47c2-b85a-6f8ba21d07be",
+    "custom_metadata"={"internal_account_id"=>"user-1"},
+    ...
+  },
+  ...
+]
 ```
 {% endcode %}
 {% endtab %}
@@ -151,19 +167,14 @@ echo json_encode($webviews);
 **Request:**
 
 ```csharp
-var customMetadata = new Dictionary<string, string>()
-{
+var customMetadata = new Dictionary<string, string>() {
   {"internal_account_id", "user-1"}
 };
 
-var connectWebviews = seam.ConnectWebviews.List(
+seam.ConnectWebviews.List(
   customMetadataHas: customMetadata
 );
 
-foreach (var connectWebview in connectWebviews)
-{
-  Console.WriteLine(connectWebview);
-}
 ```
 
 **Response:**
@@ -185,14 +196,16 @@ foreach (var connectWebview in connectWebviews)
 **Request:**
 
 ```java
-Map<String, CustomMetadataValue> customMetadata =
-    Map.of("internal_account_id", CustomMetadataValue.of(Optional.of("user-1")));
+Map<String, CustomMetadataValue> customMetadata = Map.of(
+  "internal_account_id",
+  CustomMetadataValue.of(Optional.of("user-1"))
+);
 
-var connectWebviews = seam.connectWebviews().list(ConnectWebviewsListRequest.builder()
-                .customMetadataHas(customMetadata)
-                .build());
-
-System.out.println(connectWebviews);
+seam.connectWebviews().list(
+  ConnectWebviewsListRequest.builder()
+    .customMetadataHas(customMetadata)
+    .build()
+);
 ```
 
 **Response:**

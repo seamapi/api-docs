@@ -26,8 +26,15 @@ $seam = new Seam\SeamClient(
 // print_r($seam->devices->list());
 // $devices = $seam->devices->list();
 
+// echo json_encode($seam->devices->list(
+//   // device_types: ["minut_sensor"]
+//   include_if: ["can_remotely_unlock"]
+// ));
+
 // print_r($devices);
 // print_r($devices[0]);
+
+echo json_encode($seam->devices->get("b0d98fe5-1145-4a50-a91e-c94ecbd77f3c"));
 
 // echo $seam->connected_accounts->delete("25aa45e4-ee1d-44a6-91a0-b53e8c06a6d5");
 
@@ -183,7 +190,11 @@ $seam = new Seam\SeamClient(
 //   phone_number: "+15555550101"
 // ), JSON_PRETTY_PRINT);
 
-echo json_encode($seam->devices->list(device_type: "ttlock_lock"), JSON_PRETTY_PRINT);
+// echo json_encode($seam->devices->list(device_type: "ttlock_lock"), JSON_PRETTY_PRINT);
+
+// echo json_encode($seam->acs->access_groups->list_users(
+//   acs_access_group_id: "b1626096-1a2f-4de6-8bdc-f194e6c141ef"
+// ), JSON_PRETTY_PRINT);
 
 // echo json_encode($seam->acs->users->create(
 //   acs_system_id: "449c8955-4741-4c44-aa41-943c79a46368",

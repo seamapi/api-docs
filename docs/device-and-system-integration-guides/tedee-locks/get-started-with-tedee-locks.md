@@ -90,7 +90,7 @@ $ export SEAM_API_KEY=seam_test2ZTo_0mEYQW2TvNDCxG5Atpj85Ffw
 ```
 
 {% hint style="info" %}
-This guide uses a Sandbox Workspace. Only virtual devices can be connected. If you need to connect a real Tedee device, use a non-sandbox workspace and API key.
+This guide uses a sandbox Workspace. Only virtual devices can be connected. If you need to connect a real Tedee device, use a non-sandbox workspace and API key.
 {% endhint %}
 
 ## 2 — Link Your Tedee Account with Seam
@@ -332,15 +332,15 @@ Next, you can perform the basic action of locking and unlocking a door.
 [openapi.json](../../.gitbook/assets/openapi.json)
 {% endswagger %}
 
-{% swagger method="post" path="/locks/unlock_door" baseUrl="https://connect.getseam.com" summary="Unlock a door" %}
-{% swagger-description %}
+## Unlock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/unlock_door`
 
-{% swagger-parameter in="body" name="device_id" required="false" %}
+#### Request Body
 
-{% endswagger-parameter %}
-{% endswagger %}
+| Name       | Type   | Description |
+| ---------- | ------ | ----------- |
+| device\_id | String |             |
 
 {% tabs %}
 {% tab title="Python" %}

@@ -83,7 +83,14 @@ const seam = new Seam({
 //   phone_number: "+15555550101"
 // }));
 
-console.log(await seam.devices.list({device_type: "ttlock_lock"}));
+// console.log(await seam.devices.list({device_type: "ttlock_lock"}));
+
+console.log(await seam.devices.list({
+  include_if: ["can_remotely_unlock"]
+}));
+
+// await seam.acs.accessGroups.addUser();
+// await seam.acs.users.addToAccessGroup();
 
 // console.log(await seam.acs.users.create({
 //   acs_system_id: "14a43ebe-a1a3-4f95-ba34-ffdc909f86d3",
