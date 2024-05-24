@@ -34,7 +34,28 @@ $seam = new Seam\SeamClient(
 // print_r($devices);
 // print_r($devices[0]);
 
-echo json_encode($seam->devices->get("b0d98fe5-1145-4a50-a91e-c94ecbd77f3c"));
+// // Confirm that the device can remotely lock.
+// if ($seam->locks->get(device_id: "59112086-537a-49c0-96dc-ce74f5abfbd7")->can_remotely_lock) {
+//   // Perform the lock operation.
+//   $seam->locks->lock_door(device_id: "59112086-537a-49c0-96dc-ce74f5abfbd7");
+//   // echo json_encode($seam->locks->lock_door("59112086-537a-49c0-96dc-ce74f5abfbd7"));
+// }
+
+// Get the device.
+// $device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
+$device = $seam->locks->get(device_id: "59112086-537a-49c0-96dc-ce74f5abfbd7");
+// Confirm that the device supports online access codes.
+if ($device->can_program_online_access_codes) {
+  // Create the ongoing online access code.
+  $seam->access_codes->create(
+    device_id: $device->device_id,
+    name: "my ongoing code",
+    // code: "1234"
+    code: "2234"
+  );
+}
+
+// echo json_encode($seam->action_attempts->get(action_attempt_id: "b1607dc9-929c-4800-95d4-c97e34bb7778"));
 
 // echo $seam->connected_accounts->delete("25aa45e4-ee1d-44a6-91a0-b53e8c06a6d5");
 

@@ -551,7 +551,7 @@ seam = Seam(
 
 # seam.acs.systems.list()
 
-pprint(seam.devices.list())
+# pprint(seam.devices.list())
 
 # seam.acs.users.create(
 #     acs_system_id="11111111-1111-1111-1111-111111111111",
@@ -580,3 +580,7 @@ pprint(seam.devices.list())
 # seam.acs.systems.get(
 #   acs_system_id="11111111-1111-1111-1111-111111111111"
 # )
+
+seam.acs.systems.list_compatible_credential_manager_acs_systems(
+ acs_system_id="449c8955-4741-4c44-aa41-943c79a46368"
+)

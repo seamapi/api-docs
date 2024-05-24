@@ -100,12 +100,57 @@ public class Main {
 // var devices = seam.devices().list();
 // System.out.println(devices);
 
-System.out.println(seam.devices()
-  .list(DevicesListRequest.builder()
-    .deviceTypes(List.of(DeviceType.AUGUST_LOCK, DeviceType.MINUT_SENSOR))
-    // .includeIf(List.of("canRemotelyUnlock"))
-    .build())
-);
+// System.out.println(seam.devices()
+//   .list(DevicesListRequest.builder()
+//     .deviceTypes(List.of(DeviceType.AUGUST_LOCK, DeviceType.MINUT_SENSOR))
+//     // .includeIf(List.of("canRemotelyUnlock"))
+//     .build())
+// );
+
+// // Confirm that the device can remotely lock.
+// if (seam.devices()
+//   .get(DevicesGetRequest.builder()
+//     .deviceId("59112086-537a-49c0-96dc-ce74f5abfbd7")
+//     .build())
+//   // .getCanRemotelyLock())
+//   .getIsManaged())
+// {
+//   // Perform the lock operation.
+//   System.out.println(seam.locks()
+//     .lockDoor(LocksLockDoorRequest.builder()
+//       .deviceId("59112086-537a-49c0-96dc-ce74f5abfbd7")
+//       .build()).getPending());
+// }
+
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    // .deviceId("11111111-1111-1111-1111-444444444444")
+    .deviceId("59112086-537a-49c0-96dc-ce74f5abfbd7")
+    .build());
+// Confirm that the device supports online access codes.
+// if (device.getCanProgramOnlineAccessCodes())
+if (device.getIsManaged())
+{
+  // Create the ongoing online access code.
+  seam.accessCodes()
+    .create(AccessCodesCreateRequest.builder()
+      .deviceId(device.getDeviceId())
+      .name("my ongoing code")
+      .code("1234")
+      .build());
+}
+
+// Device device = seam.devices()
+//       .get(DevicesGetRequest.builder()
+//               .deviceId("36cf1a96-196d-41b0-9804-88154387f1f9")
+//               .build());
+// if (device.getProperties().getHasDirectPower() == true)
+// {
+//   System.out.println("Power Source: Wired");
+// } else {
+
+
 
 // var deviceProviders = seam.devices()
 //         .listDeviceProviders(DevicesListDeviceProvidersRequest.builder()

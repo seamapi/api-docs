@@ -12,11 +12,29 @@ seam = Seam(
 
 # pprint(seam.devices.list())
 
-pprint(seam.devices.list(
-    # include_if=["can_remotely_unlock"]
-    device_types=["minut_sensor", "hubitat_lock"]
-))
+# pprint(seam.devices.list(
+#     # include_if=["can_remotely_unlock"]
+#     device_types=["minut_sensor", "hubitat_lock"]
+# ))
 
+# # Confirm that the device can remotely lock.
+# if seam.locks.get(device_id="59112086-537a-49c0-96dc-ce74f5abfbd7").can_remotely_lock:
+#   # Perform the lock operation.
+#   seam.locks.lock_door(device_id="59112086-537a-49c0-96dc-ce74f5abfbd7")
+
+# Confirm that the device supports online access codes.
+# device = seam.locks.get(
+#   device_id="59112086-537a-49c0-96dc-ce74f5abfbd7"
+# )
+# if device.can_program_online_access_codes:
+#   # Create the ongoing online access code.
+#   seam.access_codes.create(
+#     device_id = device.device_id,
+#     name = "my ongoing code",
+#     code = "1234"
+#   )
+
+# seam.action_attempts.get(action_attempt_id="")
 
 # pprint(seam.acs.access_groups.list(
 #     acs_system_id="449c8955-4741-4c44-aa41-943c79a46368",
@@ -51,3 +69,7 @@ pprint(seam.devices.list(
 #   ends_at="2024-03-04T10:40:00Z",
 #   # manufacturer-specific metadata
 # ))
+
+pprint(seam.acs.systems.list_compatible_credential_manager_acs_systems(
+ acs_system_id="14a43ebe-a1a3-4f95-ba34-ffdc909f86d3"
+))

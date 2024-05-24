@@ -20,9 +20,35 @@ client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test8yup_77ut771wVzF
 # # print client.devices.list
 # puts client.devices.list().inspect
 
-puts client.devices.list(
-  include_if: ["can_remotely_unlock"]
-).inspect
+# puts client.devices.list(
+#   include_if: ["can_remotely_unlock"]
+# ).inspect
+
+
+# puts (client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")).inspect
+# puts (client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")).properties['locked'].inspect
+# puts (client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")).is_managed.inspect
+
+# Confirm that the device can remotely lock.
+# puts if ((client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")).can_remotely_lock)
+# if ((client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")).is_managed)
+#   # Perform the lock operation.
+#   puts client.locks.lock_door("59112086-537a-49c0-96dc-ce74f5abfbd7").inspect
+# end
+
+# Get the device.
+# device = client.locks.get("11111111-1111-1111-1111-444444444444")
+device = client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")
+# Confirm that the device supports online access codes.
+# if (device.can_program_online_access_codes)
+if (device.is_managed)
+  # Create the ongoing online access code.
+  client.access_codes.create(
+    device_id: device.device_id,
+    name: "my ongoing code",
+    code: "1234"
+  )
+end
 
 # puts client.devices.list_device_providers(provider_category: "stable").inspect
 # puts client.devices.get("30fd243b-3054-4384-a713-5487076a3826").inspect
@@ -71,6 +97,8 @@ puts client.devices.list(
 # )
 
 # puts created_access_code.inspect
+
+# puts client.access_codes.get("0edcfb65-fef9-4fac-955f-2442c080e865").inspect
 
 # device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
 
@@ -260,8 +288,9 @@ puts client.devices.list(
 # )
 # puts device_connected_events.inspect
 
-# # device = client.devices.get("c2cc3831-f347-444e-b83b-d1f14dbb5893")
+# device = client.devices.get("c2cc3831-f347-444e-b83b-d1f14dbb5893")
 # device = client.devices.get("36cf1a96-196d-41b0-9804-88154387f1f9")
+# device = client.devices.get("59112086-537a-49c0-96dc-ce74f5abfbd7")
 # if(device.properties['has_direct_power'] == true)
 #   puts "Power Source: Wired"
 # else

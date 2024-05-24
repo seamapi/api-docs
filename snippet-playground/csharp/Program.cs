@@ -53,7 +53,33 @@ var seam = new SeamClient(
   // includeIf: new() {"CanRemotelyUnlock"}
 // )) {Console.WriteLine(device);};
 
-Console.WriteLine(seam.Devices.Get(deviceId: "13c59a88-7808-42d3-be0b-adb8f2f1d076"));
+// Console.WriteLine(seam.Devices.Get(deviceId: "13c59a88-7808-42d3-be0b-adb8f2f1d076"));
+
+// // Confirm that the device can remotely lock.
+// if (seam.Locks.Get(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7").CanRemotelyLock == true) {
+//   // Perform the lock operation.
+//   seam.Locks.LockDoor(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7");
+//   // Console.WriteLine(seam.Locks.LockDoor(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7"));
+// }
+
+// Get the device.
+// Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+Device device = seam.Locks.Get(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7");
+// Confirm that the device supports online access codes.
+if (device.CanProgramOnlineAccessCodes == true) {
+  // Create the ongoing online access code.
+  seam.AccessCodes.Create(
+    deviceId: device.DeviceId,
+    name: "my ongoing code",
+    // code: "1234"
+    code: "5234"
+  );
+}
+
+// if (device.Properties.HasDirectPower == true)
+// {
+//   Console.WriteLine("Power Source: Wired");
+// }
 
 // var deviceProviders = seam.Devices.ListDeviceProviders(providerCategory: Seam.Api.Devices.ListDeviceProvidersRequest.ProviderCategoryEnum.Stable);
 // foreach (var deviceProvider in deviceProviders)

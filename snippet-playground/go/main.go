@@ -6,7 +6,7 @@ import (
 	// "math/rand"
 	"os"
   // "encoding/json"
-//   "time"
+  // "time"
 
   api "github.com/seamapi/go"
 	seam "github.com/seamapi/go/client"
@@ -38,20 +38,98 @@ func run() error {
 	// fmt.Println(devices)
 	// return nil
 
-devices, uErr := client.Devices.List(
+// devices, uErr := client.Devices.List(
+//   context.Background(),
+//   &api.DevicesListRequest{
+//     IncludeIf: []api.DevicesListRequestIncludeIfItem{
+//       api.DevicesListRequestIncludeIfItemCanRemotelyUnlock,
+//     },
+//   })
+
+// if uErr != nil {
+//     return uErr
+// }
+
+// fmt.Println(devices)
+// return nil
+
+// // Get the device.
+// device, uErr := client.Locks.Get(
+//   context.Background(),
+//   &api.LocksGetRequest{
+//     DeviceId: api.String("59112086-537a-49c0-96dc-ce74f5abfbd7"),
+//   })
+
+// // Confirm that the device can remotely lock.
+// if *device.CanRemotelyLock {
+//   // Perform the lock operation.
+//   fmt.Println(client.Locks.LockDoor(
+//       context.Background(),
+//       &api.LocksLockDoorRequest{
+//         DeviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7",
+//       },
+//     ))
+//   }
+
+// if uErr != nil {
+//     return uErr
+// }
+
+// return nil
+
+// Get the device.
+device, uErr := client.Locks.Get(
   context.Background(),
-  &api.DevicesListRequest{
-    IncludeIf: []api.DevicesListRequestIncludeIfItem{
-      api.DevicesListRequestIncludeIfItemCanRemotelyUnlock,
-    },
+  &api.LocksGetRequest{
+    DeviceId: api.String("59112086-537a-49c0-96dc-ce74f5abfbd7"),
   })
+
+// Confirm that the device supports online access codes.
+if *device.CanProgramOnlineAccessCodes {
+  // Create the ongoing online access code.
+  client.AccessCodes.Create(
+      context.Background(),
+      &api.AccessCodesCreateRequest{
+        DeviceId: device.DeviceId,
+        Name: api.String("my ongoing code"),
+        Code: api.String("1234"),
+      },
+    )
+  }
 
 if uErr != nil {
     return uErr
 }
 
-fmt.Println(devices)
 return nil
+
+// // Get the device.
+// device, uErr := client.Locks.Get(
+//     context.Background(),
+//     &api.LocksGetRequest{
+//       DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+//     })
+
+//   // Confirm that the device supports offline access codes.
+//   if *device.CanProgramOfflineAccessCodes {
+//     // Create the hourly-bound offline access code.
+//     client.AccessCodes.Create(
+//         context.Background(),
+//         &api.AccessCodesCreateRequest{
+//           DeviceId: "11111111-1111-1111-1111-444444444444",
+//           Name: api.String("my hourly-bound offline code"),
+//           StartsAt: api.String("2023-11-10T00:00:00Z"),
+//           EndsAt: api.String("2023-11-15T18:00:00Z"),
+//           IsOfflineAccessCode: api.Bool(true),
+//         },
+//       )
+//     }
+
+//   if uErr != nil {
+//       return uErr
+//   }
+
+//   return nil
 
 // userIdentityKey := "jenny_lee"
 // email := "jenny@example.com"
@@ -430,15 +508,6 @@ return nil
 // fmt.Println("Online:", device.Properties.Online)
 // return nil
 
-// if ($device->properties->has_direct_power === true) {
-//   echo "Power Source: Wired\n";
-// } else {
-//   echo "Power Source: Battery-powered\n";
-//   // echo "Battery Level: " + $device->properties->battery->level + "\n";
-//   echo "Battery Level: {$device->properties->battery->level}\n";
-//   echo "Battery Status: {$device->properties->battery->status}\n";
-// }
-
 // acsUsers, uErr := client.UserIdentities.ListAcsUsers(context.Background(), &api.UserIdentitiesListAcsUsersRequest{
 //     UserIdentityId: "c041aa50-6495-4d16-8dcf-86664bdee28d",
 // })
@@ -564,7 +633,7 @@ return nil
 // return nil
 
 // action_attempt, uErr := client.ActionAttempts.Get(context.Background(), &api.ActionAttemptsGetRequest{
-//   ActionAttemptId: "40dc817d-9ae0-4037-9d4a-736700ee467b",
+//   ActionAttemptId: "b1607dc9-929c-4800-95d4-c97e34bb7778",
 // })
 
 // if uErr != nil {
