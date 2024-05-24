@@ -1,20 +1,24 @@
 ---
 description: >-
-  Learn how to use access groups to manage user permissions across different
+  Learn how to use access groups to manage ACS user permissions across different
   doors and areas.
 ---
 
-# Assigning Users to Access Groups
+# Assigning ACS Users to Access Groups
 
-Access groups define sets of users, combined with sets of permissions. These permissions include both the sets of doors, areas, or other assets that the users can access and the schedules during which the users can access these assets. By using access groups, property managers can assign or revoke access rights easily for numerous users, based on their rights and needs.
+Some ACSs use access groups, which are sets of ACS users, combined with sets of permissions. These permissions include both the set of areas or assets that the ACS users can access and the schedule during which the users can access these areas or assets. Instead of assigning access rights individually to each ACS user, which can be time-consuming and error-prone, administrators can assign users to an access group, thereby ensuring that the users inherit all the permissions associated with the access group. Using access groups streamlines the process of managing large numbers of ACS users, especially in bigger organizations or complexes.
 
-This guide explains how to grant access permissions to users by adding them to the appropriate access groups.
+{% hint style="info" %}
+To learn whether your ACS supports access groups, see the [system integration guide](../../device-and-system-integration-guides/overview.md#access-control-systems) for your ACS.
+{% endhint %}
+
+This guide explains how to grant access permissions to ACS users by adding them to the appropriate access groups.
 
 ***
 
-## Add a User to an Access Group
+## Add an ACS User to an Access Group
 
-To [add a user to an access group](../../api-clients/access-control-systems/users/add-user-to-access-group.md), provide both the user ID (`acs_user_id`) and the access group ID (`acs_access_group_id`).
+To [add an ACS user to an access group](../../api-clients/access-control-systems/users/add-user-to-access-group.md), provide both the `acs_user_id` and the `acs_access_group_id`.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -160,9 +164,9 @@ add, uErr := client.Acs.Users.AddToAccessGroup(
 
 ***
 
-## Remove a User from an Access Group
+## Remove an ACS User from an Access Group
 
-To [remove a user from an access group](../../api-clients/access-control-systems/users/remove-user-from-access-group.md), provide both the user ID (`acs_user_id`) and the access group ID (`acs_access_group_id`).
+To [remove an ACS user from an access group](../../api-clients/access-control-systems/users/remove-user-from-access-group.md), provide both the `acs_user_id` and the `acs_access_group_id`.
 
 {% tabs %}
 {% tab title="Python" %}

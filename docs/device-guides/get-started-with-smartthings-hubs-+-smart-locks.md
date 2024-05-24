@@ -264,20 +264,24 @@ puts some_lock
 
 ## Locking a Door
 
-{% swagger method="post" path="/locks/lock_door" baseUrl="https://connect.getseam.com" summary="Lock a door" %}
-{% swagger-description %}
+## Lock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/lock_door`
 
-{% swagger-parameter in="body" name="device_id" required="true" %}
-ID of the Device to be locked
-{% endswagger-parameter %}
+#### Headers
 
-{% swagger-parameter in="header" name="Authorization" required="true" %}
-Bearer \<API\_KEY>
-{% endswagger-parameter %}
+| Name                                            | Type   | Description        |
+| ----------------------------------------------- | ------ | ------------------ |
+| Authorization<mark style="color:red;">\*</mark> | String | Bearer \<API\_KEY> |
 
-{% swagger-response status="200: OK" description="Returns a pending action attempt" %}
+#### Request Body
+
+| Name                                         | Type   | Description                   |
+| -------------------------------------------- | ------ | ----------------------------- |
+| device\_id<mark style="color:red;">\*</mark> | String | ID of the Device to be locked |
+
+{% tabs %}
+{% tab title="200: OK Returns a pending action attempt" %}
 ```javascript
 {
     "action_attempt": {
@@ -288,8 +292,8 @@ Bearer \<API\_KEY>
     "ok": true
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
 {% tab title="Python" %}
@@ -328,20 +332,24 @@ puts updated_lock.properties["locked"]
 
 ## Unlocking a Door
 
-{% swagger method="post" path="/locks/unlock_door" baseUrl="https://connect.getseam.com" summary="Unlock a door" %}
-{% swagger-description %}
+## Unlock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/unlock_door`
 
-{% swagger-parameter in="body" name="device_id" required="true" %}
-ID of the Device to be unlocked
-{% endswagger-parameter %}
+#### Headers
 
-{% swagger-parameter in="header" name="Authorization" required="true" %}
-Bearer \<API\_KEY>
-{% endswagger-parameter %}
+| Name                                            | Type   | Description        |
+| ----------------------------------------------- | ------ | ------------------ |
+| Authorization<mark style="color:red;">\*</mark> | String | Bearer \<API\_KEY> |
 
-{% swagger-response status="200: OK" description="Returns a pending action attempt" %}
+#### Request Body
+
+| Name                                         | Type   | Description                     |
+| -------------------------------------------- | ------ | ------------------------------- |
+| device\_id<mark style="color:red;">\*</mark> | String | ID of the Device to be unlocked |
+
+{% tabs %}
+{% tab title="200: OK Returns a pending action attempt" %}
 ```javascript
 {
     "action_attempt": {
@@ -352,8 +360,8 @@ Bearer \<API\_KEY>
     "ok": true
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
 {% tab title="Python" %}
@@ -392,36 +400,26 @@ puts updated_lock.properties["locked"]
 
 ## Create an Access Code
 
-{% swagger method="post" path="/access_codes/create" baseUrl="https://connect.getseam.com" summary="Create an Access Code" %}
-{% swagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/access_codes/create`
 
-{% endswagger-description %}
+#### Headers
 
-{% swagger-parameter in="body" name="device_id" required="true" %}
-ID of the Device to be programmed
-{% endswagger-parameter %}
+| Name                                            | Type   | Description        |
+| ----------------------------------------------- | ------ | ------------------ |
+| Authorization<mark style="color:red;">\*</mark> | String | Bearer \<API\_KEY> |
 
-{% swagger-parameter in="body" name="code" required="false" %}
-digits to set on the device
-{% endswagger-parameter %}
+#### Request Body
 
-{% swagger-parameter in="body" name="name" required="true" %}
-Name of Access Code
-{% endswagger-parameter %}
+| Name                                         | Type   | Description                                                                                              |
+| -------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| device\_id<mark style="color:red;">\*</mark> | String | ID of the Device to be programmed                                                                        |
+| code                                         | String | digits to set on the device                                                                              |
+| name<mark style="color:red;">\*</mark>       | String | Name of Access Code                                                                                      |
+| starts\_at                                   | String | iso8601 timestamp for desired start time of code. null implies that the code will be immediately active. |
+| ends\_at                                     | String | iso8601 timestamp for desired end time of code. null implies that the code will be permanent.            |
 
-{% swagger-parameter in="body" name="starts_at" required="false" %}
-iso8601 timestamp for desired start time of code. null implies that the code will be immediately active.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="body" name="ends_at" required="false" %}
-iso8601 timestamp for desired end time of code. null implies that the code will be permanent.
-{% endswagger-parameter %}
-
-{% swagger-parameter in="header" name="Authorization" required="true" %}
-Bearer \<API\_KEY>
-{% endswagger-parameter %}
-
-{% swagger-response status="200: OK" description="Returns an Action Attempt" %}
+{% tabs %}
+{% tab title="200: OK Returns an Action Attempt" %}
 ```javascript
 {
     "action_attempt": {
@@ -433,8 +431,8 @@ Bearer \<API\_KEY>
     "ok": true
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 {% hint style="info" %}
 For Scheduled Access Codes, both `starts_at` and `ends_at` are required.\
@@ -510,20 +508,22 @@ puts access_code
 
 ## Delete an Access Code
 
-{% swagger method="delete" path="/access_codes/remove" baseUrl="https://connect.getseam.com" summary="Remove an Access Code" %}
-{% swagger-description %}
+<mark style="color:red;">`DELETE`</mark> `https://connect.getseam.com/access_codes/remove`
 
-{% endswagger-description %}
+#### Headers
 
-{% swagger-parameter in="body" name="access_code_id" required="true" %}
+| Name                                           | Type   | Description        |
+| ---------------------------------------------- | ------ | ------------------ |
+| Authorizaion<mark style="color:red;">\*</mark> | String | Bearer \<API\_KEY> |
 
-{% endswagger-parameter %}
+#### Request Body
 
-{% swagger-parameter in="header" name="Authorizaion" required="true" %}
-Bearer \<API\_KEY>
-{% endswagger-parameter %}
+| Name                                               | Type   | Description |
+| -------------------------------------------------- | ------ | ----------- |
+| access\_code\_id<mark style="color:red;">\*</mark> | String |             |
 
-{% swagger-response status="200: OK" description="Returns an Action Attempt" %}
+{% tabs %}
+{% tab title="200: OK Returns an Action Attempt" %}
 ```javascript
 {
     "action_attempt": {
@@ -535,8 +535,8 @@ Bearer \<API\_KEY>
     "ok": true
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
 {% tab title="Python" %}
@@ -578,24 +578,23 @@ puts attempt
 
 ## List Access Codes
 
-{% swagger method="get" path="/access_codes" baseUrl="https://connect.getseam.com" summary="List Access Codes" %}
-{% swagger-description %}
+<mark style="color:blue;">`GET`</mark> `https://connect.getseam.com/access_codes`
 
-{% endswagger-description %}
+#### Query Parameters
 
-{% swagger-parameter in="header" name="Authorizaion" required="true" %}
-Bearer \<API\_KEY>
-{% endswagger-parameter %}
+| Name       | Type   | Description      |
+| ---------- | ------ | ---------------- |
+| device     | String | Filter by Device |
+| device\_id | String | Filter by Device |
 
-{% swagger-parameter in="query" name="device" required="false" %}
-Filter by Device
-{% endswagger-parameter %}
+#### Headers
 
-{% swagger-parameter in="query" name="device_id" required="false" %}
-Filter by Device
-{% endswagger-parameter %}
+| Name                                           | Type   | Description        |
+| ---------------------------------------------- | ------ | ------------------ |
+| Authorizaion<mark style="color:red;">\*</mark> | String | Bearer \<API\_KEY> |
 
-{% swagger-response status="200: OK" description="Returns a list of Access Codes" %}
+{% tabs %}
+{% tab title="200: OK Returns a list of Access Codes" %}
 ```javascript
 {
     "access_codes": [
@@ -620,8 +619,8 @@ Filter by Device
     ]
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 {% tabs %}
 {% tab title="Python" %}

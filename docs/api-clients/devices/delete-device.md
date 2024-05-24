@@ -1,16 +1,15 @@
 ---
-description: Delete a Device by its ID
+description: Delete a device by ID
 ---
 
-# Delete Device
+# Delete a Device
 
 ## Delete a Device
 
 {% hint style="warning" %}
 Deleting a device triggers a `device.deleted` event and removes the device and all data associated with the device from Seam, including events, access codes, and so on. For every deleted resource, Seam sends a corresponding deleted event, but the resource is not deleted from the provider.
 
-For example, if you delete a device with an access code, Seam sends both a `device.deleted` event and an `access_code.deleted` event,
-but Seam does not remove the access code from the device.
+For example, if you delete a device with an access code, Seam sends both a `device.deleted` event and an `access_code.deleted` event, but Seam does not remove the access code from the device.
 {% endhint %}
 
 {% hint style="info" %}
@@ -19,27 +18,28 @@ Deleting a device prevents that device from appearing again in your workspace. T
 Seam recommends unmanaging a device instead of deleting it.
 {% endhint %}
 
-{% swagger method="delete" path="/devices/delete" baseUrl="https://connect.getseam.com" summary="Delete a device" %}
-{% swagger-description %}
-Delete a single device from your workspace using a device_id
-{% endswagger-description %}
+## Delete a device
 
-{% swagger-parameter in="query" name="device_id" required="true" %}
-Device id
-{% endswagger-parameter %}
+<mark style="color:red;">`DELETE`</mark> `https://connect.getseam.com/devices/delete`
 
-{% swagger-response status="200: OK" description="" %}
+Delete a single device from your workspace using a device\_id
 
+#### Query Parameters
+
+| Name                                         | Type   | Description |
+| -------------------------------------------- | ------ | ----------- |
+| device\_id<mark style="color:red;">\*</mark> | String | Device id   |
+
+{% tabs %}
+{% tab title="200: OK " %}
 ```javascript
 {
   "ok": true
 }
 ```
+{% endtab %}
 
-{% endswagger-response %}
-
-{% swagger-response status="400: Bad Request" description="" %}
-
+{% tab title="400: Bad Request " %}
 ```javascript
 {
   "error": {
@@ -58,11 +58,9 @@ Device id
   "ok": false
 }
 ```
+{% endtab %}
 
-{% endswagger-response %}
-
-{% swagger-response status="404: Not Found" description="" %}
-
+{% tab title="404: Not Found " %}
 ```javascript
 {
   "error": {
@@ -76,38 +74,31 @@ Device id
   "ok": false
 }
 ```
-
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 ### Code Example
 
 {% tabs %}
 {% tab title="Python" %}
-
 ```python
 seam.devices.delete("123e4567-e89b-12d3-a456-426614174000")
 
 ```
-
 {% endtab %}
 
 {% tab title="Javascript" %}
-
 ```typescript
 await seam.devices.delete({
   device_id: "123e4567-e89b-12d3-a456-426614174000",
 })
 ```
-
 {% endtab %}
 
 {% tab title="PHP" %}
-
 ```php
 $seam->devices->delete("123e4567-e89b-12d3-a456-426614174000")
 
 ```
-
 {% endtab %}
 {% endtabs %}

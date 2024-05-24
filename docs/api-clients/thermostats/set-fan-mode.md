@@ -37,7 +37,7 @@ curl --request POST 'https://connect.getseam.com/thermostats/set_fan_mode' \
 
 ### Parameters
 
-<table data-header-hidden><thead><tr><th width="184"></th><th width="160.33333333333331"></th><th></th></tr></thead><tbody><tr><td><code>device_id</code></td><td>type: <code>string</code></td><td>ID of the Device of  the thermostat</td></tr><tr><td><code>fan_mode</code></td><td>type: <code>string</code></td><td><p>Fan mode of the thermostat:</p><ul><li><strong><code>on</code>:</strong> The fan continuously operates, ensuring air circulation regardless of the heating or cooling demand.</li></ul><ul><li><strong><code>auto</code>:</strong> The fan activates only when heating or cooling is on, making it a more energy-efficient choice.</li></ul></td></tr></tbody></table>
+<table data-header-hidden><thead><tr><th width="184"></th><th width="160.33333333333331"></th><th></th></tr></thead><tbody><tr><td><code>device_id</code></td><td>type: <code>string</code></td><td>ID of the Device of  the thermostat</td></tr><tr><td><code>fan_mode</code></td><td>type: <code>string</code></td><td><p>Fan mode of the thermostat.<br>Possible values:</p><ul><li><strong><code>on</code>:</strong> The fan continuously operates, ensuring air circulation regardless of the heating or cooling demand.</li></ul><ul><li><strong><code>auto</code>:</strong> The fan activates only when heating or cooling is on, making it a more energy-efficient choice.</li></ul></td></tr></tbody></table>
 
 ### Response
 

@@ -2,7 +2,7 @@
 description: Learn how to lock and unlock a smart lock, and confirm the action's success.
 ---
 
-# Lock and Unlock
+# Locking and Unlocking
 
 ## Overview
 
@@ -16,49 +16,48 @@ For those who prefer using webhooks to verify the success of an action, we'll so
 
 ***
 
-## Before You Begin
+## Before You Begin: Confirm Capabilities
 
-Be sure to confirm that your device has the capability to lock and unlock. You can inspect this by checking the device's capabilities by looking for `lock` in the `capabilities_supported` list in [Get Device](../../api-clients/devices/get-device.md) or [List Devices](../../api-clients/devices/list-devices.md) (or [Get Lock](../../api-clients/locks/get-lock.md) or [List Locks](../../api-clients/locks/list-locks.md)).&#x20;
+Before you attempt to lock or unlock a device, be sure to confirm that your device has the capability to perform these operations. You can inspect the capabilities of a device by checking the following [capability flags](../../capability-guides/device-and-system-capabilities.md#capability-flags) for the device:
+
+* `can_remotely_lock`
+* `can_remotely_unlock`
+
+Use [Get Device](../../api-clients/devices/get-device.md) (or [Get Lock](../../api-clients/locks/get-lock.md)) for a specific device to return these capability flags. Then, use an `if` statement or similar check to confirm that the relevant flag is both present and `true` before attempting to lock or unlock the device.
+
+If either of these capability flags is `false` or not present, you can view the [properties](../../api-clients/devices/#device-properties) of the device, [errors](../../api-clients/devices/#device-error-types) or [warnings](../../api-clients/devices/#device-warning-types) for the device, and [events](../../api-clients/events/#event-types) related to the device to learn more about the cause of these issues. For example, you could examine `device.properties.online`. In addition, you could look for a `device.disconnected` event.
 
 {% tabs %}
 {% tab title="Python" %}
 **Request:**
 
 ```python
-pprint(seam.locks.get(device="6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+seam.locks.get(device="11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
-Device(device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-       .
-       .
-       .
-       capabilities_supported=[
-              'lock', // Device supports lock and unlock actions.
-              .
-              .
-              .
-              ],
-       .
-       .
-       .
-       )
+Device(
+  device_id='11111111-1111-1111-1111-444444444444',
+  can_remotely_lock=True,   // You can use seam.locks.lock_door() on this device.
+  can_remotely_unlock=True, // You can use seam.locks.unlock_door() on this device.
+  ...
+)
 ```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"><strong># Use GET or POST.
-</strong><strong>curl -X 'GET' \
+<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
+<strong>curl -X 'GET' \
 </strong>  'https://connect.getseam.com/locks/get' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
   -H 'Content-Type: application/json' \
   -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+  "device_id": "11111111-1111-1111-1111-444444444444"
 }'
 </code></pre>
 
@@ -67,209 +66,10 @@ Device(device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
 ```json
 {
   "lock": {
-    "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-    .
-    .
-    .
-    "capabilities_supported": [
-      "lock", // Device supports lock and unlock actions.
-      .
-      .
-      .
-    ],
-    .
-    .
-    .
-  },
-  .
-  .
-  .
-}
-```
-{% endtab %}
-
-{% tab title="JavaScript" %}
-**Request:**
-
-```javascript
-console.log(await seam.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
-```
-
-**Response:**
-
-```json
-{
-  device_id: '6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-  .
-  .
-  .
-  capabilities_supported: [
-    'lock', // Device supports lock and unlock actions.
-    .
-    .
-    .
-    ],
-  .
-  .
-  .
-}
-```
-{% endtab %}
-
-{% tab title="Ruby" %}
-**Request:**
-
-```ruby
-puts client.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
-```
-
-**Response:**
-
-```
-<Seam::Device:0x00438
-  device_id="6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-  .
-  .
-  .
-  capabilities_supported=[
-    "lock", // Device supports lock and unlock actions.
-    .
-    .
-    .
-    ]
-  .
-  .
-  .
-  >
-```
-{% endtab %}
-
-{% tab title="PHP" %}
-**Request:**
-
-```php
-$device = $seam->devices->get("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-echo json_encode($device->capabilities_supported, JSON_PRETTY_PRINT);
-```
-
-**Response:**
-
-```
-[
-    "lock", // Device supports lock and unlock actions.
-    .
-    .
-    .
-]
-```
-{% endtab %}
-
-{% tab title="C#" %}
-**Request:**
-
-```csharp
-var device = seam.Devices.Get("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-  Console.WriteLine("Device ID: " + device.DeviceId);
-  Console.WriteLine("Capabilities:");
-  foreach (var capability in device.CapabilitiesSupported)
-  {
-    Console.WriteLine(capability);
-  }
-```
-
-**Response:**
-
-```
-Device ID: 6aae9d08-fed6-4ca5-8328-e36849ab48fe
-Capabilities:
-Lock // Device supports lock and unlock actions.
-.
-.
-.
-```
-{% endtab %}
-
-{% tab title="Java" %}
-**Request:**
-
-```java
-Device lock = seam.locks()
-        .get(LocksGetRequest.builder()
-                .deviceId("6aae9d08-fed6-4ca5-8328-e36849ab48fe")
-                .build());
-System.out.println(lock);
-```
-
-**Response:**
-
-```json
-{
-  "device_id" : "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-  .
-  .
-  .
-  "capabilities_supported" : [ 
-    "lock", // Device supports lock and unlock actions.
-    .
-    .
-    .
-  ],
-  .
-  .
-  .
-}
-```
-{% endtab %}
-{% endtabs %}
-
-***
-
-## Locking a Door
-
-You can lock a door using the [Lock](../../api-clients/locks/lock-a-lock.md) endpoint. To confirm the success of the action, see [Verifying the success of a lock or unlock action](lock-and-unlock.md#verifying-the-success-of-a-lock-or-unlock-action).
-
-{% tabs %}
-{% tab title="Python" %}
-**Request:**
-
-```python
-pprint(seam.locks.lock_door(device="6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
-```
-
-**Response:**
-
-```
-ActionAttempt(action_attempt_id='47f2ba20-a2e5-4f3d-9add-e5ac33a415a3',
-              action_type='LOCK_DOOR',
-              status='success',
-              result={},
-              error=None)
-```
-{% endtab %}
-
-{% tab title="cURL (bash)" %}
-**Request:**
-
-<pre class="language-bash"><code class="lang-bash"><strong>curl -X 'POST' \
-</strong>  'https://connect.getseam.com/locks/lock_door' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-}'
-</code></pre>
-
-**Response:**
-
-```json
-{
-  "action_attempt": {
-    "status": "pending",
-    "action_type": "LOCK_DOOR",
-    "action_attempt_id": "092f16c1-37d3-4377-83a8-4da8b1ceffc9",
-    "result": null,
-    "error": null
+    "device_id": "11111111-1111-1111-1111-444444444444",
+    "can_remotely_lock": true,   // You can use /locks/lock_door on this device.
+    "can_remotely_unlock": true, // You can use /locks/unlock_door on this device.
+    ...
   },
   "ok": true
 }
@@ -280,7 +80,221 @@ ActionAttempt(action_attempt_id='47f2ba20-a2e5-4f3d-9add-e5ac33a415a3',
 **Request:**
 
 ```javascript
-console.log(await seam.locks.lockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+await seam.locks.get("11111111-1111-1111-1111-444444444444")
+```
+
+**Response:**
+
+```json
+{
+  device_id: '11111111-1111-1111-1111-444444444444',
+  can_remotely_lock: true,   // You can use seam.locks.lockDoor() on this device.
+  can_remotely_unlock: true, // You can use seam.locks.unlockDoor() on this device.
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Ruby" %}
+**Request:**
+
+```ruby
+client.locks.get("11111111-1111-1111-1111-444444444444")
+```
+
+**Response:**
+
+```
+<
+  Seam::Device:0x00438
+    device_id="11111111-1111-1111-1111-444444444444"
+    can_remotely_lock=true   // You can use client.locks.lock_door() on this device.
+    can_remotely_unlock=true // You can use client.locks.unlock_door() on this device.
+    ...
+>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+$seam->devices->get("11111111-1111-1111-1111-444444444444");
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_remotely_lock": true,   // You can use $seam->locks->lock_door() on this device.
+  "can_remotely_unlock": true, // You can use $seam->locks->unlock_door() on this device.
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="C#" %}
+**Request:**
+
+```csharp
+seam.Devices.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+```
+
+**Response:**
+
+```
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_remotely_lock": true,   // You can use seam.Locks.LockDoor() on this device.
+  "can_remotely_unlock": true, // You can use seam.Locks.UnlockDoor() on this device.
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Java" %}
+**Request:**
+
+```java
+seam.locks()
+  .get(LocksGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_remotely_lock": true,   // You can use seam.locks.lockDoor() on this device.
+  "can_remotely_unlock": true, // You can use seam.locks.unlockDoor() on this device.
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+device, uErr := client.Devices.Get(
+  context.Background(),
+  &api.DevicesGetRequest{
+    DeviceId: "11111111-1111-1111-1111-444444444444",
+  })
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_remotely_lock": true,   // You can use client.Locks.LockDoor() on this device.
+  "can_remotely_unlock": true, // You can use client.Locks.UnlockDoor() on this device.
+  ...
+}
+```
+{% endtab %}
+{% endtabs %}
+
+***
+
+## Locking a Door
+
+You can lock a door using the [`lock_door`](../../api-clients/locks/lock-a-lock.md) endpoint. To confirm the success of the action, see [Verifying the success of a lock or unlock action](lock-and-unlock.md#verifying-the-success-of-a-lock-or-unlock-action).
+
+{% tabs %}
+{% tab title="Python" %}
+**Request:**
+
+```python
+# Get the device.
+device = seam.locks.get(
+  device_id="11111111-1111-1111-1111-444444444444"
+)
+
+# Confirm that the device can remotely lock.
+if device.can_remotely_lock:
+  # Perform the lock operation.
+  seam.locks.lock_door(device_id=device.device_id)
+```
+
+**Response:**
+
+```
+ActionAttempt(status='pending',
+              action_type='LOCK_DOOR',
+              action_attempt_id='11111111-2222-3333-4444-555555555555',
+              result=None,
+              error={})
+```
+{% endtab %}
+
+{% tab title="cURL (bash)" %}
+**Request:**
+
+```bash
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+
+# Confirm that the device can remotely lock.
+if  $(jq -r '.device.can_remotely_lock' <<< ${device}); then \
+  # Perform the lock operation.
+  curl -X 'POST' \
+    'https://connect.getseam.com/locks/lock_door' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\"
+  }';
+fi
+```
+
+**Response:**
+
+```json
+{
+  "action_attempt": {
+    "status":"pending",
+    "action_type":"LOCK_DOOR",
+    "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+    "result":null,
+    "error":null
+  },
+  "ok":true
+}
+```
+{% endtab %}
+
+{% tab title="JavaScript" %}
+**Request:**
+
+```javascript
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
+
+// Confirm that the device can remotely lock.
+if (device.can_remotely_lock) {
+  // Perform the lock operation.
+  await seam.locks.lockDoor({
+    device_id: device.device_id,
+    waitForActionAttempt: true
+  })
+};
 ```
 
 **Response:**
@@ -289,7 +303,7 @@ console.log(await seam.locks.lockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 {
   actionAttempt: {
     status: 'success',
-    action_attempt_id: '99537f1c-31c3-43ba-a981-3dd005615b0c',
+    action_attempt_id: '11111111-2222-3333-4444-555555555555',
     action_type: 'LOCK_DOOR',
     result: {},
     error: null
@@ -302,7 +316,14 @@ console.log(await seam.locks.lockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 **Request:**
 
 ```ruby
-puts client.locks.lock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
+
+# Confirm that the device can remotely lock.
+if (device.can_remotely_lock)
+  # Perform the lock operation.
+  client.locks.lock_door(device.device_id)
+end
 ```
 
 **Response:**
@@ -311,8 +332,35 @@ puts client.locks.lock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 <Seam::ActionAttempt:0x00438
   status="pending"
   action_type="LOCK_DOOR"
-  action_attempt_id="f16b6775-7f74-4c06-ae88-ed30703cbb74"
+  action_attempt_id="11111111-2222-3333-4444-555555555555"
   result=nil>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device can remotely lock.
+if ($device->can_remotely_lock) {
+  // Perform the lock operation.
+  $seam->locks->lock_door(device_id: $device->device_id);
+}
+```
+
+**Response:**
+
+```json
+{
+  "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+  "action_type":"LOCK_DOOR",
+  "error":null,
+  "result":{},
+  "status":"success"
+}
 ```
 {% endtab %}
 
@@ -320,23 +368,24 @@ puts client.locks.lock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 **Request:**
 
 ```csharp
-var attempt = seam.Locks.LockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-Type t = attempt.GetType();
-PropertyInfo[] props = t.GetProperties();
-foreach (var prop in props)
-{
-  Console.WriteLine(prop.Name + ": " + prop.GetValue(attempt));
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device can remotely lock.
+if (device.CanRemotelyLock == true) {
+  // Perform the lock operation.
+  seam.Locks.LockDoor(deviceId: device.DeviceId);
 }
 ```
 
 **Response:**
 
-```
-Status: pending
-ActionType: LOCK_DOOR
-ActionAttemptId: 114c135a-e7f4-4f22-80f9-0fb879f20543
-Result: 
-Error: 
+```json
+{
+  "status": "pending",
+  "action_type": "LOCK_DOOR",
+  "action_attempt_id": "11111111-2222-3333-4444-555555555555"
+}
 ```
 {% endtab %}
 
@@ -344,21 +393,77 @@ Error:
 **Request:**
 
 ```java
-ActionAttempt attempt = seam.locks()
-        .lockDoor(LocksLockDoorRequest.builder()
-                .deviceId("6aae9d08-fed6-4ca5-8328-e36849ab48fe")
-                .build());
-System.out.println(attempt.getPending());
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+
+// Confirm that the device can remotely lock.
+if (device.getCanRemotelyLock())
+{
+  // Perform the lock operation.
+  seam.locks()
+    .lockDoor(LocksLockDoorRequest.builder()
+      .deviceId(device.getDeviceId())
+      .build());
+}
 ```
 
 **Response:**
 
 ```json
-Optional[{
-  "action_type" : "LOCK_DOOR",
-  "action_attempt_id" : "47c1f198-66a6-4e5e-80a2-7846d218eca6",
-  "status" : "pending"
-}]
+Optional[
+  {
+    "action_type" : "LOCK_DOOR",
+    "action_attempt_id" : "11111111-2222-3333-4444-555555555555",
+    "status" : "pending"
+  }
+]
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device can remotely lock.
+if *device.CanRemotelyLock {
+  // Perform the lock operation.
+  client.Locks.LockDoor(
+      context.Background(),
+      &api.LocksLockDoorRequest{
+        DeviceId: device.DeviceId,
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+&{pending <nil>
+  {
+    "status": "pending",
+    "action_type": "LOCK_DOOR",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
+    "result": null,
+    "error": null
+  }
+<nil>} <nil>
 ```
 {% endtab %}
 {% endtabs %}
@@ -367,24 +472,32 @@ Optional[{
 
 ## Unlocking a Door
 
-You can lock a door using the [Unlock](../../api-clients/locks/unlock-a-lock.md) endpoint. To confirm the success of the action, see [Verifying the success of a lock or unlock action](lock-and-unlock.md#verifying-the-success-of-a-lock-or-unlock-action).
+You can lock a door using the [unlock\_door](../../api-clients/locks/unlock-a-lock.md) endpoint. To confirm the success of the action, see [Verifying the success of a lock or unlock action](lock-and-unlock.md#verifying-the-success-of-a-lock-or-unlock-action).
 
 {% tabs %}
 {% tab title="Python" %}
 **Request:**
 
 ```python
-pprint(seam.locks.unlock_door(device="6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+# Get the device.
+device = seam.locks.get(
+  device_id="11111111-1111-1111-1111-444444444444"
+)
+
+# Confirm that the device can remotely unlock.
+if device.can_remotely_unlock:
+  # Perform the unlock operation.
+  seam.locks.unlock_door(device_id=device.device_id)
 ```
 
 **Response:**
 
 ```
-ActionAttempt(action_attempt_id='a34cf3e7-42ad-481a-9edf-80be46c5b9d4',
+ActionAttempt(status='pending',
               action_type='UNLOCK_DOOR',
-              status='success',
-              result={},
-              error=None)
+              action_attempt_id='11111111-2222-3333-4444-555555555555',
+              result=None,
+              error={})
 ```
 {% endtab %}
 
@@ -392,14 +505,30 @@ ActionAttempt(action_attempt_id='a34cf3e7-42ad-481a-9edf-80be46c5b9d4',
 **Request:**
 
 ```bash
-curl -X 'POST' \
-  'https://connect.getseam.com/locks/unlock_door' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-}'
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+
+# Confirm that the device can remotely unlock.
+if  $(jq -r '.device.can_remotely_lock' <<< ${device}); then \
+  # Perform the unlock operation.
+  curl -X 'POST' \
+    'https://connect.getseam.com/locks/unlock_door' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\"
+  }";
+fi
 ```
 
 **Response:**
@@ -407,13 +536,13 @@ curl -X 'POST' \
 ```json
 {
   "action_attempt": {
-    "status": "pending",
-    "action_type": "UNLOCK_DOOR",
-    "action_attempt_id": "1d7e1abd-923e-4b7e-9ea4-7ef6a005eab8",
-    "result": null,
-    "error": null
+    "status":"pending",
+    "action_type":"UNLOCK_DOOR",
+    "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+    "result":null,
+    "error":null
   },
-  "ok": true
+  "ok":true
 }
 ```
 {% endtab %}
@@ -422,7 +551,19 @@ curl -X 'POST' \
 **Request:**
 
 ```javascript
-console.log(await seam.locks.unlockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
+
+// Confirm that the device can remotely unlock.
+if (device.can_remotely_unlock) {
+  // Perform the unlock operation.
+  await seam.locks.unlockDoor({
+    device_id: device.device_id,
+    waitForActionAttempt: true
+  })
+};
 ```
 
 **Response:**
@@ -431,7 +572,7 @@ console.log(await seam.locks.unlockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 {
   actionAttempt: {
     status: 'success',
-    action_attempt_id: 'd70355b2-aa48-4069-88f1-6678c5ba6ec4',
+    action_attempt_id: '11111111-2222-3333-4444-555555555555',
     action_type: 'UNLOCK_DOOR',
     result: {},
     error: null
@@ -444,7 +585,14 @@ console.log(await seam.locks.unlockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 **Request:**
 
 ```ruby
-puts client.locks.unlock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
+
+# Confirm that the device can remotely unlock.
+if (device.can_remotely_unlock)
+  # Perform the unlock operation.
+  client.locks.unlock_door(device.device_id)
+end
 ```
 
 **Response:**
@@ -453,8 +601,35 @@ puts client.locks.unlock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 <Seam::ActionAttempt:0x00438
   status="pending"
   action_type="UNLOCK_DOOR"
-  action_attempt_id="a79f5f99-ca57-4438-bf98-feab919808ba"
+  action_attempt_id="11111111-2222-3333-4444-555555555555"
   result=nil>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device can remotely unlock.
+if ($device->can_remotely_unlock) {
+  // Perform the unlock operation.
+  $seam->locks->unlock_door(device_id: $device->device_id);
+}
+```
+
+**Response:**
+
+```json
+{
+  "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+  "action_type":"UNLOCK_DOOR",
+  "error":null,
+  "result":{},
+  "status":"success"
+}
 ```
 {% endtab %}
 
@@ -462,23 +637,24 @@ puts client.locks.unlock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 **Request:**
 
 ```csharp
-var attempt = seam.Locks.UnlockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-Type t = attempt.GetType();
-PropertyInfo[] props = t.GetProperties();
-foreach (var prop in props)
-{
-  Console.WriteLine(prop.Name + ": " + prop.GetValue(attempt));
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device can remotely unlock.
+if (device.CanRemotelyUnlock == true) {
+  // Perform the unlock operation.
+  seam.Locks.UnlockDoor(deviceId: device.DeviceId);
 }
 ```
 
 **Response:**
 
-```
-Status: pending
-ActionType: UNLOCK_DOOR
-ActionAttemptId: edfafcf9-81d1-4c08-aea6-ab1456f7ead2
-Result: 
-Error: 
+```json
+{
+  "status": "pending",
+  "action_type": "UNLOCK_DOOR",
+  "action_attempt_id": "11111111-2222-3333-4444-555555555555"
+}
 ```
 {% endtab %}
 
@@ -486,21 +662,77 @@ Error:
 **Request:**
 
 ```java
-ActionAttempt attempt = seam.locks()
-        .unlockDoor(LocksUnlockDoorRequest.builder()
-                .deviceId("6aae9d08-fed6-4ca5-8328-e36849ab48fe")
-                .build());
-System.out.println(attempt.getPending());
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+
+// Confirm that the device can remotely unlock.
+if (device.getCanRemotelyUnlock())
+{
+  // Perform the unlock operation.
+  seam.locks()
+    .lockDoor(LocksUnlockDoorRequest.builder()
+      .deviceId(device.getDeviceId())
+      .build());
+}
 ```
 
 **Response:**
 
 ```json
-Optional[{
-  "action_type" : "UNLOCK_DOOR",
-  "action_attempt_id" : "0319bced-1216-4d44-b3f3-5ffb96bc118e",
-  "status" : "pending"
-}]
+Optional[
+  {
+    "action_type" : "UNLOCK_DOOR",
+    "action_attempt_id" : "11111111-2222-3333-4444-555555555555",
+    "status" : "pending"
+  }
+]
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device can remotely unlock.
+if *device.CanRemotelyUnlock {
+  // Perform the unlock operation.
+  client.Locks.UnlockDoor(
+      context.Background(),
+      &api.LocksUnlockDoorRequest{
+        DeviceId: device.DeviceId,
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+&{pending <nil>
+  {
+    "status": "pending",
+    "action_type": "UNLOCK_DOOR",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
+    "result": null,
+    "error": null
+  }
+<nil>} <nil>
 ```
 {% endtab %}
 {% endtabs %}
@@ -518,45 +750,46 @@ When initiating a lock or unlock action, the Seam API returns an action attempt,
 **Request:**
 
 ```python
-pprint(seam.locks.lock_door(device="6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+seam.locks.lock_door(device_id="11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
-ActionAttempt(action_attempt_id='47f2ba20-a2e5-4f3d-9add-e5ac33a415a3',
+ActionAttempt(status='pending',
               action_type='LOCK_DOOR',
-              status='success',
-              result={},
-              error=None)
+              action_attempt_id='11111111-2222-3333-4444-555555555555',
+              result=None,
+              error={})
 ```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"><strong>curl -X 'POST' \
-</strong>  'https://connect.getseam.com/locks/lock_door' \
+```bash
+curl -X 'POST' \
+  'https://connect.getseam.com/locks/lock_door' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
+  -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+    "device_id": "11111111-1111-1111-1111-444444444444"
 }'
-</code></pre>
+```
 
 **Response:**
 
 ```json
 {
   "action_attempt": {
-    "status": "pending",
-    "action_type": "LOCK_DOOR",
-    "action_attempt_id": "092f16c1-37d3-4377-83a8-4da8b1ceffc9",
-    "result": null,
-    "error": null
+    "status":"pending",
+    "action_type":"LOCK_DOOR",
+    "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+    "result":null,
+    "error":null
   },
-  "ok": true
+  "ok":true
 }
 ```
 {% endtab %}
@@ -565,7 +798,10 @@ ActionAttempt(action_attempt_id='47f2ba20-a2e5-4f3d-9add-e5ac33a415a3',
 **Request:**
 
 ```javascript
-console.log(await seam.locks.lockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+await seam.locks.lockDoor({
+  device_id: "11111111-1111-1111-1111-444444444444",
+  waitForActionAttempt: true
+});
 ```
 
 **Response:**
@@ -574,7 +810,7 @@ console.log(await seam.locks.lockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 {
   actionAttempt: {
     status: 'success',
-    action_attempt_id: '99537f1c-31c3-43ba-a981-3dd005615b0c',
+    action_attempt_id: '11111111-2222-3333-4444-555555555555',
     action_type: 'LOCK_DOOR',
     result: {},
     error: null
@@ -587,7 +823,7 @@ console.log(await seam.locks.lockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 **Request:**
 
 ```ruby
-puts client.locks.lock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
+client.locks.lock_door("11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
@@ -596,8 +832,28 @@ puts client.locks.lock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 <Seam::ActionAttempt:0x00438
   status="pending"
   action_type="LOCK_DOOR"
-  action_attempt_id="f16b6775-7f74-4c06-ae88-ed30703cbb74"
+  action_attempt_id="11111111-2222-3333-4444-555555555555"
   result=nil>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+$seam->locks->lock_door(device_id: "11111111-1111-1111-1111-444444444444");
+```
+
+**Response:**
+
+```json
+{
+  "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+  "action_type":"LOCK_DOOR",
+  "error":null,
+  "result":{},
+  "status":"success"
+}
 ```
 {% endtab %}
 
@@ -605,23 +861,17 @@ puts client.locks.lock_door("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 **Request:**
 
 ```csharp
-var attempt = seam.Locks.LockDoor("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-Type t = attempt.GetType();
-PropertyInfo[] props = t.GetProperties();
-foreach (var prop in props)
-{
-  Console.WriteLine(prop.Name + ": " + prop.GetValue(attempt));
-}
+seam.Locks.LockDoor(deviceId: "11111111-1111-1111-1111-444444444444");
 ```
 
 **Response:**
 
-```
-Status: pending
-ActionType: LOCK_DOOR
-ActionAttemptId: 114c135a-e7f4-4f22-80f9-0fb879f20543
-Result: 
-Error: 
+```json
+{
+  "status": "pending",
+  "action_type": "LOCK_DOOR",
+  "action_attempt_id": "11111111-2222-3333-4444-555555555555"
+}
 ```
 {% endtab %}
 
@@ -629,21 +879,54 @@ Error:
 **Request:**
 
 ```java
-ActionAttempt attempt = seam.locks()
-        .lockDoor(LocksLockDoorRequest.builder()
-                .deviceId("6aae9d08-fed6-4ca5-8328-e36849ab48fe")
-                .build());
-System.out.println(attempt.getPending());
+seam.locks().lockDoor(LocksLockDoorRequest.builder()
+  .deviceId("11111111-1111-1111-1111-444444444444")
+  .build());
 ```
 
 **Response:**
 
 ```json
-Optional[{
-  "action_type" : "LOCK_DOOR",
-  "action_attempt_id" : "47c1f198-66a6-4e5e-80a2-7846d218eca6",
-  "status" : "pending"
-}]
+Optional[
+  {
+    "action_type" : "LOCK_DOOR",
+    "action_attempt_id" : "11111111-2222-3333-4444-555555555555",
+    "status" : "pending"
+  }
+]
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+_, uErr := client.Locks.LockDoor(
+  context.Background(),
+  &api.LocksLockDoorRequest{
+    DeviceId: "11111111-1111-1111-1111-444444444444",
+  },
+)
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+&{pending <nil>
+  {
+    "status": "pending",
+    "action_type": "LOCK_DOOR",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
+    "result": null,
+    "error": null
+  }
+<nil>} <nil>
 ```
 {% endtab %}
 {% endtabs %}
@@ -657,13 +940,13 @@ Use the `action_attempt_id` from the prior response to make a [Get Action Attemp
 **Request:**
 
 ```python
-pprint(seam.action_attempts.get(action_attempt="47f2ba20-a2e5-4f3d-9add-e5ac33a415a3"))
+seam.action_attempts.get(action_attempt_id="11111111-2222-3333-4444-555555555555")
 ```
 
 **Response:**
 
 ```
-ActionAttempt(action_attempt_id='47f2ba20-a2e5-4f3d-9add-e5ac33a415a3',
+ActionAttempt(action_attempt_id='11111111-2222-3333-4444-555555555555',
               action_type='LOCK_DOOR',
               status='success',
               result={},
@@ -679,10 +962,10 @@ ActionAttempt(action_attempt_id='47f2ba20-a2e5-4f3d-9add-e5ac33a415a3',
 curl -X 'GET' \
   'https://connect.getseam.com/action_attempts/get' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
+  -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
-  "action_attempt_id": "092f16c1-37d3-4377-83a8-4da8b1ceffc9"
+  "action_attempt_id": "11111111-2222-3333-4444-555555555555"
 }'
 ```
 
@@ -692,7 +975,7 @@ curl -X 'GET' \
 {
   "action_attempt": {
     "status": "success",
-    "action_attempt_id": "092f16c1-37d3-4377-83a8-4da8b1ceffc9",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
     "action_type": "LOCK_DOOR",
     "result": {},
     "error": null
@@ -706,7 +989,7 @@ curl -X 'GET' \
 **Request:**
 
 ```javascript
-console.log(await seam.actionAttempts.get("99537f1c-31c3-43ba-a981-3dd005615b0c"))
+await seam.actionAttempts.get({action_attempt_id: "11111111-2222-3333-4444-555555555555"});
 ```
 
 **Response:**
@@ -714,7 +997,7 @@ console.log(await seam.actionAttempts.get("99537f1c-31c3-43ba-a981-3dd005615b0c"
 ```json
 {
   status: 'success',
-  action_attempt_id: '99537f1c-31c3-43ba-a981-3dd005615b0c',
+  action_attempt_id: '11111111-2222-3333-4444-555555555555',
   action_type: 'LOCK_DOOR',
   result: {},
   error: null
@@ -726,7 +1009,7 @@ console.log(await seam.actionAttempts.get("99537f1c-31c3-43ba-a981-3dd005615b0c"
 **Request:**
 
 ```ruby
-puts client.action_attempts.get("f16b6775-7f74-4c06-ae88-ed30703cbb74").inspect
+client.action_attempts.get("11111111-2222-3333-4444-555555555555")
 ```
 
 **Response:**
@@ -734,9 +1017,29 @@ puts client.action_attempts.get("f16b6775-7f74-4c06-ae88-ed30703cbb74").inspect
 ```
 <Seam::ActionAttempt:0x00438
   status="success"
-  action_attempt_id="f16b6775-7f74-4c06-ae88-ed30703cbb74"
+  action_attempt_id="11111111-2222-3333-4444-555555555555"
   action_type="LOCK_DOOR"
   result={}>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+$seam->action_attempts->get(action_attempt_id: "11111111-2222-3333-4444-555555555555");
+```
+
+**Response:**
+
+```json
+{
+  "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+  "action_type":"LOCK_DOOR",
+  "error":null,
+  "result":{},
+  "status":"success"
+}
 ```
 {% endtab %}
 
@@ -744,23 +1047,19 @@ puts client.action_attempts.get("f16b6775-7f74-4c06-ae88-ed30703cbb74").inspect
 **Request:**
 
 ```csharp
-var attempt = seam.ActionAttempts.Get("114c135a-e7f4-4f22-80f9-0fb879f20543");
-Type t = attempt.GetType();
-PropertyInfo[] props = t.GetProperties();
-foreach (var prop in props)
-{
-  Console.WriteLine(prop.Name + ": " + prop.GetValue(attempt));
-}
+seam.ActionAttempts.Get("11111111-2222-3333-4444-555555555555");
 ```
 
 **Response:**
 
 ```
-Status: success
-ActionType: LOCK_DOOR
-ActionAttemptId: 114c135a-e7f4-4f22-80f9-0fb879f20543
-Result: {}
-Error: 
+{
+  "status": "success",
+  "action_type": "LOCK_DOOR",
+  "action_attempt_id": "11111111-2222-3333-4444-555555555555",
+  "result": {},
+  "error": null
+}
 ```
 {% endtab %}
 
@@ -768,17 +1067,53 @@ Error:
 **Request:**
 
 ```java
-ActionAttempt attempt = seam.actionAttempts()
-        .get(ActionAttemptsGetRequest.builder()
-                .actionAttemptId("19eb6b25-51b5-4398-82e1-666bba616774")
-                .build());
-System.out.println(attempt.isSuccess());
+seam.actionAttempts().get(ActionAttemptsGetRequest.builder()
+  .actionAttemptId("11111111-2222-3333-4444-555555555555")
+  .build());
 ```
 
 **Response:**
 
 ```
-true
+Optional[
+  {
+    "action_type" : "LOCK_DOOR",
+    "action_attempt_id" : "11111111-2222-3333-4444-555555555555",
+    "status" : "success",
+    "result": {},
+    "error": null
+  }
+]
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+action_attempt, uErr := client.ActionAttempts.Get(context.Background(), &api.ActionAttemptsGetRequest{
+  ActionAttemptId: "11111111-2222-3333-4444-555555555555",
+})
+
+if uErr != nil {
+return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+&{success
+  {
+    "status": "success",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
+    "action_type": "LOCK_DOOR",
+    "result": {},
+    "error": null
+  }
+<nil> <nil>}
 ```
 {% endtab %}
 {% endtabs %}
@@ -787,36 +1122,27 @@ true
 
 ## Checking the Locked Status of a Lock
 
-To retrieve the locked status of a specific door lock, use the ["Get Lock" endpoint](../../api-clients/locks/get-lock.md) (or ["Get Device" endpoint](../../api-clients/devices/get-device.md) for C#) by providing the `device_id` of the lock in question. This will return detailed information, including the current locked status.
+To retrieve the locked status of a specific door lock, use the [Get Lock](../../api-clients/locks/get-lock.md) or [Get Device](../../api-clients/devices/get-device.md) endpoint by providing the `device_id` of the desired lock. This operation returns detailed information, including the current locked status.
 
 {% tabs %}
 {% tab title="Python" %}
 **Request:**
 
 ```python
-pprint(seam.locks.get(device="6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+seam.locks.get(device="11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
-Device(device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-       device_type='august_lock',
-       location={'location_name': 'My House',
-                 'timezone': 'America/Los_Angeles'},
-       properties={
-                   .
-                   .
-                   .
-                   'locked': True,
-                   .
-                   .
-                   .
-                   },
-       .
-       .
-       .
-       )
+Device(
+  device_id='11111111-1111-1111-1111-444444444444',
+  properties={
+    'locked': True,
+    ...
+  },
+  ...
+)
 ```
 {% endtab %}
 
@@ -827,10 +1153,10 @@ Device(device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
 <strong>curl -X 'GET' \
 </strong>  'https://connect.getseam.com/locks/get' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
+  -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+  "device_id": "11111111-1111-1111-1111-444444444444"
 }'
 </code></pre>
 
@@ -839,55 +1165,35 @@ Device(device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
 ```json
 {
   "lock": {
-    "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-    "device_type": "august_lock",
-    "capabilities_supported": [
-      "access_code",
-      "lock"
-    ],
+    "device_id": "11111111-1111-1111-1111-444444444444",
     "properties": {
       "locked": true,
-      "online": true,
-      "door_open": false,
-      "manufacturer": "august",
-      .
-      .
-      .
+      ...
+    },
+    ...
   },
-  .
-  .
-  .
   "ok": true
 }
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 **Request:**
 
 ```javascript
-console.log(await seam.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+await seam.locks.get("11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```json
 {
-  device_id: '6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-  device_type: 'august_lock',
-  capabilities_supported: [ 'access_code', 'lock' ],
+  device_id: '11111111-1111-1111-1111-444444444444',
   properties: {
     locked: true,
-    online: true,
-    door_open: false,
-    manufacturer: 'august',
-    .
-    .
-    .
+    ...
   },
-  .
-  .
-  .
+  ...
 }
 ```
 {% endtab %}
@@ -896,21 +1202,41 @@ console.log(await seam.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 **Request:**
 
 ```ruby
-puts client.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
+client.locks.get("11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
 <Seam::Device:0x00438
-  device_id="6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-  device_type="august_lock"
-  capabilities_supported=["access_code", "lock"]
-  properties={"locked"=>true, "online"=>true, "door_open"=>false, ...}
-  .
-  .
-  .
-  >
+  device_id="11111111-1111-1111-1111-444444444444"
+  properties={
+    "locked"=>true,
+    ...
+  }
+  ...
+>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+$seam->devices->get("11111111-1111-1111-1111-444444444444");
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "properties": {
+    "locked": true,
+    ...
+  },
+  ...
+}
 ```
 {% endtab %}
 
@@ -918,18 +1244,20 @@ puts client.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 **Request:**
 
 ```csharp
-var device = seam.Devices.Get("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-Console.WriteLine("Device ID: " + device.DeviceId);
-Console.WriteLine("Device Name: " + device.Properties.Name);
-Console.WriteLine("Locked: " + device.Properties.Locked);
+seam.Devices.Get("11111111-1111-1111-1111-444444444444");
 ```
 
 **Response:**
 
-```
-Device ID: 6aae9d08-fed6-4ca5-8328-e36849ab48fe
-Device Name: FRONT DOOR
-Locked: True
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "properties": {
+    "locked": true,
+    ...
+  },
+  ...
+}
 ```
 {% endtab %}
 
@@ -937,32 +1265,46 @@ Locked: True
 **Request:**
 
 ```java
-Device lock = seam.locks()
-        .get(LocksGetRequest.builder()
-                .deviceId("6aae9d08-fed6-4ca5-8328-e36849ab48fe")
-                .build());
-System.out.println(lock);
+seam.locks().get(LocksGetRequest.builder()
+  .deviceId("11111111-1111-1111-1111-444444444444")
+  .build());
 ```
 
 **Response:**
 
 ```json
 {
-  "device_id" : "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-  "device_type" : "august_lock",
-  "capabilities_supported" : [ "access_code", "lock" ],
+  "device_id" : "11111111-1111-1111-1111-444444444444",
   "properties" : {
-    .
-    .
-    .
     "locked" : true,
-    .
-    .
-    .
+    ...
   },
-  .
-  .
-  .
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+device, uErr := client.Devices.Get(
+  context.Background(),
+  &api.DevicesGetRequest{
+    DeviceId: "11111111-1111-1111-1111-444444444444",
+  })
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "properties" : {
+    "locked" : true,
+    ...
+  },
+  ...
 }
 ```
 {% endtab %}
@@ -979,17 +1321,17 @@ A lock or unlock event looks like the following:
 ```json
 {
   "event": {
-    "event_id": "fb81969c-cf9f-4566-918d-94f1563af2b7",
-    "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
+    "event_id": "22222222-3333-4444-5555-666666666666",
+    "device_id": "11111111-1111-1111-1111-444444444444",
     "event_type": "lock.locked",
-    "workspace_id": "398d80b7-3f96-47c2-b85a-6f8ba21d07be",
+    "workspace_id": "00000000-0000-0000-0000-000000000000",
     "created_at": "2023-10-13T15:10:18.443Z",
     "occurred_at": "2023-10-13T15:09:08.531Z",
     "method": "unknown",
-    "connected_account_id": "f4140589-ef32-4086-a4c8-256b7b535d5a"
+    "connected_account_id": "11111111-1111-1111-1111-222222222222"
   },
   "ok": true
 }
 ```
 
-For more information about the `lock.locked` and `lock.unlocked` attributes, please refer to[ the Events guide](../../api-clients/events/).
+For more information about the `lock.locked` and `lock.unlocked` attributes, please see[ Events](../../api-clients/events/).

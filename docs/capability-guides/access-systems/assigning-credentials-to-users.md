@@ -1,12 +1,18 @@
-# Assigning Credentials to Users
+---
+description: >-
+  Learn how to assign existing credentials the ACS users and unassign
+  credentials from ACS users.
+---
 
-This guide explains how to assign and unassign credentials to users. When credentials are assigned, users can use them to access areas and resources according to their permissions. When credentials are unassigned, users can no longer use those specific credentials to access areas or resources.
+# Assigning Credentials to ACS Users
+
+This guide explains how to assign existing [credentials](managing-credentials.md) to [ACS users](../../products/access-systems/user-management.md) and unassign credentials from users. Once you assign credentials to ACS users, these users can use the credentials to access areas and resources according to their permissions. When you unassign credentials from ACS users, these users can no longer use these specific credentials to access areas or resources.
 
 ***
 
-## Assign a Credential to a User
+## Assign a Credential to an ACS User
 
-To [assign a credential to a user](../../api-clients/access-control-systems/credentials/assign-a-credential-to-a-user.md), provide both the user ID (`acs_user_id`) and the credential ID (`acs_credential_id`).
+To [assign a credential to an ACS user](../../api-clients/access-control-systems/credentials/assign-a-credential-to-a-user.md), provide both the `acs_user_id` and the `acs_credential_id`.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -22,7 +28,7 @@ seam.acs.credentials.assign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```
@@ -58,7 +64,7 @@ curl -X 'POST' \
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -93,7 +99,7 @@ await seam.acs.credentials.assign({
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -139,7 +145,7 @@ $seam->acs->credentials->assign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -171,7 +177,7 @@ seam.CredentialsAcs.Assign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -219,7 +225,7 @@ acs_credential, uErr := client.Acs.Credentials.Assign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -244,9 +250,9 @@ This response contains manufacturer-specific metadata that may vary by [manufact
 
 ***
 
-## Unassign a Credential from a User
+## Unassign a Credential from an ACS User
 
-To [unassign a credential from a user](../../api-clients/access-control-systems/credentials/unassign-a-credential-from-a-user.md), provide both the user ID (`acs_user_id`) and the credential ID (`acs_credential_id`).
+To [unassign a credential from an ACS user](../../api-clients/access-control-systems/credentials/unassign-a-credential-from-a-user.md), provide both the `acs_user_id` and the `acs_credential_id`.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -262,7 +268,7 @@ seam.acs.credentials.unassign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```
@@ -298,7 +304,7 @@ curl -X 'POST' \
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -333,7 +339,7 @@ await seam.acs.credentials.unassign({
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -379,7 +385,7 @@ $seam->acs->credentials->unassign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -411,7 +417,7 @@ seam.CredentialsAcs.Unassign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json
@@ -459,7 +465,7 @@ acs_credential, uErr := client.Acs.Credentials.Unassign(
 **Response:**
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 ```json

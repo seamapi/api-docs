@@ -4,7 +4,7 @@ description: Get a specified ACS user
 
 # Get a User
 
-Returns a specified [ACS user](../../../products/access-systems/#what-is-a-user).
+Returns a specified [ACS user](../../../products/access-systems/user-management.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/users/get" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

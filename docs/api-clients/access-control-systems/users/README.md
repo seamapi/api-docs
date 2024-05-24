@@ -1,10 +1,10 @@
 ---
-description: Users to whom to grant access to specific physical spaces
+description: ACS users to whom to grant access to specific physical spaces
 ---
 
 # Users
 
-The `acs_user` object represents a [user](../../../products/access-systems/#what-is-a-user) within an [access control system](../../../products/access-systems/) (ACS).
+The `acs_user` object represents a [user](../../../products/access-systems/user-management.md) within an [access control system](../../../products/access-systems/) (ACS).
 
 ## `acs_user` Properties
 

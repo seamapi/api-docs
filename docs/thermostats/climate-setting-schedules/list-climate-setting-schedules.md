@@ -60,8 +60,7 @@ seam.climate_setting_schedules.list(device_id)
 
 ### Parameters
 
-| `device_id` | type: string | ID of Device connected to account |
-| ----------- | ------------ | --------------------------------- |
+<table data-header-hidden><thead><tr><th width="264">Parameter</th><th width="162.33333333333331">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>device_id</code></td><td>String<br><em>Required</em></td><td>ID of device connected to account</td></tr><tr><td><code>user_identifier_key</code></td><td>String<br><em>Optional</em></td><td>Your own internal user ID for the user by which to filter climate setting schedules </td></tr></tbody></table>
 
 ### Response
 

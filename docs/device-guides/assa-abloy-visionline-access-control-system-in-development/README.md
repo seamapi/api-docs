@@ -85,9 +85,6 @@ To issue mobile keys in your sandbox test environment, you must also use the san
 
 ## Where to Order
 
-To purchase the Assa Abloy Visionline ACS and devices, request a quote from ASSA ABLOY.
+To purchase the ASS ABLOY Visionline ACS and devices, request a quote from ASSA ABLOY.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>ASSA ABLOY Contact Page</strong></td><td></td><td><a href="https://www.assaabloyglobalsolutions.com/en/about/local-contacts">https://www.assaabloyglobalsolutions.com/en/about/local-contacts</a></td><td><a href="../../.gitbook/assets/image (1) (1).png">image (1) (1).png</a></td></tr></tbody></table>
-
-***
-
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>ASSA ABLOY Contact Page</strong></td><td></td><td><a href="https://www.assaabloyglobalsolutions.com/en/about/local-contacts">https://www.assaabloyglobalsolutions.com/en/about/local-contacts</a></td><td><a href="../../.gitbook/assets/assa-abloy-logo.png">assa-abloy-logo.png</a></td></tr></tbody></table>

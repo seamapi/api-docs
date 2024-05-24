@@ -12,7 +12,11 @@ Returns a specified [client session](../../core-concepts/authentication/client-s
 
 ## Request
 
-Specify the desired client session by including the corresponding `client_session_id` in the request body.
+Specify the desired client session by including the corresponding `client_session_id` or `user_identifier_key` in the request body.
+
+### Request Body Parameters
+
+<table><thead><tr><th>Parameter</th><th width="112.33333333333331">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>client_session_id</code></td><td>String<br><em>Optional</em></td><td>ID of the desired client session.</td></tr><tr><td><code>user_identifier_key</code></td><td>String<br><em>Optional</em></td><td>Your own internal user ID for the user associated with the client session to retrieve. </td></tr></tbody></table>
 
 ### Sample Request
 
@@ -26,17 +30,11 @@ const clientSession = await seam.clientSessions.get({
 {% endtab %}
 {% endtabs %}
 
-### Request Body Parameters
-
-<table><thead><tr><th>Parameter</th><th width="112.33333333333331">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>client_session_id</code></td><td>String<br><em>Required</em></td><td>ID of the desired client session</td></tr></tbody></table>
-
 ## Response
 
 Returns a `client_session` containing the following properties:
 
 <table><thead><tr><th width="310">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>workspace_id</code></td><td>ID of the <a href="../../core-concepts/workspaces/">workspace</a> that contains the client session</td></tr><tr><td><code>token</code></td><td>Client session token associated with the client session</td></tr><tr><td><code>user_identifier_key</code></td><td>Your own internal user ID for the user</td></tr><tr><td><code>created_at</code></td><td>Date and time at which the client session was created</td></tr><tr><td><code>client_session_id</code></td><td>ID of the client session</td></tr><tr><td><code>device_count</code></td><td>Number of devices to which the client session grants access</td></tr><tr><td><code>connected_account_ids</code></td><td>Array of <a href="../connected-accounts/">connected account</a> IDs associated with this client session</td></tr><tr><td><code>connect_webview_ids</code></td><td>Array of <a href="../../core-concepts/connect-webviews/">Connect Webview</a> IDs associated with the client session</td></tr><tr><td><code>user_identity_ids</code></td><td>Array of user identity IDs on behalf of which which the client session may act</td></tr></tbody></table>
-
-This response also includes a Boolean `ok` status indicator.
 
 ### Sample Response
 

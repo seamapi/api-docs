@@ -1,18 +1,18 @@
 ---
 description: >-
-  Learn how to make temporary access changes by suspending or unsuspending
+  Learn how to make temporary access changes by suspending or unsuspending ACS
   users.
 ---
 
-# Suspending and Unsuspending Users
+# Suspending and Unsuspending ACS Users
 
-You can suspend a user to revoke their access temporarily. Suspending a user is a good action to take for users who may be behind on payment or have not fulfilled the requirements for entry. Then, once the user rectifies the payment, requirements, or other deficiency, you can unsuspend the user to restore their access.
+You can suspend an ACS user to revoke their access temporarily. Suspending an ACS user is a good action to take for users who may be behind on payment or have not fulfilled the requirements for entry. Then, once the user rectifies the payment, requirements, or other deficiency, you can unsuspend the ACS user to restore their access.
 
 ***
 
-## Suspend a User
+## Suspend an ACS User
 
-To [suspend a user](../../api-clients/access-control-systems/users/suspend-a-user.md), provide the user ID (`acs_user_id`).
+To [suspend an ACS user](../../api-clients/access-control-systems/users/suspend-a-user.md), provide the `acs_user_id`.
 
 {% tabs %}
 {% tab title="Python" %}
@@ -153,9 +153,9 @@ suspend, uErr := client.Acs.Users.Suspend(
 
 ***
 
-## Unsuspend a User
+## Unsuspend an ACS User
 
-To [unsuspend a user](../../api-clients/access-control-systems/users/unsuspend-a-user.md), provide the user ID (`acs_user_id`).
+To [unsuspend an ACS user](../../api-clients/access-control-systems/users/unsuspend-a-user.md), provide the `acs_user_id`.
 
 {% tabs %}
 {% tab title="Python" %}

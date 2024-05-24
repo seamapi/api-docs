@@ -19,80 +19,82 @@ layout:
 
 ## Overview
 
-This guide explains how to create access codes on an online smart lock. With the [Access Codes](../../../api-clients/access-codes/) API, generate PIN codes on a door lock and share it with visitors, allowing them keyless access.
+This guide explains how to create online access codes on an online smart lock. With the [Access Codes](../../../api-clients/access-codes/) API, generate PIN codes on a door lock and share it with visitors, allowing them keyless access.
 
-Seam supports programming two types of access codes for online door locks:
+Seam supports programming two types of online access codes for online door locks:
 
 1. **Ongoing**: Ideal for residents or long-term users. Ongoing codes remain active on a device until removed. Create one by leaving the `end_at` field empty. To remove the code, use the [Delete Access Code](../../../api-clients/access-codes/delete-an-access-code.md) endpoint.
 2. **Time Bound**: Suitable for temporary access like guest visits or service appointments. These codes operate between a designated `starts_at` and `ends_at` time window, granting access only during that period.
 
+{% hint style="info" %}
+For more information about creating offline access codes, see [Managing Offline Access Codes](offline-access-codes.md).
+{% endhint %}
+
 ***
 
-## Before You Begin
+## Before You Begin: Confirm Capabilities
 
-To confirm that Seam supports access code programming for your device, use [Get Device](../../../api-clients/devices/get-device.md) or [Get Lock](../../../api-clients/locks/get-lock.md) to query the device and check its `capabilities_supported` property. Ensure that the `capabilities_supported` list includes `access_code`. Additionally, for door locks compatible with [offline access codes](offline-access-codes.md), check that the `properties.online_access_codes_enabled` property is set to `true` for your device.
+Before you attempt to create an [online](./#what-is-an-access-code) or [offline](./#offline-access-codes) access code, be sure to confirm that your device has the capability to perform these operations. You can inspect the capabilities of a device by checking the following [capability flags](../../../capability-guides/device-and-system-capabilities.md#capability-flags) for the device:
+
+* `can_program_online_access_codes`
+* `can_program_offline_access_codes`
+
+Use [Get Device](../../../api-clients/devices/get-device.md) (or [Get Lock](../../../api-clients/locks/get-lock.md)) for a specific device to return these capability flags. Then, use an `if` statement or similar check to confirm that the relevant flag is both present and `true` before attempting to create an access code.
+
+If either of these capability flags is `false` or not present, you can view the [properties](../../../api-clients/devices/#device-properties) of the device, [errors](../../../api-clients/devices/#device-error-types) or [warnings](../../../api-clients/devices/#device-warning-types) for the device, and [events](../../../api-clients/events/#event-types) related to the device to learn more about the cause of these issues. For example, you could examine the following device properties:
+
+* `device.properties.model.has_built_in_keypad`
+* `device.properties.model.can_connect_accessory_keypad`
+* `device.properties.accessory_keypad.is_connected`
+* `device.properties.accessory_keypad.battery.level`
+
+In addition, you could look for a `device.accessory_keypad_disconnected` event.
 
 {% tabs %}
 {% tab title="Python" %}
 **Request:**
 
 ```python
-pprint(seam.locks.get(device="6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+seam.locks.get(device="11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
-Device(device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-       ...
-       properties={
-              ...
-              'online_access_codes_enabled': True, // Device supports online access codes.
-              ...
-       },
-       capabilities_supported=[
-              'access_code', // Device supports access code actions.
-              ...
-              ],
-       ...
-       )
+Device(
+  device_id='11111111-1111-1111-1111-444444444444',
+  can_program_online_access_codes=True,  // You can create online access codes for this device.
+  can_program_offline_access_codes=True, // You can create offline access codes for this device.
+  ...
+)
 ```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
 **Request:**
 
-```bash
-# Use GET or POST.
-curl -X 'GET' \
-  'https://connect.getseam.com/devices/get' \
+<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
+<strong>curl -X 'GET' \
+</strong>  'https://connect.getseam.com/locks/get' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
   -H 'Content-Type: application/json' \
   -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+  "device_id": "11111111-1111-1111-1111-444444444444"
 }'
-```
+</code></pre>
 
 **Response:**
 
 ```json
 {
-  "device": {
-    "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-    ...
-    "properties": {
-              ...
-              "online_access_codes_enabled": true, // Device supports online access codes.
-              ...
-    },
-    "capabilities_supported": [
-      "access_code", // Device supports access code actions.
-      ...
-    ],
+  "lock": {
+    "device_id": "11111111-1111-1111-1111-444444444444",
+    "can_program_online_access_codes": true,  // You can create online access codes for this device.
+    "can_program_offline_access_codes": true, // You can create offline access codes for this device.
     ...
   },
-  ...
+  "ok": true
 }
 ```
 {% endtab %}
@@ -101,24 +103,16 @@ curl -X 'GET' \
 **Request:**
 
 ```javascript
-console.log(await seam.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
+await seam.locks.get("11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```json
 {
-  device_id: '6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-  ...
-  capabilities_supported: [
-    'access_code', // Device supports access code actions.
-    ...
-    ],
-  properties: {
-            ...
-            online_access_codes_enabled: true, // Device supports online access codes.
-            ...
-  },
+  device_id: '11111111-1111-1111-1111-444444444444',
+  can_program_online_access_codes: true,  // You can create online access codes for this device.
+  can_program_offline_access_codes: true, // You can create offline access codes for this device.
   ...
 }
 ```
@@ -128,26 +122,18 @@ console.log(await seam.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe"))
 **Request:**
 
 ```ruby
-puts client.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
+client.locks.get("11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
 <Seam::Device:0x00438
-  device_id="6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+  device_id="11111111-1111-1111-1111-444444444444"
+  can_program_online_access_codes=true  // You can create online access codes for this device.
+  can_program_offline_access_codes=true // You can create offline access codes for this device.
   ...
-  capabilities_supported=[
-    "access_code", // Device supports access code actions.
-    ...
-    ]
-  properties={
-    ...
-    "online_access_codes_enabled"=>true, // Device supports online access codes.
-    ...
-    }
-  ...
-  >
+>
 ```
 {% endtab %}
 
@@ -155,19 +141,18 @@ puts client.locks.get("6aae9d08-fed6-4ca5-8328-e36849ab48fe").inspect
 **Request:**
 
 ```php
-$device = $seam->devices->get("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-echo json_encode($device->capabilities_supported, JSON_PRETTY_PRINT);
-echo json_encode($device->online_access_codes_enabled, JSON_PRETTY_PRINT);
+$seam->devices->get("11111111-1111-1111-1111-444444444444");
 ```
 
 **Response:**
 
-```
-[
-    "access_code", // Device supports access code actions.
-    ...
-]
-true // Device supports online access codes.
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_online_access_codes": true,  // You can create online access codes for this device.
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
+  ...
+}
 ```
 {% endtab %}
 
@@ -175,24 +160,18 @@ true // Device supports online access codes.
 **Request:**
 
 ```csharp
-var device = seam.Devices.Get("6aae9d08-fed6-4ca5-8328-e36849ab48fe");
-  Console.WriteLine("Device ID: " + device.DeviceId);
-  Console.WriteLine("Capabilities:");
-  foreach (var capability in device.CapabilitiesSupported)
-  {
-    Console.WriteLine(capability);
-  }
-  Console.WriteLine("Supports online access codes: " + device.Properties.OnlineAccessCodesEnabled);
+seam.Devices.Get(deviceId: "11111111-1111-1111-1111-444444444444");
 ```
 
 **Response:**
 
 ```
-Device ID: 6aae9d08-fed6-4ca5-8328-e36849ab48fe
-Capabilities:
-AccessCode // Device supports access code actions.
-...
-Supports online access codes: True // Device supports online access codes.
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_online_access_codes": true,  // You can create online access codes for this device.
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
+  ...
+}
 ```
 {% endtab %}
 
@@ -200,28 +179,42 @@ Supports online access codes: True // Device supports online access codes.
 **Request:**
 
 ```java
-Device lock = seam.locks()
-        .get(LocksGetRequest.builder()
-                .deviceId("6aae9d08-fed6-4ca5-8328-e36849ab48fe")
-                .build());
-System.out.println(lock);
+seam.locks()
+  .get(LocksGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
 ```
 
 **Response:**
 
 ```json
 {
-  "device_id" : "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_online_access_codes": true,  // You can create online access codes for this device.
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
   ...
-  "capabilities_supported" : [ 
-    "access_code", // Device supports access code actions.
-    ...
-  ],
-  "properties" : {
-    ...
-    "online_access_codes_enabled" : true, // Device supports online access codes.
-    ...
-  },
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+device, uErr := client.Devices.Get(
+  context.Background(),
+  &api.DevicesGetRequest{
+    DeviceId: "11111111-1111-1111-1111-444444444444",
+  })
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_online_access_codes": true,  // You can create online access codes for this device.
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
   ...
 }
 ```
@@ -230,58 +223,48 @@ System.out.println(lock);
 
 ***
 
-## Programming an Ongoing Code
+## Programming an Ongoing Online Access Code
 
-Ongoing Access codes are ideal for long-term users that wish to keep the same code. Ongoing codes remain active on a device until removed.
+Ongoing online access codes are ideal for long-term users that wish to keep the same code. Ongoing codes remain active on a device until removed.
 
-<figure><img src="../../../.gitbook/assets/ongoing-access-code-light.png" alt=""><figcaption><p>Timeline of an ongoing access code. The code will remain active until you ask Seam to remove it.</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/ongoing-access-code-light.png" alt=""><figcaption><p>Timeline of an ongoing access code. The code remains active, until you use the Seam API to remove it.</p></figcaption></figure>
 
-### 1. Create an Ongoing Access Code
+### 1. Create an Ongoing Online Access Code
 
-Set an ongoing code by providing the `device_id` of the smart lock on which you want to [create an access code](../../../api-clients/access-codes/create-an-access-code.md). Assign an optional `name` to the access code for easier identification within the [Seam Console](https://console.seam.co) and smart lock app.
+Set an ongoing online access code by providing the `device_id` of the smart lock on which you want to [create an access code](../../../api-clients/access-codes/create-an-access-code.md). Assign an optional `name` to the access code for easier identification within the [Seam Console](https://console.seam.co) and smart lock app.
 
-To customize the PIN code, specify a desired PIN for the `code` property. Refer to [the guide on access code requirements](access-code-requirements-for-door-locks.md) to understand any requirements specific to the door lock.
+To customize the PIN code, specify a desired PIN for the `code` property. See [Access Code Requirements for Door Locks](access-code-requirements-for-door-locks.md) to understand any requirements specific to the door lock.
 
 {% tabs %}
 {% tab title="Python" %}
 **Request:**
 
-<pre class="language-python"><code class="lang-python">device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-
-<strong>created_access_code = seam.access_codes.create(
-</strong>  device = device_id,
-  name = "my ongoing code",
-  code = "1234"
-)
-
-pprint(created_access_code)
+<pre class="language-python"><code class="lang-python"># Get the device.
+<strong>device = seam.locks.get(
+</strong><strong>  device_id="11111111-1111-1111-1111-444444444444"
+</strong><strong>)
+</strong><strong>
+</strong><strong># Confirm that the device supports online access codes.
+</strong><strong>if device.can_program_online_access_codes:
+</strong>  # Create the ongoing online access code.
+  seam.access_codes.create(
+    device_id = device.device_id,
+    name = "my ongoing code",
+    code = "1234"
+  )
 </code></pre>
 
 **Response:**
 
 ```
-AccessCode(access_code_id='daf89de3-ad3a-49aa-93bd-25f27d58f699',
-           device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-           type='ongoing',
-           code='1234',
-           created_at='2023-10-19T02:15:04.911Z',
-           errors=[],
-           warnings=[],
-           starts_at=None,
-           ends_at=None,
-           name='my ongoing code',
-           status='setting',
-           common_code_key=None,
-           is_managed=True,
-           is_waiting_for_code_assignment=None,
-           is_scheduled_on_device=None,
-           pulled_backup_access_code_id=None,
-           is_backup_access_code_available=False,
-           is_backup=None,
-           appearance=None,
-           is_external_modification_allowed=False,
-           is_offline_access_code=False,
-           is_one_time_use=False)
+AccessCode(
+  access_code_id='11111111-1111-1111-1111-555555555555',
+  device_id='11111111-1111-1111-1111-444444444444',
+  type='ongoing',
+  code='1234',
+  name='my ongoing code',
+  ...
+)
 ```
 {% endtab %}
 
@@ -289,89 +272,88 @@ AccessCode(access_code_id='daf89de3-ad3a-49aa-93bd-25f27d58f699',
 **Request:**
 
 ```bash
-curl -X 'POST' \
-  'https://connect.getseam.com/access_codes/create' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-  "name": "my ongoing code",
-  "code": "1234"
-}'
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+  
+# Confirm that the device supports online access codes.
+if  $(jq -r '.device.can_program_online_access_codes' <<< ${device}); then \
+  # Create the ongoing online access code.
+  curl -X 'POST' \
+    'https://connect.getseam.com/access_codes/create' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\",
+      \"name\": \"my ongoing code\",
+      \"code\": \"1234\"
+  }";
+fi
 ```
 
 **Response:**
 
 ```json
 {
-  "action_attempt": {
-    "status": "pending",
-    "action_type": "CREATE_ACCESS_CODE",
-    "action_attempt_id": "e8efa128-c06d-40c3-8def-dbb25e5231df",
-    "result": null,
-    "error": null
+  "action_attempt":{
+    "status":"pending",
+    "action_type":"CREATE_ACCESS_CODE",
+    "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+    "result":null,
+    "error":null
   },
-  "access_code": {
-    "access_code_id": "d2047ba8-8849-467f-a07a-efab6c3673bc",
-    "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-    "name": "my ongoing code",
-    "appearance": null,
-    "code": "1234",
-    "common_code_key": null,
-    "type": "ongoing",
-    "status": "setting",
-    "pulled_backup_access_code_id": null,
-    "is_backup_access_code_available": true,
-    "created_at": "2023-10-19T06:55:28.278Z",
-    "errors": [],
-    "warnings": [],
-    "is_managed": true,
-    "is_external_modification_allowed": false,
-    "is_offline_access_code": false,
-    "is_one_time_use": false
+  "access_code":{
+    "access_code_id":"11111111-1111-1111-1111-555555555555",
+    "device_id":"11111111-1111-1111-1111-444444444444",
+    "name":"my ongoing code",
+    "code":"1234",
+    "type":"ongoing",
+    ...
   },
-  "ok": true
+  "ok":true
 }
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 **Request:**
 
 ```javascript
-const deviceId = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
 
-const createdAccessCode = await seam.accessCodes.create({
-    device_id: deviceId,
+// Confirm that the device supports online access codes.
+if (device.can_program_online_access_codes) {
+  // Create the ongoing online access code.
+  await seam.accessCodes.create({
+    device_id: device.device_id,
     name: "my ongoing code",
     code: "1234"
-})
-  
-console.log(createdAccessCode)
+  })
+};
 ```
 
 **Response:**
 
 ```json
 {
-  access_code_id: 'f4780806-076e-4cec-8081-df0ea2139d5a',
-  device_id: '6aae9d08-fed6-4ca5-8328-e36849ab48fe',
+  access_code_id: '11111111-1111-1111-1111-555555555555',
+  device_id: '11111111-1111-1111-1111-444444444444',
   name: 'my ongoing code',
-  appearance: null,
   code: '1234',
-  common_code_key: null,
   type: 'ongoing',
-  status: 'setting',
-  pulled_backup_access_code_id: null,
-  is_backup_access_code_available: true,
-  created_at: '2023-10-19T09:30:58.399Z',
-  errors: [],
-  warnings: [],
-  is_managed: true,
-  is_external_modification_allowed: false,
-  is_offline_access_code: false,
-  is_one_time_use: false
+  ...
 }
 ```
 {% endtab %}
@@ -380,70 +362,63 @@ console.log(createdAccessCode)
 **Request:**
 
 ```ruby
-device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
 
-created_access_code = client.access_codes.create(
-  device_id: device_id,
-  name: "my ongoing code",
-  code: "1234"
-)
-
-puts created_access_code.inspect
+# Confirm that the device supports online access codes.
+if (device.can_program_online_access_codes)
+  # Create the ongoing online access code.
+  client.access_codes.create(
+    device_id: device.device_id,
+    name: "my ongoing code",
+    code: "1234"
+  )
+end
 ```
 
 **Response:**
 
 ```
 <Seam::AccessCode:0x00460
-  code="1234"
+  access_code_id="11111111-1111-1111-1111-555555555555"
+  device_id="11111111-1111-1111-1111-444444444444"
   name="my ongoing code"
+  code="1234"
   type="ongoing"
-  errors=[]
-  status="setting"
-  warnings=[]
-  device_id="6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-  appearance=nil
-  created_at=2023-10-23 20:49:42.932 UTC
-  is_managed=true
-  access_code_id="6fe348a8-5938-4b73-8a36-86f7ffdfc431"
-  pulled_backup_access_code_id=nil
-  is_backup_access_code_available=true
-  is_external_modification_allowed=false
-  is_offline_access_code=false
-  is_one_time_use=false>
+  ...
+>
 ```
 {% endtab %}
 
 {% tab title="PHP" %}
+**Request:**
+
 ```php
-$seam = new SeamClient("YOUR_API_KEY");
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
 
-$device_id = "0e2e6262-7f91-4970-a58d-47ef30b41e2e";
+// Confirm that the device supports online access codes.
+if ($device->can_program_online_access_codes) {
+  // Create the ongoing online access code.
+  $seam->access_codes->create(
+    device_id: $device->device_id,
+    name: "my ongoing code",
+    code: "1234"
+  );
+}
+```
 
-$access_code = $seam->access_codes->create(
-  device_id: $device_id,
-  name: 'my ongoing code',
-);
+**Response:**
 
-# Inspect this created code
-echo json_encode($access_code, JSON_PRETTY_PRINT);
-
-// {
-//     "access_code_id": "bd7e8681-4df6-437c-a12a-e965ecca9caf",
-//     "device_id": "0e2e6262-7f91-4970-a58d-47ef30b41e2e",
-//     "name": "my ongoing code",
-//     "type": "ongoing",
-//     "status": "setting",
-//     "starts_at": null,
-//     "ends_at": null,
-//     "code": "453419",
-//     "created_at": "2023-09-04T05:29:08.084Z",
-//     "errors": [],
-//     "warnings": [],
-//     "is_managed": true,
-//     "common_code_key": null,
-//     "is_waiting_for_code_assignment": null
-// }
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-555555555555",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my ongoing code",
+  "type": "ongoing",
+  "code": "1234",
+  ...
+}
 ```
 {% endtab %}
 
@@ -451,20 +426,31 @@ echo json_encode($access_code, JSON_PRETTY_PRINT);
 **Request:**
 
 ```csharp
-var deviceId = "6aae9d08-fed6-4ca5-8328-e36849ab48fe";
-var createdAccessCode = seam.AccessCodes.Create(
-  deviceId: deviceId,
-  name: "my ongoing code",
-  code: "1234"
-);
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
 
-Console.WriteLine("Created access code ID: " + createdAccessCode.AccessCodeId);
+// Confirm that the device supports online access codes.
+if (device.CanProgramOnlineAccessCodes == true) {
+  // Create the ongoing online access code.
+  seam.AccessCodes.Create(
+    deviceId: device.DeviceId,
+    name: "my ongoing code",
+    code: "1234"
+  );
+}
 ```
 
 **Response:**
 
-```
-Created access code ID: fe372cb9-1fa5-492f-9494-ea01c5558333
+```json
+{
+  "type": "ongoing",
+  "access_code_id": "11111111-1111-1111-1111-555555555555",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my ongoing code",
+  "code": "1234",
+  ...
+}
 ```
 {% endtab %}
 
@@ -472,33 +458,80 @@ Created access code ID: fe372cb9-1fa5-492f-9494-ea01c5558333
 **Request:**
 
 ```java
-var deviceId = "6aae9d08-fed6-4ca5-8328-e36849ab48fe";
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
 
-AccessCode CreatedAccessCode = seam.accessCodes().create(AccessCodesCreateRequest.builder()
-        .deviceId(deviceId)
-        .name("my ongoing code")
-        .code("1234")
-        .build());
-System.out.println(CreatedAccessCode);
+// Confirm that the device supports online access codes.
+if (device.getCanProgramOnlineAccessCodes())
+{
+  // Create the ongoing online access code.
+  seam.accessCodes()
+    .create(AccessCodesCreateRequest.builder()
+      .deviceId(device.getDeviceId())
+      .name("my ongoing code")
+      .code("1234")
+      .build());
+}
 ```
 
 **Response:**
 
 ```json
 {
-  "type" : "ongoing",
-  "access_code_id" : "aff0c858-22f6-4587-9aac-1f5d550be560",
-  "device_id" : "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
+  "access_code_id" : "11111111-1111-1111-1111-555555555555",
+  "device_id" : "11111111-1111-1111-1111-444444444444",
   "name" : "my ongoing code",
   "code" : "1234",
-  "created_at" : "2023-10-30T03:43:13.403Z",
-  "errors" : [ ],
-  "warnings" : [ ],
-  "is_managed" : "true",
-  "status" : "setting",
-  "is_backup_access_code_available" : false,
-  "is_offline_access_code" : false,
-  "is_one_time_use" : false
+  "type" : "ongoing",
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device supports online access codes.
+if *device.CanProgramOnlineAccessCodes {
+  // Create the ongoing online access code.
+  client.AccessCodes.Create(
+      context.Background(),
+      &api.AccessCodesCreateRequest{
+        DeviceId: device.DeviceId,
+        Name: api.String("my ongoing code"),
+        Code: api.String("1234"),
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-555555555555",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my ongoing code",
+  "code": "1234",
+  "type": "ongoing",
+  ...
 }
 ```
 {% endtab %}
@@ -534,61 +567,55 @@ In the event of delay or failure, refer to [the "Troubleshooting access code iss
 
 ***
 
-## Scheduling Time-Bound Access Codes
+## Scheduling Time-Bound Online Access Codes
 
-Time-bound access codes are suitable for temporary access, like guest visits or service appointments. These codes operate between designated `starts_at` and `ends_at` timestamps, granting access only during that period. Seam automatically ensures that the code is programmed on the device at the `starts_at` time and unprogrammed at the `ends_at` time.
+Time-bound online access codes are suitable for temporary access, like guest visits or service appointments. These codes operate between designated `starts_at` and `ends_at` timestamps, granting access only during that period. Seam automatically ensures that the code is programmed on the device at the `starts_at` time and unprogrammed at the `ends_at` time.
 
-<figure><img src="../../../.gitbook/assets/time-bound-access-code-light.png" alt=""><figcaption><p>Timeline of an time-bound access code. The code will remain active until the ends_at timestamp you provide Seam.</p></figcaption></figure>
+<figure><img src="../../../.gitbook/assets/time-bound-access-code-light.png" alt=""><figcaption><p>Timeline of an time-bound access code. The code remains active until the ends_at timestamp that you configured using the Seam API.</p></figcaption></figure>
 
-### 1. Create a Time-Bound Access Code
+### 1. Create a Time-Bound Online Access Code
 
-To set a time-bound code, provide the `device_id` of the smart lock on which you want to program a code, along with `starts_at` and `ends_at` [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) timestamps to define the active time window for the code. For more details, see the [Create Access Code endpoint](../../../api-clients/access-codes/create-an-access-code.md).
+To set a time-bound online access code, provide the `device_id` of the smart lock on which you want to program a code, along with `starts_at` and `ends_at` [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) timestamps to define the active time window for the code. For more details, see the [Create Access Code](../../../api-clients/access-codes/create-an-access-code.md) endpoint.
 
 As with ongoing codes, you can assign an optional `name` to the access code. A clear name helps users to identify the access code quickly within their smart lock app.
 
-Similarly, to customize the PIN code, specify a desired PIN in the `code` property. See the [guide on access code requirements](access-code-requirements-for-door-locks.md) to understand any requirements specific to the door lock brand.
+Similarly, to customize the PIN code, specify a desired PIN in the `code` property. See the [Access Code Requirements for Door Locks](access-code-requirements-for-door-locks.md) to understand any requirements specific to the door lock brand.
 
 {% tabs %}
 {% tab title="Python" %}
 **Request:**
 
 ```python
-device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
-
-created_access_code = seam.access_codes.create(
-  device = device_id,
-  name = "my time-bound code",
-  starts_at = "2025-01-01T16:00:00Z",
-  ends_at = "2025-01-22T12:00:00Z",
-  code = "2345"
+# Get the device.
+device = seam.locks.get(
+  device_id="11111111-1111-1111-1111-444444444444"
 )
 
-pprint(created_access_code)
+# Confirm that the device supports online access codes.
+if device.can_program_online_access_codes:
+  # Create the time-bound online access code.
+  seam.access_codes.create(
+    device_id = device.device_id,
+    name = "my time-bound code",
+    starts_at = "2025-01-01T16:00:00Z",
+    ends_at = "2025-01-22T12:00:00Z",
+    code = "2345"
+  )
 ```
 
 **Response:**
 
 ```
-AccessCode(access_code_id='1bbd1eba-e4a2-4f96-b1b9-8498a5405b2b',
-           device_id='6aae9d08-fed6-4ca5-8328-e36849ab48fe',
-           type='time_bound',
-           code='2345',
-           created_at='2023-10-19T02:21:58.738Z',
-           errors=[],
-           warnings=[],
-           starts_at='2025-01-01T16:00:00.000Z',
-           ends_at='2025-01-22T12:00:00.000Z',
-           name='my time-bound code',
-           status='unset',
-           common_code_key=None,
-           is_managed=True,
-           is_waiting_for_code_assignment=None,
-           is_scheduled_on_device=False,
-           pulled_backup_access_code_id=None,
-           is_backup_access_code_available=False,
-           is_backup=None,
-           appearance=None,
-           is_external_modification_allowed=False)
+AccessCode(
+  access_code_id='11111111-1111-1111-1111-666666666666',
+  device_id='11111111-1111-1111-1111-444444444444',
+  type='time_bound',
+  code='2345',
+  starts_at='2025-01-01T16:00:00.000Z',
+  ends_at='2025-01-22T12:00:00.000Z',
+  name='my time-bound code',
+  ...
+)
 ```
 {% endtab %}
 
@@ -596,18 +623,34 @@ AccessCode(access_code_id='1bbd1eba-e4a2-4f96-b1b9-8498a5405b2b',
 ### Request:
 
 ```sh
-curl -X 'POST' \
-  'https://connect.getseam.com/access_codes/create' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
-  "name": "my time-bound code",
-  "starts_at": "2025-01-01T16:00:00Z",
-  "ends_at": "2025-01-22T12:00:00Z",
-  "code": "2345"
-}'
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+
+# Confirm that the device supports online access codes.
+if  $(jq -r '.device.can_program_online_access_codes' <<< ${device}); then \
+  # Create the time-bound online access code.
+  curl -X 'POST' \
+    'https://connect.getseam.com/access_codes/create' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\",
+      \"name\": \"my time-bound code\",
+      \"starts_at\": \"2025-01-01T16:00:00Z\",
+      \"ends_at\": \"2025-01-22T12:00:00Z\",
+      \"code\": \"2345\"
+  }";
+fi
 ```
 
 ### Response:
@@ -617,74 +660,59 @@ curl -X 'POST' \
   "action_attempt": {
     "status": "pending",
     "action_type": "CREATE_ACCESS_CODE",
-    "action_attempt_id": "2fa34934-883b-496c-8ec1-ac023de55f5a",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
     "result": null,
     "error": null
   },
   "access_code": {
-    "access_code_id": "27afb24f-c0ae-4ea9-81af-f06fd08de09f",
-    "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
+    "access_code_id": "11111111-1111-1111-1111-666666666666",
+    "device_id": "11111111-1111-1111-1111-444444444444",
     "name": "my time-bound code",
-    "appearance": null,
     "code": "2345",
-    "common_code_key": null,
     "type": "time_bound",
-    "status": "unset",
-    "is_scheduled_on_device": false,
     "starts_at": "2025-01-01T16:00:00.000Z",
     "ends_at": "2025-01-22T12:00:00.000Z",
-    "pulled_backup_access_code_id": null,
-    "is_backup_access_code_available": true,
-    "created_at": "2023-10-19T06:58:42.853Z",
-    "errors": [],
-    "warnings": [],
-    "is_managed": true,
-    "is_external_modification_allowed": false
+    ...
   },
   "ok": true
 }
 ```
 {% endtab %}
 
-{% tab title="Javascript" %}
+{% tab title="JavaScript" %}
 **Request:**
 
 ```javascript
-const deviceId = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
 
-const createdAccessCode = await seam.accessCodes.create({
-  device_id: deviceId,
-  name: "my time-bound code",
-  starts_at: "2025-01-01T16:00:00Z",
-  ends_at: "2025-01-22T12:00:00Z",
-  code: "2345"
-})
-
-console.log(createdAccessCode)
+// Confirm that the device supports online access codes.
+if (device.can_program_online_access_codes) {
+  // Create the time-bound online access code.
+  await seam.accessCodes.create({
+    device_id: device.device_id,
+    name: "my time-bound code",
+    starts_at: "2025-01-01T16:00:00Z",
+    ends_at: "2025-01-22T12:00:00Z",
+    code: "2345"
+  })
+};
 ```
 
 **Response:**
 
 ```json
 {
-  access_code_id: '80aa1afa-f0e5-43c2-96ea-6ab141112f9c',
-  device_id: '6aae9d08-fed6-4ca5-8328-e36849ab48fe',
+  access_code_id: '11111111-1111-1111-1111-666666666666',
+  device_id: '11111111-1111-1111-1111-444444444444',
   name: 'my time-bound code',
-  appearance: null,
   code: '2345',
-  common_code_key: null,
   type: 'time_bound',
-  status: 'unset',
-  is_scheduled_on_device: false,
   starts_at: '2025-01-01T16:00:00.000Z',
   ends_at: '2025-01-22T12:00:00.000Z',
-  pulled_backup_access_code_id: null,
-  is_backup_access_code_available: true,
-  created_at: '2023-10-19T09:36:51.663Z',
-  errors: [],
-  warnings: [],
-  is_managed: true,
-  is_external_modification_allowed: false
+  ...
 }
 ```
 {% endtab %}
@@ -693,75 +721,70 @@ console.log(createdAccessCode)
 **Request:**
 
 ```ruby
-device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
 
-created_access_code = client.access_codes.create(
-  device_id: device_id,
-  name: "my time-bound code",
-  starts_at: "2025-01-01T16:00:00Z",
-  ends_at: "2025-01-22T12:00:00Z",
-  code: "2345"
-)
-
-puts created_access_code.inspect
+# Confirm that the device supports online access codes.
+if (device.can_program_online_access_codes)
+  # Create the time-bound online access code.
+  client.access_codes.create(
+    device_id: device.device_id,
+    name: "my time-bound code",
+    starts_at: "2025-01-01T16:00:00Z",
+    ends_at: "2025-01-22T12:00:00Z",
+    code: "2345"
+  )
+end
 ```
 
 **Response:**
 
 ```
 <Seam::AccessCode:0x00438
-  code="2345"
+  access_code_id="11111111-1111-1111-1111-666666666666"
+  device_id="11111111-1111-1111-1111-444444444444"
   name="my time-bound code"
+  code="2345"
   type="time_bound"
-  errors=[]
-  status="unset"
-  ends_at=2025-01-22 12:00:00 UTC
-  warnings=[]
-  device_id="6aae9d08-fed6-4ca5-8328-e36849ab48fe"
   starts_at=2025-01-01 16:00:00 UTC
-  appearance=nil
-  created_at=2023-10-23 20:56:49.213 UTC
-  is_managed=true
-  access_code_id="0d2c8b21-c71f-4301-82ea-22830f749d9b"
-  is_scheduled_on_device=false
-  pulled_backup_access_code_id=nil
-  is_backup_access_code_available=true
-  is_external_modification_allowed=false>
+  ends_at=2025-01-22 12:00:00 UTC
+  ...
+>
 ```
 {% endtab %}
 
 {% tab title="PHP" %}
+**Request:**
+
 ```php
-$seam = new SeamClient("seam_test2ek7_2sq2ExLasPDwa9foJ8PyQ2zH");
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
 
-$device_id = "0e2e6262-7f91-4970-a58d-47ef30b41e2e";
+// Confirm that the device supports online access codes.
+if ($device->can_program_online_access_codes) {
+  // Create the time-bound online access code.
+  $seam->access_codes->create(
+    device_id: $device->device_id,
+    name: "my time-bound code",
+    starts_at:  "2025-01-01T16:00:00Z",
+    ends_at: "2025-01-22T12:00:00Z",
+    code: "2345"
+  );
+}
+```
 
-$access_code = $seam->access_codes->create(
-  device_id: $device_id,
-  name: 'my timebound code',
-  starts_at:  "2025-01-01T16:00:00Z",
-  ends_at: "2025-01-22T12:00:00Z"
-);
+**Response:**
 
-# Inspect this timebound code
-echo json_encode($access_code, JSON_PRETTY_PRINT);
-
-// {
-//   "access_code_id": "e3d6cf81-6dd4-490c-b81f-8478054c2003",
-//   "device_id": "0e2e6262-7f91-4970-a58d-47ef30b41e2e",
-//   "name": "my timebound code",
-//   "type": "time_bound",
-//   "status": "unset",
-//   "starts_at": "2025-01-01T16:00:00.000Z",
-//   "ends_at": "2025-01-22T12:00:00.000Z",
-//   "code": "834435",
-//   "created_at": "2023-09-04T05:32:32.085Z",
-//   "errors": [],
-//   "warnings": [],
-//   "is_managed": true,
-//   "common_code_key": null,
-//   "is_waiting_for_code_assignment": null
-// }
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-666666666666",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my time-bound code",
+  "type": "time_bound",
+  "starts_at": "2025-01-01T16:00:00.000Z",
+  "ends_at": "2025-01-22T12:00:00.000Z",
+  "code": "2345",
+}
 ```
 {% endtab %}
 
@@ -769,22 +792,35 @@ echo json_encode($access_code, JSON_PRETTY_PRINT);
 **Request:**
 
 ```csharp
-var deviceId = "6aae9d08-fed6-4ca5-8328-e36849ab48fe";
-var createdAccessCode = seam.AccessCodes.Create(
-  deviceId: deviceId,
-  name: "my time-bound code",
-  startsAt: "2025-01-01T16:00:00Z",
-  endsAt: "2025-01-22T12:00:00Z",
-  code: "2345"
-);
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
 
-Console.WriteLine("Created access code ID: " + createdAccessCode.AccessCodeId);
+// Confirm that the device supports online access codes.
+if (device.CanProgramOnlineAccessCodes == true) {
+  // Create the time-bound online access code.
+  seam.AccessCodes.Create(
+    deviceId: device.DeviceId,
+    name: "my time-bound code",
+    startsAt: "2025-01-01T16:00:00Z",
+    endsAt: "2025-01-22T12:00:00Z",
+    code: "2345"
+  );
+}
 ```
 
 **Response:**
 
 ```
-Created access code ID: 2928083e-4377-4467-ab33-c600ec48cdec
+{
+  "type": "time_bound",
+  "access_code_id": "11111111-1111-1111-1111-666666666666",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my time-bound code",
+  "starts_at": "2025-01-01T16:00:00Z",
+  "ends_at": "2025-01-22T12:00:00Z",
+  "code": "2345",
+  ...
+}
 ```
 {% endtab %}
 
@@ -792,36 +828,88 @@ Created access code ID: 2928083e-4377-4467-ab33-c600ec48cdec
 **Request:**
 
 ```java
-var deviceId = "6aae9d08-fed6-4ca5-8328-e36849ab48fe";
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
 
-AccessCode CreatedAccessCode = seam.accessCodes().create(AccessCodesCreateRequest.builder()
-        .deviceId(deviceId)
-        .name("my time-bound code")
-        .startsAt("2025-01-01T16:00:00Z")
-        .endsAt("2025-01-22T12:00:00Z")
-        .code("2345")
-        .build());
-System.out.println(CreatedAccessCode);
+// Confirm that the device supports online access codes.
+if (device.getCanProgramOnlineAccessCodes())
+{
+  // Create the time-bound online access code.
+  seam.accessCodes()
+    .create(AccessCodesCreateRequest.builder()
+      .deviceId(device.getDeviceId())
+      .name("my time-bound code")
+      .startsAt("2025-01-01T16:00:00Z")
+      .endsAt("2025-01-22T12:00:00Z")
+      .code("2345")
+      .build());
+}
 ```
 
 **Response:**
 
 ```json
 {
-  "is_scheduled_on_device" : false,
-  "type" : "time_bound",
-  "access_code_id" : "48e8f0e3-11a4-49a4-b589-27a1baf7aee4",
-  "device_id" : "6aae9d08-fed6-4ca5-8328-e36849ab48fe",
+  "access_code_id" : "11111111-1111-1111-1111-666666666666",
+  "device_id" : "11111111-1111-1111-1111-444444444444",
   "name" : "my time-bound code",
   "code" : "2345",
-  "created_at" : "2023-10-30T03:50:17.802Z",
-  "errors" : [ ],
-  "warnings" : [ ],
-  "is_managed" : "true",
+  "type" : "time_bound",
   "starts_at" : "2025-01-01T16:00:00Z",
   "ends_at" : "2025-01-22T12:00:00Z",
-  "status" : "unset",
-  "is_backup_access_code_available" : false
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device supports online access codes.
+if *device.CanProgramOnlineAccessCodes {
+  // Create the time-bound online access code.
+  client.AccessCodes.Create(
+      context.Background(),
+      &api.AccessCodesCreateRequest{
+        DeviceId: device.DeviceId,
+        Name: api.String("my time-bound code"),
+        StartsAt: api.String("2025-01-01T16:00:00Z"),
+        EndsAt: api.String("2025-01-22T12:00:00Z"),
+        Code: api.String("2345"),
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-666666666666",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my time-bound code",
+  "code": "2345",
+  "type": "time_bound",
+  "starts_at": "2025-01-01T16:00:00.000Z",
+  "ends_at": "2025-01-22T12:00:00.000Z",
+  ...
 }
 ```
 {% endtab %}

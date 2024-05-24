@@ -10,4 +10,4 @@ To use the virtual Visionline Access Control System (ACS) with the virtual [Seam
 3. Connect the virtual Visionline ACS using a Connect Webview and the Visionline sample credentials.&#x20;
 {% endhint %}
 
-<table><thead><tr><th width="123">Username</th><th width="109">Password</th><th width="334">Local IP Address of the Visionline Server</th><th>Lock Service Code</th></tr></thead><tbody><tr><td>jane</td><td>1234</td><td>192.168.1.100</td><td>1</td></tr></tbody></table>
+<table><thead><tr><th width="123">Name</th><th width="61">System ID</th><th>Username</th><th width="109">Password</th><th>Mobile Access UUID</th><th>Is Seam Bridge Installed on the Same Computer as Visionline?</th><th width="334">IP Address of Computer Running Visionline</th></tr></thead><tbody><tr><td>Any string to identify this Visionline site</td><td>1</td><td>jane</td><td>1234</td><td>1</td><td>No</td><td>192.168.1.100</td></tr></tbody></table>

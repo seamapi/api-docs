@@ -4,7 +4,7 @@ description: Update the properties of a specified ACS user
 
 # Update a User
 
-Updates any of the following properties of a specified [ACS user](../../../products/access-systems/#what-is-a-user):
+Updates any of the following properties of a specified [ACS user](../../../products/access-systems/user-management.md):
 
 * `full_name`
 * `email_address`

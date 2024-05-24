@@ -4,7 +4,7 @@ description: Add a specified ACS user to a specified access group
 
 # Add a User to an Access Group
 
-Adds a specified [ACS user](../../../products/access-systems/#what-is-a-user) to a specified [access group](../../../products/access-systems/#what-is-an-access-group).
+Adds a specified [ACS user](../../../products/access-systems/user-management.md) to a specified [access group](../../../products/access-systems/assigning-users-to-access-groups.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/users/add_to_access_group" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

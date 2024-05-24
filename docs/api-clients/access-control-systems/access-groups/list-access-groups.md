@@ -4,7 +4,7 @@ description: Get all access groups
 
 # List Access Groups
 
-Returns a list of all [access groups](../../../products/access-systems/#what-is-an-access-group).
+Returns a list of all [access groups](../../../products/access-systems/assigning-users-to-access-groups.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/access_groups/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)
@@ -12,7 +12,7 @@ Returns a list of all [access groups](../../../products/access-systems/#what-is-
 
 ## Request
 
-To filter the list of returned access groups by a specific [access control system](../../../products/access-systems/) or ACS [user](../../../products/access-systems/#what-is-a-user), include one or both of the `acs_system_id` or `acs_user_id` parameters, respectively, in the request body. If you omit these parameters, the response includes all access groups in your [workspace](../../../core-concepts/workspaces/).
+To filter the list of returned access groups by a specific [access control system](../../../products/access-systems/) or [ACS user](../../../products/access-systems/user-management.md), include one or both of the `acs_system_id` or `acs_user_id` parameters, respectively, in the request body. If you omit these parameters, the response includes all access groups in your [workspace](../../../core-concepts/workspaces/).
 
 ### Request Body Parameters
 
@@ -98,7 +98,7 @@ acs_access_groups, uErr := client.Acs.AccessGroups.List(
 
 ## Response
 
-Returns an `acs_access_groups` array, in which each returned access group (`acs_access_group`) contains the following properties:
+Returns an `acs_access_groups` array, in which each returned `acs_access_group` contains the following properties:
 
 <table><thead><tr><th width="310">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_access_group_id</code></td><td>ID of the access group</td></tr><tr><td><code>name</code></td><td>Name of the access group</td></tr><tr><td><code>display_name</code></td><td>Display name for the access group</td></tr><tr><td><code>external_type</code></td><td>Brand-specific terminology for the access group type</td></tr><tr><td><code>external_type_display_name</code></td><td>Display name that corresponds to the brand-specific terminology for the access group type</td></tr><tr><td><code>acs_system_id</code></td><td>ID of the access control system that contains the access group</td></tr><tr><td><code>workspace_id</code></td><td>ID of the <a href="../../../core-concepts/workspaces/">workspace</a> that contains the access group</td></tr><tr><td><code>created_at</code></td><td>Date and time at which the access group was created</td></tr></tbody></table>
 

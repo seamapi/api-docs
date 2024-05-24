@@ -49,8 +49,8 @@ Seam provides two options for connecting the Seam Bridge to your workspace. If y
 2. Click **Devices** to view the **Devices** page.
 3. In the upper-right corner of the **Devices** page, click **+ Add Devices**.
 4. Select **Seam Bridge**.
-5. In the **Bridge Name** field, type a unique name.
-6. In the **PIN Code** field, type the invitation code that you copied during the [Seam Bridge application installation](seam-bridge-in-development.md#install-the-seam-bridge-application-on-the-on-premises-computer).
+5. In the **Pairing Code** field, type the invitation code that you copied during the [Seam Bridge application installation](seam-bridge-in-development.md#install-the-seam-bridge-application-on-the-on-premises-computer).
+6. In the **Bridge Name** field, type a unique name.
 7. Make sure to remember the name of the Seam Network for future reference.\
    You must use this Seam Network name when connecting the on-premises access control system in a Connect Webview.
 
@@ -66,17 +66,18 @@ First, perform the following steps:
 Next, your end user performs the following steps:
 
 1. The end user accesses the Connect Webview and chooses **Seam Bridge** from the list of brands, if available.
-2. In the **Bridge Name** field, the end user types a unique name.
-3. In the **PIN Code** field, the end user types the invitation code that you copied during the [Seam Bridge application installation](seam-bridge-in-development.md#install-the-seam-bridge-application-on-the-on-premises-computer).
+2. In the **Pairing Code** field, the end user types the invitation code that you copied during the [Seam Bridge application installation](seam-bridge-in-development.md#install-the-seam-bridge-application-on-the-on-premises-computer).
+3. In the **Bridge Name** field, the end user types a unique name.
+
+<figure><img src="../.gitbook/assets/connect-webview-seam-bridge-info.png" alt="Type a unique Seam Bridge name and the pairing code from the Seam application installation." width="245"><figcaption><p>Type a unique Seam Bridge name and the pairing code from the Seam application installation.</p></figcaption></figure>
+
 4. The end user must remember the name of the Seam Network for future reference.\
    They must use this Seam Network name when connecting their on-premises access control system in a Connect Webview.
-
-<figure><img src="../.gitbook/assets/connect-webview-visionline-credentials.png" alt="Type a unique Seam Bridge name and the PIN code from the Seam application installation." width="221"><figcaption></figcaption></figure>
 
 ***
 
 ## Connecting the On-Premises Software System
 
-After installing the Seam Bridge application and connecting the Seam Bridge to your workspace, connect your on-premises software system to Seam using a Connect Webview. For detailed instructions on how to connect your system, see the setup instructions in the appropriate brand-specific guide within the [Device Guides](broken-reference) section.
+After installing the Seam Bridge application and connecting the Seam Bridge to your workspace, connect your on-premises software system to Seam using a Connect Webview. For detailed instructions on how to connect your system, see the setup instructions in the appropriate brand-specific guide within the [Device Guides](../device-and-system-integration-guides/overview.md) section.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><strong>Device Guides</strong></td><td>Get started →</td><td></td><td><a href="broken-reference">Broken link</a></td><td><a href="../.gitbook/assets/image (9).png">image (9).png</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td><strong>Device Guides</strong></td><td>Get started →</td><td></td><td><a href="../device-and-system-integration-guides/overview.md">overview.md</a></td><td><a href="../.gitbook/assets/image (9).png">image (9).png</a></td></tr></tbody></table>

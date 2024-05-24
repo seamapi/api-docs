@@ -4,11 +4,13 @@ description: >-
   platforms.
 ---
 
-# 📱 Mobile Access - In Development
+# 📱 Mobile Access
+
+<figure><img src="../../.gitbook/assets/sdk-cover-4-3.png" alt=""><figcaption><p>Seam SDK lets you unlock doors using BLE and NFC credentials across a wide variety of access platforms</p></figcaption></figure>
 
 ## Managing Mobile Credentials
 
-Mobile access is the use of a mobile device, such as a smartphone, tablet, or wearable, to gain access to secured doors, gates, services, and more. This functionality is incorporated in access control systems (ACSs) of diverse types and levels of complexity.
+Mobile access is the use of a mobile device, such as a smartphone, tablet, or wearable, to gain access to secured doors, gates, services, and more. This functionality is incorporated in [access control systems](../access-systems/) (ACSs) of diverse types and levels of complexity.
 
 The Seam mobile access solution makes it easy to issue and retrieve mobile credentials across a wide variety of access control systems. This guide provides an overview of these basic operations and introduces the basic terminology related to mobile access.&#x20;
 

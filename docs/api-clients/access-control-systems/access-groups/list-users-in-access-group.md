@@ -4,7 +4,7 @@ description: Get all users for a specified access group
 
 # List Users in an Access Group
 
-Returns a list of all [users](../../../products/access-systems/#what-is-a-user) in an [access group](../../../products/access-systems/#what-is-an-access-group).
+Returns a list of all [ACS users](../../../products/access-systems/user-management.md) in an [access group](../../../products/access-systems/assigning-users-to-access-groups.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/access_groups/list_users" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)
@@ -92,7 +92,7 @@ acs_users, uErr := client.Acs.AccessGroups.ListUsers(
 
 ## Response
 
-Returns an `acs_users` array, in which each returned user (`acs_user`) contains the following properties:
+Returns an `acs_users` array, in which each returned `acs_user` contains the following properties:
 
 <table><thead><tr><th width="310">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_user_id</code></td><td>ID of the ACS user</td></tr><tr><td><code>display_name</code></td><td>Display name for the ACS user</td></tr><tr><td><code>full_name</code></td><td>Full name of the ACS user</td></tr><tr><td><code>email</code></td><td>Email address of the ACS user (for backward compatibility)</td></tr><tr><td><code>email_address</code></td><td>Email address of the ACS user</td></tr><tr><td><code>phone_number</code></td><td>Phone number of the ACS user in <a href="https://www.itu.int/rec/T-REC-E.164/en">E.164 format</a> (for example, <code>+15555550100</code>)</td></tr><tr><td><code>acs_system_id</code></td><td>ID of the access control system that contains the ACS user</td></tr><tr><td><code>workspace_id</code></td><td>ID of the <a href="../../../core-concepts/workspaces/">workspace</a> that contains the ACS user</td></tr><tr><td><code>created_at</code></td><td>Date and time at which the ACS user was created</td></tr><tr><td><code>is_suspended</code></td><td>Indicates whether the ACS user is currently <a href="../../../products/access-systems/suspending-and-unsuspending-users.md">suspended</a></td></tr><tr><td><code>access_schedule</code></td><td><code>starts_at</code> and <code>ends_at</code> dates/times for the ACS user's access</td></tr><tr><td><code>user_identity_id</code></td><td>ID of the user identity associated with the ACS user</td></tr><tr><td><code>user_identity_full_name</code></td><td>Full name of the user identity associated with the ACS user</td></tr><tr><td><code>user_identity_email_address</code></td><td>Email address of the user identity associated with the ACS user</td></tr><tr><td><code>user_identity_phone_number</code></td><td>Phone number of the user identity associated with the ACS user in <a href="https://www.itu.int/rec/T-REC-E.164/en">E.164 format</a> (for example, <code>+15555550100</code>)</td></tr></tbody></table>
 

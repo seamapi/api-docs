@@ -4,7 +4,7 @@ description: Get all entrances
 
 # List Entrances
 
-Returns a list of all [entrances](../../../products/access-systems/#access-system-components).
+Returns a list of all [entrances](../../../capability-guides/access-systems/retrieving-entrance-details.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/entrances/list" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)
@@ -12,7 +12,7 @@ Returns a list of all [entrances](../../../products/access-systems/#access-syste
 
 ## Request
 
-To filter the list of returned entrances by a specific [access control system](../../../products/access-systems/) or [credential](../../../products/access-systems/#what-is-a-credential), include one or both of the `acs_system_id` or `acs_credential_id` parameters, respectively, in the request body. If you omit these parameters, the response includes all entrances in your [workspace](../../../core-concepts/workspaces/).
+To filter the list of returned entrances by a specific [access control system](../../../products/access-systems/) or [credential](../../../capability-guides/access-systems/managing-credentials.md), include one or both of the `acs_system_id` or `acs_credential_id` parameters, respectively, in the request body. If you omit these parameters, the response includes all entrances in your [workspace](../../../core-concepts/workspaces/).
 
 ### Request Body Parameters
 
@@ -98,14 +98,14 @@ acs_entrances, uErr := client.Acs.Entrances.List(
 
 ## Response
 
-Returns an `acs_entrances` array, in which each returned entrance (`acs_entrance`) contains the following properties:
+Returns an `acs_entrances` array, in which each returned `acs_entrance` contains the following properties:
 
-<table><thead><tr><th width="309">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_entrance_id</code></td><td>ID of the entrance</td></tr><tr><td><code>acs_system_id</code></td><td>ID of the access control system that contains the entrance</td></tr><tr><td><code>workspace_id</code></td><td>ID of the <a href="../../../core-concepts/workspaces/">workspace</a> that contains the user</td></tr><tr><td><code>display_name</code></td><td>Display name for the entrance</td></tr><tr><td><code>XXX_metadata</code></td><td>ACS manufacturer-specific metadata for the entrance, where <code>XXX</code> is the <a href="broken-reference">manufacturer</a></td></tr><tr><td><code>created_at</code></td><td>Date and time at which the entrance was created</td></tr></tbody></table>
+<table><thead><tr><th width="309">Property</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_entrance_id</code></td><td>ID of the entrance</td></tr><tr><td><code>acs_system_id</code></td><td>ID of the access control system that contains the entrance</td></tr><tr><td><code>workspace_id</code></td><td>ID of the <a href="../../../core-concepts/workspaces/">workspace</a> that contains the user</td></tr><tr><td><code>display_name</code></td><td>Display name for the entrance</td></tr><tr><td><code>XXX_metadata</code></td><td>ACS manufacturer-specific metadata for the entrance, where <code>XXX</code> is the <a href="../../../device-and-system-integration-guides/overview.md#access-control-systems">manufacturer</a></td></tr><tr><td><code>created_at</code></td><td>Date and time at which the entrance was created</td></tr></tbody></table>
 
 ### Sample Response
 
 {% hint style="info" %}
-This response contains manufacturer-specific metadata that may vary by [manufacturer](broken-reference).
+This response contains manufacturer-specific metadata that may vary by [manufacturer](../../../device-and-system-integration-guides/overview.md#access-control-systems).
 {% endhint %}
 
 {% tabs %}

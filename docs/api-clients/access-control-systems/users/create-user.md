@@ -4,7 +4,7 @@ description: Create a new ACS user
 
 # Create a User
 
-Creates a new [ACS user](../../../products/access-systems/#what-is-a-user).
+Creates a new [ACS user](../../../products/access-systems/user-management.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/users/create" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)
@@ -12,7 +12,7 @@ Creates a new [ACS user](../../../products/access-systems/#what-is-a-user).
 
 ## Request
 
-Specify the characteristics of the new ACS user by including the corresponding parameters in the request body. Also, include the `acs_system_id` of the [access control system](../../../products/access-systems/) to which you want to add the new ACS user. In addition, you can specify the `acs_access_group_ids` of the [access groups](../../../products/access-systems/#what-is-an-access-group) to which you want to add the new ACS user, as well as a `user_identity_id` if you want to associate the new ACS user with a [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity).
+Specify the characteristics of the new ACS user by including the corresponding parameters in the request body. Also, include the `acs_system_id` of the [access control system](../../../products/access-systems/) to which you want to add the new ACS user. In addition, you can specify the `acs_access_group_ids` of the [access groups](../../../products/access-systems/assigning-users-to-access-groups.md) to which you want to add the new ACS user, as well as a `user_identity_id` if you want to associate the new ACS user with a [user identity](../../user-identities/).
 
 ### Request Body Parameters
 

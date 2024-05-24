@@ -6,7 +6,7 @@ description: >-
 
 # Access Groups
 
-The `acs_access_group` object represents an [access group](../../../products/access-systems/#what-is-an-access-group) within an [Access Control System](../../../products/access-systems/) (ACS).
+The `acs_access_group` object represents an [access group](../../../products/access-systems/assigning-users-to-access-groups.md) within an [access control system](../../../products/access-systems/).
 
 ## `acs_access_group` Properties
 

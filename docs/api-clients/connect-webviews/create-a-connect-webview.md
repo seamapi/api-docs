@@ -1,44 +1,29 @@
 ---
 description: >-
-  To allow a user to sign in, you need to create a connect_webview . After
-  creating the webview, you'll receive a URL that you can use to open an iframe
-  or new window containing a login page for your us
+  Use Connect Webviews to enable your users to connect their devices and systems
+  to Seam.
 ---
 
 # Create a Connect Webview
 
-![An example of what the webview will look like to your user:](<../../.gitbook/assets/image (12).png>)
+To enable a user to connect their devices or systems to Seam, they must sign in to their device or system account. To enable a user to sign in, you create a `connect_webview`. After creating the Connect Webview object, you receive a URL that you can use to display the visual component of this Connect Webview for your user. You can open an iframe or new window to display the Connect Webview.
 
-{% swagger baseUrl="https://connect.getseam.com" method="post" path="/connect_webviews/create" summary="Create a connect_webview" %}
-{% swagger-description %}
+![This example shows how a Connect Webview looks when you display it to your user.](<../../.gitbook/assets/image (12).png>)
 
-{% endswagger-description %}
+## Create a `connect_webview`
 
-{% swagger-parameter in="body" name="accepted_providers" required="true" type="string[]" %}
-Array of accepted
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/connect_webviews/create`
 
-**device provider keys**
+#### Request Body
 
-. See
+| Name                                                   | Type                               | Description                                                                                                                     |
+| ------------------------------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `accepted_providers`<mark style="color:red;">\*</mark> | String\[]                          | <p>Array of accepted</p><p>device provider keys. See</p><p><a href="./#device-provider-keys">Device Provider Keys</a>.</p>      |
+| `custom_redirect_url`                                  | String                             | URL to redirect user to after provider login is complete.                                                                       |
+| `custom_redirect_failure_url`                          | <p>String<br><em>Optional</em></p> | <p>Alternative URL to redirect the user on error. If this is not set, falls back to</p><p><code>custom_redirect_url</code>.</p> |
 
-[Device Provider Keys](create-a-connect-webview.md#device-providers)
-{% endswagger-parameter %}
-
-{% swagger-parameter in="body" name="custom_redirect_url" required="false" %}
-URL to redirect user to after provider login is complete
-{% endswagger-parameter %}
-
-{% swagger-parameter in="body" name="custom_redirect_failure_url" type="type: string Optional" required="false" %}
-Alternative URL to redirect the user on error. If this is not set, falls back to
-
-`custom_redirect_url`
-{% endswagger-parameter %}
-
-{% swagger-parameter in="body" name="device_selection_mode" required="false" %}
-'none', 'single' or 'multiple'
-{% endswagger-parameter %}
-
-{% swagger-response status="201: Created" description="connect_webview successfully created" %}
+{% tabs %}
+{% tab title="201: Created connect_webview successfully created" %}
 ```javascript
 {
     "connect_webview": {
@@ -61,9 +46,9 @@ Alternative URL to redirect the user on error. If this is not set, falls back to
     }
 }
 ```
-{% endswagger-response %}
+{% endtab %}
 
-{% swagger-response status="400: Bad Request" description="" %}
+{% tab title="400: Bad Request " %}
 ```javascript
 {
   "error": {
@@ -85,8 +70,8 @@ Alternative URL to redirect the user on error. If this is not set, falls back to
   "ok": false
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 ### Code Example
 
@@ -267,7 +252,9 @@ echo json_encode($webview);
 {% endtabs %}
 
 {% hint style="info" %}
-**You should make a new `connect_webview` for each unique login request:** Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
+You should make a new`connect_webview`for each unique login request.
+
+Each `connect_webview` tracks the user that signed in with it. You receive an error if you reuse a Connect Webview for the same user twice or if you use the same Connect Webview for multiple users.
 {% endhint %}
 
 ### Parameters

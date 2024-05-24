@@ -280,15 +280,15 @@ puts some_lock.inspect # > #   warnings=[] #   errors=[] #   created_at=2023-04-
 
 Next, you can perform the basic action of triggering a relay on the device. This action is mapped to an unlock API call in Seam.
 
-{% swagger method="post" path="/locks/unlock_door" baseUrl="https://connect.getseam.com" summary="Unlock a door" %}
-{% swagger-description %}
+## Unlock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/unlock_door`
 
-{% swagger-parameter in="body" name="device_id" required="false" %}
+#### Request Body
 
-{% endswagger-parameter %}
-{% endswagger %}
+| Name       | Type   | Description |
+| ---------- | ------ | ----------- |
+| device\_id | String |             |
 
 {% tabs %}
 {% tab title="Python" %}
@@ -312,8 +312,6 @@ seam.locks.unlock_door(some_lock)
 ```
 {% endtab %}
 {% endtabs %}
-
-###
 
 ## Next Steps
 

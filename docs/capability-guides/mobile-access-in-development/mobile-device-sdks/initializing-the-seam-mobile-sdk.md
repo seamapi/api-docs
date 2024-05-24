@@ -50,13 +50,13 @@ end
 
 ## 2. Implement any Manufacturer-Specific Requirements
 
-See the [device or system integration guide](broken-reference) for the access control system or device for which you are planning to develop. Further, you may need to register for developer access with the ACS that you have chosen to use.
+See the [device or system integration guide](../../../device-and-system-integration-guides/overview.md#access-control-systems) for the access control system or device for which you are planning to develop. Further, you may need to register for developer access with the ACS that you have chosen to use.
 
 ***
 
 ## 3. Configure a User Identity for your App User and Generate a Client Session Token
 
-A [User Identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md) allows the application to request a user's mobile access permissions, and use the app to unlock doors.
+A [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md) enables the application to request a user's mobile access permissions and use the app to unlock doors.
 
 First, use the Seam API to create a [user identity](../../../products/mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) that will correspond to the App User Account using your internal user ID or other identifying information.&#x20;
 
@@ -191,7 +191,7 @@ return nil
 
 ## 4. Configure the User Identity for an Access Platform or Lock Brand
 
-To enable a user identity to utilize mobile credentials from different platforms or unlock various lock brands through our SDK, you may need to launch an enrollment automation for each system or brand you wish to include. Please refer to [system integration guides](broken-reference) for more details on how to launch an enrollment automation for a particular system.
+To enable a user identity to utilize mobile credentials from different platforms or unlock various lock brands through our SDK, you may need to launch an enrollment automation for each system or brand you wish to include. Please refer to [system integration guides](../../../device-and-system-integration-guides/overview.md#access-control-systems) for more details on how to launch an enrollment automation for a particular system.
 
 To launch an enrollment automation, include the `user_identity_id`, and include the system-specific settings, such as the `credential_manager_acs_system_id`.
 

@@ -4,7 +4,7 @@ description: Delete a specified credential
 
 # Delete a Credential
 
-Deletes a specified [credential](../../../products/access-systems/#what-is-a-credential).
+Deletes a specified [credential](../../../capability-guides/access-systems/managing-credentials.md).
 
 {% swagger src="https://connect.getseam.com/openapi.json" path="/acs/credentials/delete" method="post" %}
 [https://connect.getseam.com/openapi.json](https://connect.getseam.com/openapi.json)

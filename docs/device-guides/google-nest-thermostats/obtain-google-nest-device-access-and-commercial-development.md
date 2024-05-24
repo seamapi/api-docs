@@ -85,13 +85,20 @@ Google displays the **Authorize an Account** page in a separate browser tab or w
 
     <figure><img src="../../.gitbook/assets/google-cloud-create-credentials-menu.png" alt="On the Google Cloud Credentials page, click Create Credentials > OAuth client ID."><figcaption></figcaption></figure>
 14. On the Google Cloud **Create OAuth client ID** page, specify the following information:
+    1.  In the **Application type** field, select **Web application**.\
 
-    1. In the **Application type** field, select **Web application**.
+
+        <figure><img src="../../.gitbook/assets/google-cloud-credentials-application-type-field.png" alt="On the Google Cloud Create OAuth client ID page, select Web application."><figcaption></figcaption></figure>
     2. Type a name for the OAuth 2.0 client.
-    3. In the **Authorized redirect URIs** area, click **Add URI**, and add the following URI:\
-       [https://eventcallback.io/callback/3q52Dkr5nBe3kK1rWa8vyzoF2f8FJW2gbXxRqpBXKpZQ9WMXsSemFoNyenGEQLVKGa2vcWTDt9ZzF](https://eventcallback.io/callback/3q52Dkr5nBe3kK1rWa8vyzoF2f8FJW2gbXxRqpBXKpZQ9WMXsSemFoNyenGEQLVKGa2vcWTDt9ZzF)
+    3. In the **Authorized redirect URIs** area, click **Add URI** and then choose one of the following two options:
+       * **Option 1 (easy):** Add the following URI to redirect to Seam:\
+         [`https://connect.getseam.com/internal/nest/complete_oauth`](https://connect.getseam.com/internal/nest/complete\_oauth)
+       *   **Option 2 (recommended):** Create a CNAME record in your DNS settings (for example, `nestoauth.mydomain.com`) and redirect it to the following URI:
 
-    <figure><img src="../../.gitbook/assets/google-cloud-credentials-application-type-field.png" alt="On the Google Cloud Create OAuth client ID page, select Web application and then specify the project name and authorized redirect URI."><figcaption></figcaption></figure>
+           [`https://connect.getseam.com/internal/nest/complete_oauth`](https://connect.getseam.com/internal/nest/complete\_oauth)\
+           Setting up a CNAME ensures that the Google OAuth screen displays "continue to \[mydomain.com]" instead of "continue to getseam.com."
+
+           <figure><img src="../../.gitbook/assets/nest-oauth-redirect-uri-setup.png" alt="Setting up a CNAME ensures that the Google OAuth screen displays &#x22;continue to [mydomain.com]&#x22; instead of &#x22;continue to getseam.com.&#x22;"><figcaption></figcaption></figure>
 15. At the bottom of the Google Cloud **Create OAuth client ID** page, click **Create**.\
     The OAuth client created dialog displays the client ID and secret for the newly-created OAuth client.
 16. In the **OAuth client created** dialog, click **Download JSON** and then click **OK**.

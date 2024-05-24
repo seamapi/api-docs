@@ -4,7 +4,7 @@ description: >-
   keypads.
 ---
 
-# Offline Access Codes
+# Managing Offline Access Codes
 
 ## Overview
 
@@ -13,11 +13,19 @@ This guide explains how to create [offline access (PIN) codes](./#offline-access
 * [igloohome Locks device guide](../../../device-guides/igloohome-locks.md)
 * [dormakaba Oracode Locks device guide](../../../device-guides/dormakaba-oracode-locks.md)
 
+{% hint style="info" %}
+For information about online access codes, see [Managing Access Codes](./).
+{% endhint %}
+
 ***
 
-## Before You Begin
+## Before You Begin: Confirm Capabilities
 
-To confirm that Seam supports access code programming for your device, use [Get Device](../../../api-clients/devices/get-device.md) or [Get Lock](../../../api-clients/locks/get-lock.md) to query the device and check the `capabilities_supported` and `offline_access_codes_enabled` properties for the device. Ensure that the `capabilities_supported` list includes `access_code` and that `offline_access_codes_enabled` is `true`.
+Before you attempt to create an offline access code, be sure to confirm that your device has the capability to perform this operation. You can check the following [capability flag](../../../capability-guides/device-and-system-capabilities.md#capability-flags) for the device:
+
+* `can_program_offline_access_codes`
+
+Use [Get Device](../../../api-clients/devices/get-device.md) (or [Get Lock](../../../api-clients/locks/get-lock.md)) for a specific device to return this capability flag. Then, use an `if` statement or similar check to confirm that this flag is both present and `true` before attempting to create an offline access code.
 
 Further, before creating an offline access code, it is imperative to understand any manufacturer- or device-specific constraints, such as the maximum number of access codes, any time slot or activation requirements, and so on. For details, see the corresponding device guide and any manufacturer-specific properties within the retrieved lock.
 
@@ -29,52 +37,41 @@ Further, before creating an offline access code, it is imperative to understand 
 **Request:**
 
 ```python
-pprint(seam.locks.get(device="9689dc30-77d8-4728-9968-b3abd0835f47"))
+seam.locks.get(device="11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```
-Device(device_id='9689dc30-77d8-4728-9968-b3abd0835f47',
-       device_type='igloohome_lock',
-       ...
-       properties={...
-                   'offline_access_codes_enabled': True}, // Device supports offline access codes.
-       capabilities_supported=['access_code', ...], // Device supports access code actions.
-       ...)
+Device(
+  device_id='11111111-1111-1111-1111-444444444444',
+  can_program_offline_access_codes=True, // You can create offline access codes for this device.
+  ...
+)
 ```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
 **Request:**
 
-```bash
-# Use GET or POST.
-curl -X 'GET' \
-  'https://connect.getseam.com/devices/get' \
+<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
+<strong>curl -X 'GET' \
+</strong>  'https://connect.getseam.com/locks/get' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
   -H 'Content-Type: application/json' \
   -d '{
-  "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47"
+  "device_id": "11111111-1111-1111-1111-444444444444"
 }'
-```
+</code></pre>
 
 **Response:**
 
 ```json
 {
-  "device": {
-    "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
-    "device_type": "igloohome_lock",
-    "capabilities_supported": [
-      "access_code", // Device supports access code actions.
-      ...
-    ],
-    "properties": {
-      "offline_access_codes_enabled": true, // Device supports offline access codes.
-      ...
-    },
+  "lock": {
+    "device_id": "11111111-1111-1111-1111-444444444444",
+    "can_program_offline_access_codes": true, // You can create offline access codes for this device.
     ...
   },
   "ok": true
@@ -86,64 +83,114 @@ curl -X 'GET' \
 **Request:**
 
 ```javascript
-const lock = await seam.locks.get("ea12f6c6-e63e-447d-856b-ec9e92981000")
-console.log(lock)
-console.log("\nPredefined time slots:")
-console.log(lock.properties.dormakaba_oracode_metadata.predefined_time_slots)
+await seam.locks.get("11111111-1111-1111-1111-444444444444")
 ```
 
 **Response:**
 
 ```json
 {
-  device_id: 'ea12f6c6-e63e-447d-856b-ec9e92981000',
-  device_type: 'dormakaba_oracode_door',
-  capabilities_supported: [ 'access_code' ], // Device supports access code actions.
-  properties: {
-    ...
-    dormakaba_oracode_metadata: {
-      ...
-      iana_timezone: 'Europe/Tirane',
-      predefined_time_slots: [Array]
-    },
-    ...
-    offline_access_codes_enabled: true, // Device supports offline access codes.
-    ...
-  },
+  device_id: '11111111-1111-1111-1111-444444444444',
+  can_program_offline_access_codes: true, // You can create offline access codes for this device.
   ...
 }
+```
+{% endtab %}
 
-Predefined time slots:
-// Each dormakaba Oracode offline access code must adhere to one of these 
-// predefined user levels (time slots).
-[
-  {
-    name: 'User 123 D 24H',
-    prefix: 123,
-    is_master: false,
-    is_24_hour: true,
-    is_one_shot: false,
-    check_in_time: '00:00:00[Europe/Tirane]',
-    check_out_time: '23:59:00[Europe/Tirane]',
-    is_biweekly_mode: false,
-    dormakaba_oracode_user_level_id: '12e0e160-23e6-4f9b-a82a-ea93d543d1fa',
-    ext_dormakaba_oracode_user_level_prefix: 123
-  },
+{% tab title="Ruby" %}
+**Request:**
+
+```ruby
+client.locks.get("11111111-1111-1111-1111-444444444444")
+```
+
+**Response:**
+
+```
+<Seam::Device:0x00438
+  device_id="11111111-1111-1111-1111-444444444444"
+  can_program_offline_access_codes=true // You can create offline access codes for this device.
   ...
-  {
-    name: 'User 126 D 7am-7pm',
-    prefix: 126,
-    is_master: false,
-    is_24_hour: false,
-    is_one_shot: false,
-    check_in_time: '07:00:00[Europe/Tirane]',
-    check_out_time: '19:00:00[Europe/Tirane]',
-    is_biweekly_mode: false,
-    dormakaba_oracode_user_level_id: '3f0b3c81-fcb6-4c60-8fca-ab020e84990e',
-    ext_dormakaba_oracode_user_level_prefix: 126
-  }
+>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+$seam->devices->get("11111111-1111-1111-1111-444444444444");
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
   ...
-]
+}
+```
+{% endtab %}
+
+{% tab title="C#" %}
+**Request:**
+
+```csharp
+seam.Devices.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+```
+
+**Response:**
+
+```
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Java" %}
+**Request:**
+
+```java
+seam.locks()
+  .get(LocksGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+device, uErr := client.Devices.Get(
+  context.Background(),
+  &api.DevicesGetRequest{
+    DeviceId: "11111111-1111-1111-1111-444444444444",
+  })
+```
+
+**Response:**
+
+```json
+{
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "can_program_offline_access_codes": true, // You can create offline access codes for this device.
+  ...
+}
 ```
 {% endtab %}
 {% endtabs %}
@@ -174,7 +221,7 @@ To [create a daily-bound offline access code](offline-access-codes.md#1.-create-
 
 To create an hourly-bound offline access code, first issue a creation request. Then, poll or use a webhook to confirm the successful code registration in the offline access code server that the device manufacturer maintains.
 
-#### 1. Create an Hourly-Bound Access Code&#x20;
+#### 1. Create an Hourly-Bound Offline Access Code&#x20;
 
 To create an hourly-bound offline access code, provide the `device_id` of the lock for which you want to create the code and set `is_offline_access_code` to `true`. Specify the `starts_at` and `ends_at` [ISO 8601](https://www.iso.org/iso-8601-date-and-time-format.html) timestamps to define the active time window for the offline code. You can also assign an optional `name` to the offline access code. For more details, see the [Create Access Code endpoint](../../../api-clients/access-codes/create-an-access-code.md).
 
@@ -183,44 +230,36 @@ To create an hourly-bound offline access code, provide the `device_id` of the lo
 **Request:**
 
 ```python
-device_id = "9689dc30-77d8-4728-9968-b3abd0835f47"
-
-created_access_code = seam.access_codes.create(
-  device = device_id,
-  name = "my hourly-bound offline code",
-  starts_at = "2023-11-10T00:00:00-00:00",
-  ends_at = "2023-11-15T18:00:00-00:00",
-  is_offline_access_code = True
+# Get the device.
+device = seam.locks.get(
+  device_id="11111111-1111-1111-1111-444444444444"
 )
 
-pprint(created_access_code)
+# Confirm that the device supports offline access codes.
+if device.can_program_offline_access_codes:
+  # Create the hourly-bound offline access code.
+  seam.access_codes.create(
+    device_id = device.device_id,
+    name = "my hourly-bound offline code",
+    starts_at = "2023-11-10T00:00:00-00:00",
+    ends_at = "2023-11-15T18:00:00-00:00",
+    is_offline_access_code = True
+  )
 ```
 
 **Response:**
 
 ```
-AccessCode(access_code_id='f078dce8-3c5e-4bc4-bd08-3ad013ee8be6',
-           device_id='9689dc30-77d8-4728-9968-b3abd0835f47',
-           type='time_bound',
-           code=None,
-           created_at='2023-11-07T03:51:56.096Z',
-           errors=[],
-           warnings=[],
-           starts_at='2023-11-10T00:00:00.000Z',
-           ends_at='2023-11-15T18:00:00.000Z',
-           name='my hourly-bound offline code5',
-           status='unset',
-           common_code_key=None,
-           is_managed=True,
-           is_waiting_for_code_assignment=True,
-           is_scheduled_on_device=False,
-           pulled_backup_access_code_id=None,
-           is_backup_access_code_available=False,
-           is_backup=None,
-           appearance=None,
-           is_external_modification_allowed=False,
-           is_offline_access_code=True,
-           is_one_time_use=False)
+AccessCode(
+  access_code_id='11111111-1111-1111-1111-777777777777',
+  device_id='11111111-1111-1111-1111-444444444444',
+  type='time_bound',
+  starts_at='2023-11-10T00:00:00.000Z',
+  ends_at='2023-11-15T18:00:00.000Z',
+  name='my hourly-bound offline code',
+  is_offline_access_code=True,
+  ...
+)
 ```
 {% endtab %}
 
@@ -228,18 +267,34 @@ AccessCode(access_code_id='f078dce8-3c5e-4bc4-bd08-3ad013ee8be6',
 ### Request:
 
 ```sh
-curl -X 'POST' \
-  'https://connect.getseam.com/access_codes/create' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
-  "name": "my hourly-bound offline code",
-  "starts_at": "2023-11-10T00:00:00-00:00",
-  "ends_at": "2023-11-15T18:00:00-00:00",
-  "is_offline_access_code": true
-}'
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+
+# Confirm that the device supports offline access codes.
+if  $(jq -r '.device.can_program_offline_access_codes' <<< ${device}); then \
+  # Create the hourly-bound offline access code.
+  curl -X 'POST' \
+    'https://connect.getseam.com/access_codes/create' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\",
+      \"name\": \"my hourly-bound offline code\",
+      \"starts_at\": \"2023-11-10T00:00:00-00:00\",
+      \"ends_at\": \"2023-11-15T18:00:00-00:00\",
+      \"is_offline_access_code\": true
+  }";
+fi
 ```
 
 ### Response:
@@ -249,31 +304,19 @@ curl -X 'POST' \
   "action_attempt": {
     "status": "pending",
     "action_type": "CREATE_ACCESS_CODE",
-    "action_attempt_id": "83f1eebf-7a1b-4487-bc90-cf342e1d10d7",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
     "result": null,
     "error": null
   },
   "access_code": {
-    "access_code_id": "a4960c38-fe15-4766-8647-c93e8f05f84a",
-    "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
+    "access_code_id": "11111111-1111-1111-1111-777777777777",
+    "device_id": "11111111-1111-1111-1111-444444444444",
     "name": "my hourly-bound offline code",
-    "appearance": null,
-    "code": null,
-    "is_waiting_for_code_assignment": true,
-    "common_code_key": null,
     "type": "time_bound",
-    "status": "unset",
-    "is_scheduled_on_device": false,
     "starts_at": "2023-11-10T00:00:00.000Z",
     "ends_at": "2023-11-15T18:00:00.000Z",
-    "is_backup_access_code_available": false,
-    "created_at": "2023-11-07T03:53:41.971Z",
-    "errors": [],
-    "warnings": [],
-    "is_managed": true,
-    "is_external_modification_allowed": false,
     "is_offline_access_code": true,
-    "is_one_time_use": false
+    ...
   },
   "ok": true
 }
@@ -284,43 +327,234 @@ curl -X 'POST' \
 **Request:**
 
 ```javascript
-const deviceId = "ea12f6c6-e63e-447d-856b-ec9e92981000"
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
 
-const createdAccessCode = await seam.accessCodes.create({
-  device_id: deviceId,
-  name: "my hourly-bound offline code",
-  starts_at: "2023-12-22T06:00:00-00:00",
-  ends_at: "2023-12-22T18:00:00-00:00",
-  max_time_rounding: "1h",
-  is_offline_access_code: true
-})
-
-console.log(createdAccessCode)
+// Confirm that the device supports offline access codes.
+if (device.can_program_offline_access_codes) {
+  // Create the hourly-bound offline access code.
+  await seam.accessCodes.create({
+    device_id: device.device_id,
+    name: "my hourly-bound offline code",
+    starts_at: "2023-11-10T00:00:00-00:00",
+    ends_at: "2023-11-15T18:00:00-00:00",
+    is_offline_access_code: true
+  })
+};
 ```
 
 **Response:**
 
 ```json
 {
-  access_code_id: 'b4977781-7108-478a-a5ec-764b51ba2647',
-  device_id: 'ea12f6c6-e63e-447d-856b-ec9e92981000',
+  access_code_id: '11111111-1111-1111-1111-777777777777',
+  device_id: '11111111-1111-1111-1111-444444444444',
   name: 'my hourly-bound offline code',
-  appearance: null,
-  code: null,
-  is_waiting_for_code_assignment: true,
-  common_code_key: null,
   type: 'time_bound',
-  status: 'unset',
-  starts_at: '2023-12-22T06:00:00.000Z',
-  ends_at: '2023-12-22T18:00:00.000Z',
-  is_backup_access_code_available: false,
-  created_at: '2023-12-11T21:46:32.914Z',
-  errors: [],
-  warnings: [],
-  is_managed: true,
-  is_external_modification_allowed: false,
+  starts_at: '2023-11-10T00:00:00.000Z',
+  ends_at: '2023-11-15T18:00:00.000Z',
   is_offline_access_code: true,
-  is_one_time_use: false
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Ruby" %}
+**Request:**
+
+```ruby
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
+
+# Confirm that the device supports offline access codes.
+if (device.can_program_offline_access_codes)
+  # Create the hourly-bound offline access code.
+  client.access_codes.create(
+    device_id: device.device_id,
+    name: "my hourly-bound offline code",
+    starts_at: "2023-11-10T00:00:00-00:00",
+    ends_at: "2023-11-15T18:00:00-00:00",
+    is_offline_access_code: true
+  )
+end
+```
+
+**Response:**
+
+```
+<Seam::AccessCode:0x00438
+  access_code_id="11111111-1111-1111-1111-777777777777"
+  device_id="11111111-1111-1111-1111-444444444444"
+  name="my hourly-bound offline code"
+  type="time_bound"
+  starts_at=2023-11-10 00:00:00 UTC
+  ends_at=2023-11-15 18:00:00 UTC
+  is_offline_access_code: true
+  ...
+>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device supports offline access codes.
+if ($device->can_program_offline_access_codes) {
+  // Create the hourly-bound offline access code.
+  $seam->access_codes->create(
+    device_id: $device->device_id,
+    name: "my hourly-bound offline code",
+    starts_at: "2023-11-10T00:00:00Z",
+    ends_at: "2023-11-15T18:00:00Z",
+    is_offline_access_code: true
+  );
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-777777777777",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my hourly-bound offline code",
+  "type": "time_bound",
+  "starts_at": "2023-11-10T00:00:00.000Z",
+  "ends_at": "2023-11-15T18:00:00.000Z",
+  "is_offline_access_code": true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="C#" %}
+**Request:**
+
+```csharp
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device supports offline access codes.
+if (device.CanProgramOfflineAccessCodes == true) {
+  // Create the hourly-bound offline access code.
+  seam.AccessCodes.Create(
+    deviceId: device.DeviceId,
+    name: "my hourly-bound offline code",
+    startsAt: "2023-11-10T00:00:00Z",
+    endsAt: "2023-11-15T18:00:00Z",
+    isOfflineAccessCode: true
+  );
+}
+```
+
+**Response:**
+
+```
+{
+  "type": "time_bound",
+  "access_code_id": "11111111-1111-1111-1111-777777777777",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my hourly-bound offline code",
+  "starts_at": "2023-11-10T00:00:00Z",
+  "ends_at": "2023-11-15T18:00:00Z",
+  "is_offline_access_code": true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Java" %}
+**Request:**
+
+```java
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+
+// Confirm that the device supports offline access codes.
+if (device.getCanProgramOfflineAccessCodes())
+{
+  // Create the hourly-bound offline access code.
+  seam.accessCodes()
+    .create(AccessCodesCreateRequest.builder()
+      .deviceId(device.getDeviceId())
+      .name("my hourly-bound offline code")
+      .startsAt("2023-11-10T00:00:00Z")
+      .endsAt("2023-11-15T18:00:00Z")
+      .isOfflineAccessCode(true)
+      .build());
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id" : "11111111-1111-1111-1111-777777777777",
+  "device_id" : "11111111-1111-1111-1111-444444444444",
+  "name" : "my hourly-bound offline code",
+  "type" : "time_bound",
+  "starts_at" : "2023-11-10T00:00:00Z",
+  "ends_at" : "2023-11-15T18:00:00Z",
+  "is_offline_access_code": true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device supports offline access codes.
+if *device.CanProgramOfflineAccessCodes {
+  // Create the hourly-bound offline access code.
+  client.AccessCodes.Create(
+      context.Background(),
+      &api.AccessCodesCreateRequest{
+        DeviceId: device.DeviceId,
+        Name: api.String("my hourly-bound offline code"),
+        StartsAt: api.String("2023-11-10T00:00:00Z"),
+        EndsAt: api.String("2023-11-15T18:00:00Z"),
+        IsOfflineAccessCode: api.Bool(true),
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-777777777777",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my hourly-bound offline code",
+  "type": "time_bound",
+  "starts_at": "2023-11-10T00:00:00.000Z",
+  "ends_at": "2023-11-15T18:00:00.000Z",
+  "is_offline_access_code": true,
+  ...
 }
 ```
 {% endtab %}
@@ -356,45 +590,37 @@ You can also assign an optional `name` to the offline access code. For more deta
 **Request:**
 
 ```python
-device_id = "9689dc30-77d8-4728-9968-b3abd0835f47"
-
-created_access_code = seam.access_codes.create(
-  device = device_id,
-  name = "my daily-bound offline code",
-  starts_at = "2023-11-17T00:00:00-00:00",
-  ends_at = "2023-12-18T00:00:00-00:00",
-  max_time_rounding = "1d",
-  is_offline_access_code = True
+# Get the device.
+device = seam.locks.get(
+  device_id="11111111-1111-1111-1111-444444444444"
 )
 
-pprint(created_access_code)
+# Confirm that the device supports offline access codes.
+if device.can_program_offline_access_codes:
+  # Create the daily-bound offline access code.
+  seam.access_codes.create(
+    device_id = device.device_id,
+    name = "my daily-bound offline code",
+    starts_at = "2023-11-17T00:00:00-00:00",
+    ends_at = "2023-12-18T00:00:00-00:00",
+    max_time_rounding = "1d",
+    is_offline_access_code = True
+  )
 ```
 
 **Response:**
 
 ```
-AccessCode(access_code_id='7cac9c2c-4313-4a94-a034-ceee2a4bd9ef',
-           device_id='9689dc30-77d8-4728-9968-b3abd0835f47',
-           type='time_bound',
-           code=None,
-           created_at='2023-11-07T04:38:45.865Z',
-           errors=[],
-           warnings=[],
-           starts_at='2023-11-17T00:00:00.000Z',
-           ends_at='2023-12-18T00:00:00.000Z',
-           name='my daily-bound offline code',
-           status='unset',
-           common_code_key=None,
-           is_managed=True,
-           is_waiting_for_code_assignment=True,
-           is_scheduled_on_device=False,
-           pulled_backup_access_code_id=None,
-           is_backup_access_code_available=False,
-           is_backup=None,
-           appearance=None,
-           is_external_modification_allowed=False,
-           is_offline_access_code=True,
-           is_one_time_use=False)
+AccessCode(
+  access_code_id='11111111-1111-1111-1111-888888888888',
+  device_id='11111111-1111-1111-1111-444444444444',
+  type='time_bound',
+  starts_at='2023-11-17T00:00:00.000Z',
+  ends_at='2023-12-18T00:00:00.000Z',
+  name='my daily-bound offline code',
+  is_offline_access_code=True,
+  ...
+)
 ```
 {% endtab %}
 
@@ -402,20 +628,35 @@ AccessCode(access_code_id='7cac9c2c-4313-4a94-a034-ceee2a4bd9ef',
 ### Request:
 
 ```sh
-curl -X 'POST' \
-  'https://connect.getseam.com/access_codes/create' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
-  "name": "my daily-bound offline code",
-  "type": "time_bound",
-  "starts_at": "2023-11-17T00:00:00-00:00",
-  "ends_at": "2023-12-18T00:00:00-00:00",
-  "max_time_rounding": "1d",
-  "is_offline_access_code": true
-}'
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+
+# Confirm that the device supports offline access codes.
+if  $(jq -r '.device.can_program_offline_access_codes' <<< ${device}); then \
+  # Create the daily-bound offline access code.
+  curl -X 'POST' \
+    'https://connect.getseam.com/access_codes/create' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\",
+      \"name\": \"my daily-bound offline code\",
+      \"starts_at\": \"2023-11-17T00:00:00-00:00\",
+      \"ends_at\": \"2023-12-18T00:00:00-00:00\",
+      \"max_time_rounding\": \"1d\",
+      \"is_offline_access_code\": true
+  }";
+fi
 ```
 
 ### Response:
@@ -425,31 +666,19 @@ curl -X 'POST' \
   "action_attempt": {
     "status": "pending",
     "action_type": "CREATE_ACCESS_CODE",
-    "action_attempt_id": "487a8bcc-00f0-45ff-be80-3f0e9d6fdfe5",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
     "result": null,
     "error": null
   },
   "access_code": {
-    "access_code_id": "08d4a763-f2a5-4544-8c90-bce5217fe7b2",
-    "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
+    "access_code_id": "11111111-1111-1111-1111-888888888888",
+    "device_id": "11111111-1111-1111-1111-444444444444",
     "name": "my daily-bound offline code",
-    "appearance": null,
-    "code": null,
-    "is_waiting_for_code_assignment": true,
-    "common_code_key": null,
     "type": "time_bound",
-    "status": "unset",
-    "is_scheduled_on_device": false,
     "starts_at": "2023-11-17T00:00:00.000Z",
     "ends_at": "2023-12-18T00:00:00.000Z",
-    "is_backup_access_code_available": false,
-    "created_at": "2023-11-07T04:41:15.797Z",
-    "errors": [],
-    "warnings": [],
-    "is_managed": true,
-    "is_external_modification_allowed": false,
     "is_offline_access_code": true,
-    "is_one_time_use": false
+    ...
   },
   "ok": true
 }
@@ -460,43 +689,240 @@ curl -X 'POST' \
 **Request:**
 
 ```javascript
-const deviceId = "ea12f6c6-e63e-447d-856b-ec9e92981000"
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
 
-const createdAccessCode = await seam.accessCodes.create({
-  device_id: deviceId,
-  name: "my daily-bound offline code",
-  starts_at: "2023-12-22T23:00:00-00:00",
-  ends_at: "2023-12-27T22:59:00-00:00",
-  max_time_rounding: "1d",
-  is_offline_access_code: true
-})
-
-console.log(createdAccessCode)
+// Confirm that the device supports offline access codes.
+if (device.can_program_offline_access_codes) {
+  // Create the daily-bound offline access code.
+  await seam.accessCodes.create({
+    device_id: device.device_id,
+    name: "my daily-bound offline code",
+    starts_at: "2023-11-17T00:00:00-00:00",
+    ends_at: "2023-12-18T00:00:00-00:00",
+    max_time_rounding: "1d",
+    is_offline_access_code: true
+  })
+};
 ```
 
 **Response:**
 
 ```json
 {
-  access_code_id: 'fb044bde-df9b-4130-bc1a-c0254ab919aa',
-  device_id: 'ea12f6c6-e63e-447d-856b-ec9e92981000',
+  access_code_id: '11111111-1111-1111-1111-888888888888',
+  device_id: '11111111-1111-1111-1111-444444444444',
   name: 'my daily-bound offline code',
-  appearance: null,
-  code: null,
-  is_waiting_for_code_assignment: true,
-  common_code_key: null,
   type: 'time_bound',
-  status: 'unset',
-  starts_at: '2023-12-22T23:00:00.000Z',
-  ends_at: '2023-12-27T22:59:00.000Z',
-  is_backup_access_code_available: false,
-  created_at: '2023-12-11T22:06:27.366Z',
-  errors: [],
-  warnings: [],
-  is_managed: true,
-  is_external_modification_allowed: false,
+  starts_at: '2023-11-17T00:00:00.000Z',
+  ends_at: '2023-12-18T00:00:00.000Z',
   is_offline_access_code: true,
-  is_one_time_use: false
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Ruby" %}
+**Request:**
+
+```ruby
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
+
+# Confirm that the device supports offline access codes.
+if (device.can_program_offline_access_codes)
+  # Create the daily-bound offline access code.
+  client.access_codes.create(
+    device_id: device.device_id,
+    name: "my daily-bound offline code",
+    starts_at: "2023-11-17T00:00:00-00:00",
+    ends_at: "2023-12-18T00:00:00-00:00",
+    max_time_rounding: "1d",
+    is_offline_access_code: true
+  )
+end
+```
+
+**Response:**
+
+```
+<Seam::AccessCode:0x00438
+  access_code_id="11111111-1111-1111-1111-888888888888"
+  device_id="11111111-1111-1111-1111-444444444444"
+  name="my daily-bound offline code"
+  type="time_bound"
+  starts_at=2023-11-17 00:00:00 UTC
+  ends_at=2023-12-18 00:00:00 UTC
+  is_offline_access_code: true
+  ...
+>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device supports offline access codes.
+if ($device->can_program_offline_access_codes) {
+  // Create the daily-bound offline access code.
+  $seam->access_codes->create(
+    device_id: $device->device_id,
+    name: "my daily-bound offline code",
+    starts_at: "2023-11-17T00:00:00Z",
+    ends_at: "2023-12-18T00:00:00Z",
+    max_time_rounding: "1d",
+    is_offline_access_code: true
+  );
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-888888888888",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my daily-bound offline code",
+  "type": "time_bound",
+  "starts_at": "2023-11-17T00:00:00.000Z",
+  "ends_at": "2023-12-18T00:00:00.000Z",
+  "is_offline_access_code": true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="C#" %}
+**Request:**
+
+```csharp
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device supports offline access codes.
+if (device.CanProgramOfflineAccessCodes == true) {
+  // Create the daily-bound offline access code.
+  seam.AccessCodes.Create(
+    deviceId: device.DeviceId,
+    name: "my daily-bound offline code",
+    startsAt: "2023-11-17T00:00:00Z",
+    endsAt: "2023-12-18T00:00:00Z",
+    maxTimeRounding: "1d",
+    isOfflineAccessCode: true
+  );
+}
+```
+
+**Response:**
+
+```
+{
+  "type": "time_bound",
+  "access_code_id": "11111111-1111-1111-1111-888888888888",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my daily-bound offline code",
+  "starts_at": "2023-11-17T00:00:00Z",
+  "ends_at": "2023-12-18T00:00:00Z",
+  "is_offline_access_code": true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Java" %}
+**Request:**
+
+```java
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+
+// Confirm that the device supports offline access codes.
+if (device.getCanProgramOfflineAccessCodes())
+{
+  // Create the daily-bound offline access code.
+  seam.accessCodes()
+    .create(AccessCodesCreateRequest.builder()
+      .deviceId(device.getDeviceId())
+      .name("my daily-bound offline code")
+      .startsAt("2023-11-17T00:00:00Z")
+      .endsAt("2023-12-18T00:00:00Z")
+      .maxTimeRounding("1d")
+      .isOfflineAccessCode(true)
+      .build());
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id" : "11111111-1111-1111-1111-888888888888",
+  "device_id" : "11111111-1111-1111-1111-444444444444",
+  "name" : "my daily-bound offline code",
+  "type" : "time_bound",
+  "starts_at" : "2023-11-17T00:00:00Z",
+  "ends_at" : "2023-12-18T00:00:00Z",
+  "is_offline_access_code": true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device supports offline access codes.
+if *device.CanProgramOfflineAccessCodes {
+  // Create the daily-bound offline access code.
+  client.AccessCodes.Create(
+      context.Background(),
+      &api.AccessCodesCreateRequest{
+        DeviceId: device.DeviceId,
+        Name: api.String("my daily-bound offline code"),
+        StartsAt: api.String("2023-11-17T00:00:00Z"),
+        EndsAt: api.String("2023-12-18T00:00:00Z"),
+        MaxTimeRounding: api.String("1d"),
+        IsOfflineAccessCode: api.Bool(true),
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-888888888888",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my daily-bound offline code",
+  "type": "time_bound",
+  "starts_at": "2023-11-17T00:00:00.000Z",
+  "ends_at": "2023-12-18T00:00:00.000Z",
+  "is_offline_access_code": true,
+  ...
 }
 ```
 {% endtab %}
@@ -534,44 +960,36 @@ You can also assign an optional `name` to the offline access code. For more deta
 **Request:**
 
 ```python
-device_id = "9689dc30-77d8-4728-9968-b3abd0835f47"
-
-created_access_code = seam.access_codes.create(
-  device = device_id,
-  name = "my one-time-use offline code",
-  starts_at = "2023-11-12T00:00:00-00:00",
-  is_offline_access_code = True,
-  is_one_time_use = True
+# Get the device.
+device = seam.locks.get(
+  device_id="11111111-1111-1111-1111-444444444444"
 )
 
-pprint(created_access_code)
+# Confirm that the device supports offline access codes.
+if device.can_program_offline_access_codes:
+  # Create the one-time-use offline access code.
+  seam.access_codes.create(
+    device_id = device.device_id,
+    name = "my one-time-use offline code",
+    starts_at = "2023-11-12T00:00:00-00:00",
+    is_offline_access_code = True,
+    is_one_time_use = True
+  )
 ```
 
 **Response:**
 
 ```
-AccessCode(access_code_id='995957b0-5db5-43f2-ac64-e8ad076c09cf',
-           device_id='9689dc30-77d8-4728-9968-b3abd0835f47',
-           type='time_bound',
-           code=None,
-           created_at='2023-11-07T05:03:31.469Z',
-           errors=[],
-           warnings=[],
-           starts_at='2023-11-12T00:00:00.000Z',
-           ends_at=None,
-           name='my one-time-use offline code',
-           status='unset',
-           common_code_key=None,
-           is_managed=True,
-           is_waiting_for_code_assignment=True,
-           is_scheduled_on_device=False,
-           pulled_backup_access_code_id=None,
-           is_backup_access_code_available=False,
-           is_backup=None,
-           appearance=None,
-           is_external_modification_allowed=False,
-           is_offline_access_code=True,
-           is_one_time_use=True)
+AccessCode(
+  access_code_id='11111111-1111-1111-1111-777777888888',
+  device_id='11111111-1111-1111-1111-444444444444',
+  type='time_bound',
+  starts_at='2023-11-12T00:00:00.000Z',
+  name='my one-time-use offline code',
+  is_offline_access_code=True,
+  is_one_time_use=True,
+  ...
+)
 ```
 {% endtab %}
 
@@ -579,18 +997,34 @@ AccessCode(access_code_id='995957b0-5db5-43f2-ac64-e8ad076c09cf',
 ### Request:
 
 ```sh
-curl -X 'POST' \
-  'https://connect.getseam.com/access_codes/create' \
-  -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
-  "name": "my one-time-use offline code",
-  "starts_at": "2023-11-12T00:00:00-00:00",
-  "is_offline_access_code": true,
-  "is_one_time_use": true
-}'
+# Get the device.
+device=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/get' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+      "device_id": "11111111-1111-1111-1111-444444444444"
+  }')
+
+# Confirm that the device supports offline access codes.
+if  $(jq -r '.device.can_program_offline_access_codes' <<< ${device}); then \
+  # Create the one-time-use offline access code.
+  curl -X 'POST' \
+    'https://connect.getseam.com/access_codes/create' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device.device_id' <<< ${device})\",
+      \"name\": \"my one-time-use offline code\",
+      \"starts_at\": \"2023-11-12T00:00:00-00:00\",
+      \"is_offline_access_code\": true,
+      \"is_one_time_use\": true
+  }";
+fi
 ```
 
 ### Response:
@@ -600,32 +1034,257 @@ curl -X 'POST' \
   "action_attempt": {
     "status": "pending",
     "action_type": "CREATE_ACCESS_CODE",
-    "action_attempt_id": "67562d28-1e54-4faa-b5f8-057bbc6de91d",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
     "result": null,
     "error": null
   },
   "access_code": {
-    "access_code_id": "27000544-20d8-45ea-ba47-267480a3aaf4",
-    "device_id": "9689dc30-77d8-4728-9968-b3abd0835f47",
+    "access_code_id": "11111111-1111-1111-1111-777777888888",
+    "device_id": "11111111-1111-1111-1111-444444444444",
     "name": "my one-time-use offline code",
-    "appearance": null,
-    "code": null,
-    "is_waiting_for_code_assignment": true,
-    "common_code_key": null,
     "type": "time_bound",
-    "status": "unset",
-    "is_scheduled_on_device": false,
     "starts_at": "2023-11-12T00:00:00.000Z",
-    "is_backup_access_code_available": false,
-    "created_at": "2023-11-07T05:08:03.467Z",
-    "errors": [],
-    "warnings": [],
-    "is_managed": true,
-    "is_external_modification_allowed": false,
     "is_offline_access_code": true,
-    "is_one_time_use": true
+    "is_one_time_use": true,
+    ...
   },
   "ok": true
+}
+```
+{% endtab %}
+
+{% tab title="JavaScript" %}
+**Request:**
+
+```javascript
+// Get the device.
+const device = await seam.locks.get({
+  device_id: "11111111-1111-1111-1111-444444444444"
+});
+
+// Confirm that the device supports offline access codes.
+if (device.can_program_offline_access_codes) {
+  // Create the one-time-use offline access code.
+  await seam.accessCodes.create({
+    device_id: device.device_id,
+    name: "my one-time-use offline code",
+    starts_at: "2023-11-12T00:00:00-00:00",
+    is_offline_access_code: true,
+    is_one_time_use: true
+  })
+};
+```
+
+**Response:**
+
+```json
+{
+  access_code_id: '11111111-1111-1111-1111-777777888888',
+  device_id: '11111111-1111-1111-1111-444444444444',
+  name: 'my one-time-use offline code',
+  type: 'time_bound',
+  starts_at: '2023-11-12T00:00:00.000Z',
+  is_offline_access_code: true,
+  is_one_time_use: true,
+  ...
+}
+```
+{% endtab %}
+
+{% tab title="Ruby" %}
+**Request:**
+
+```ruby
+# Get the device.
+device = client.locks.get("11111111-1111-1111-1111-444444444444")
+
+# Confirm that the device supports offline access codes.
+if (device.can_program_offline_access_codes)
+  # Create the one-time-use offline access code.
+  client.access_codes.create(
+    device_id: device.device_id,
+    name: "my one-time-use offline code",
+    starts_at: "2023-11-12T00:00:00-00:00",
+    is_offline_access_code: true,
+    is_one_time_use: true
+  )
+end
+```
+
+**Response:**
+
+```
+<Seam::AccessCode:0x00438
+  access_code_id="11111111-1111-1111-1111-777777888888"
+  device_id="11111111-1111-1111-1111-444444444444"
+  name="my one-time-use offline code"
+  type="time_bound"
+  starts_at=2023-11-12 00:00:00 UTC
+  is_offline_access_code: true
+  is_one_time_use: true
+  ...
+>
+```
+{% endtab %}
+
+{% tab title="PHP" %}
+**Request:**
+
+```php
+// Get the device.
+$device = $seam->locks->get(device_id: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device supports offline access codes.
+if ($device->can_program_offline_access_codes) {
+  // Create the one-time-use offline access code.
+  $seam->access_codes->create(
+    device_id: $device->device_id,
+    name: "my one-time-use offline code",
+    starts_at: "2023-11-12T00:00:00Z",
+    is_offline_access_code: true,
+    is_one_time_use: true
+  );
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-777777888888",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my one-time-use offline code",
+  "type": "time_bound",
+  "starts_at": "2023-11-12T00:00:00.000Z",
+  "is_offline_access_code": true,
+  "is_one_time_use": true,
+  ...
+}    
+```
+{% endtab %}
+
+{% tab title="C#" %}
+**Request:**
+
+```csharp
+// Get the device.
+Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+
+// Confirm that the device supports offline access codes.
+if (device.CanProgramOfflineAccessCodes == true) {
+  // Create the one-time-use offline access code.
+  seam.AccessCodes.Create(
+    deviceId: device.DeviceId,
+    name: "my one-time-use offline code",
+    startsAt: "2023-11-12T00:00:00Z",
+    isOfflineAccessCode: true,
+    isOneTimeUse: true
+  );
+}
+```
+
+**Response:**
+
+```
+{
+  "type": "time_bound",
+  "access_code_id": "11111111-1111-1111-1111-777777888888",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my one-time-use offline code",
+  "starts_at": "2023-11-12T00:00:00Z",
+  "is_offline_access_code": true,
+  "is_one_time_use": true,
+  ...
+}  
+```
+{% endtab %}
+
+{% tab title="Java" %}
+**Request:**
+
+```java
+// Get the device.
+Device device = seam.devices()
+  .get(DevicesGetRequest.builder()
+    .deviceId("11111111-1111-1111-1111-444444444444")
+    .build());
+
+// Confirm that the device supports offline access codes.
+if (device.getCanProgramOfflineAccessCodes())
+{
+  // Create the one-time-use offline access code.
+  seam.accessCodes()
+    .create(AccessCodesCreateRequest.builder()
+      .deviceId(device.getDeviceId())
+      .name("my one-time-use offline code")
+      .startsAt("2023-11-12T00:00:00Z")
+      .isOfflineAccessCode(true)
+      .isOneTimeUse(true)
+      .build());
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id" : "11111111-1111-1111-1111-777777888888",
+  "device_id" : "11111111-1111-1111-1111-444444444444",
+  "name" : "my one-time-use offline code",
+  "type" : "time_bound",
+  "starts_at" : "2023-11-12T00:00:00Z",
+  "is_offline_access_code": true,
+  "is_one_time_use": true,
+  ...
+}    
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Request:**
+
+```go
+// Get the device.
+device, uErr := client.Locks.Get(
+  context.Background(),
+  &api.LocksGetRequest{
+    DeviceId: api.String("11111111-1111-1111-1111-444444444444"),
+  })
+
+// Confirm that the device supports offline access codes.
+if *device.CanProgramOfflineAccessCodes {
+  // Create the one-time-use offline access code.
+  client.AccessCodes.Create(
+      context.Background(),
+      &api.AccessCodesCreateRequest{
+        DeviceId: device.DeviceId,
+        Name: api.String("my one-time-use offline code"),
+        StartsAt: api.String("2023-11-12T00:00:00Z"),
+        IsOfflineAccessCode: api.Bool(true),
+        IsOneTimeUse: api.Bool(true),
+      },
+    )
+  }
+
+if uErr != nil {
+    return uErr
+}
+
+return nil
+```
+
+**Response:**
+
+```json
+{
+  "access_code_id": "11111111-1111-1111-1111-777777888888",
+  "device_id": "11111111-1111-1111-1111-444444444444",
+  "name": "my one-time-use offline code",
+  "type": "time_bound",
+  "starts_at": "2023-11-12T00:00:00.000Z",
+  "is_offline_access_code": true,
+  "is_one_time_use": true,
+  ...
 }
 ```
 {% endtab %}

@@ -8,54 +8,74 @@ description: >-
 
 <figure><img src="../../.gitbook/assets/acs-cover.png" alt=""><figcaption></figcaption></figure>
 
-Seam provides **a unified API across multiple brands of access control systems** to grant and manage access to apartment buildings, hotels, commercial offices, warehouses, and much more. The Seam API standardizes key functions across systems and brands, such as creating users, issuing credentials (PIN codes, key cards, mobile keys), managing access permissions, retrieving access logs, and more.&#x20;
+Seam provides **a unified API across multiple brands of access control systems** (ACSs) to grant and manage access to apartment buildings, hotels, commercial offices, warehouses, and much more. The Seam API standardizes key functions across systems and brands, such as creating users, issuing credentials (PIN codes, key cards, and mobile keys), managing access permissions, retrieving access logs, and more.&#x20;
 
 ***
 
 ## What Is an Access Control System?
 
-Access control systems (ACSs) enable you to manage and monitor access to physical spaces, such as offices, residential complexes, and special-purpose facilities. A key aspect of access control systems is that access authorization is centralized, letting you grant access to a user across multiple doors using a single credential. An access control system will generally manage the following: (a) who has access, (b) which entrances they have access to and (c) under what conditions they are permitted to enter.
+Access control systems enable you to manage and monitor access to physical spaces, such as offices, residential complexes, and special-purpose facilities. A key aspect of ACSs is that they centralize access authorization, which enables you to grant access to a user across multiple doors using a single credential.
 
-<figure><img src="../../.gitbook/assets/building-acs-example.png" alt=""><figcaption><p>Example of a residential building with multiple doors connected to an ACS system</p></figcaption></figure>
+An access control system generally manages the following permissions:
+
+* Who has access
+* The entrances to which they have access
+* The access schedule for each ACS user and entrance
+* The access mechanism—such as a PIN code, mobile key, or RFID card—for each ACS user and entrance
+
+<figure><img src="../../.gitbook/assets/building-acs-example.png" alt="Example of a residential building with multiple doors connected to an ACS system"><figcaption><p>Example of a residential building with multiple doors connected to an ACS system</p></figcaption></figure>
 
 ***
 
-## Components of Access Control Systems&#x20;
+## Access Methods
 
-The Seam access system schema consists of a series of objects that interact to enable you manage your ACS in a logical, efficient manner. The top-level object is the [system](../../api-clients/access-control-systems/systems/) that represents one or more buildings, residential locations, or other sites that you manage using this ACS. Within the system, you identify the set of [entrances](../../api-clients/access-control-systems/entrances/), doors, or zones that you want to manage, identifying each by the corresponding lock object. You also identify the set of [users](./#what-is-a-user) who access these entrances, doors, or zones.
+Seam enables you to grant ACS users access to entrances through digital credentials, including PIN codes, mobile keys, and RFID cards. The Seam API combines centralized access management and audit log capabilities with the flexibility to create credentials using the access methods that best suit your users' needs.
 
-[Access groups](./#what-is-an-access-group) provide an efficient way to grant sets of scheduled access to one or more users. That is, you create access group objects that specify the entrances, doors, or zones to which a set of users has access, as well as the days and times at which these users have access to these entrances, doors, or zones.
+<figure><img src="../../.gitbook/assets/acs-credential-types.png" alt="Seam provides the flexibility to grant access to ACS users through a variety of access methods."><figcaption><p>Seam provides the flexibility to grant access to ACS users through a variety of access methods.</p></figcaption></figure>
 
-Finally, you issue sets of [credentials](./#what-is-a-credential)—such as access codes, key cards, and mobile passes—to individual users.
+***
 
-The following diagram illustrates the relationship between Seam access system components:
+## ACS Resources
 
-<figure><img src="../../.gitbook/assets/image (26).png" alt="Overview of access control system resources as represented in Seam. This mapping may vary depending on the provider type."><figcaption><p>Overview of access control system resources as represented in Seam. This mapping may vary depending on the provider type.</p></figcaption></figure>
+The Seam ACS schema consists of a series of resources. These resources interact intuitively, enabling you to manage your ACS in a logical, efficient manner. Seam's universal API provides the flexibility to manage a variety of [ACSs](../../capability-guides/access-systems/understanding-access-control-system-differences.md), each of which may have manufacturer-specific differences. For details about your ACS, see the corresponding [system integration guide](../../device-and-system-integration-guides/overview.md#access-control-systems).
 
-### What Is a User?
+The following diagram shows an example of one ACS, including the ACS resources and the relationships between them:
 
-A "user" typically refers to an individual who requires access, like an employee or resident. Each user can possess multiple "credentials" that serve as their keys or identifiers for access. The type of credential can vary widely. For example, in the [Salto](../../device-guides/salto-locks.md) system, a user can have a PIN code, a mobile app account, and a fob. In other platforms, it is not uncommon for a user to have more than one of the same credential type, such as multiple key cards. Additionally, these credentials can have a schedule or validity period.
+<figure><img src="../../.gitbook/assets/acs-arch-access-group-based.png" alt="Seam&#x27;s ACS resources provide the flexibility to manage your ACS intuitively, regardless of the differences between various ACS manufacturers."><figcaption><p>Seam's ACS resources provide the flexibility to manage your ACS intuitively, regardless of the differences between various ACS manufacturers.</p></figcaption></figure>
 
-### What Is an Access Group?
+The following table provides a brief description of each of the Seam ACS resources:
 
-An "access group" is a set of users, combined with a set of permissions. These permissions include both the set of areas or assets that the users can access and the schedule during which the users can access these areas or assets. Instead of assigning access rights individually to each user, which can be time-consuming and error-prone, administrators can assign users to an access group, thereby ensuring that the users inherit all the permissions associated with the access group. Using access groups streamlines the process of managing large numbers of users, especially in bigger organizations or complexes.
+<table><thead><tr><th width="248">ACS Resource</th><th>Description</th></tr></thead><tbody><tr><td><picture><source srcset="../../.gitbook/assets/acs-system_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-system_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/systems/"><code>acs_system</code></a></td><td>The top-level object. Represents one or more buildings, residential locations, or other sites that you manage using this ACS.<br>For more information, see <a href="../../capability-guides/access-systems/retrieving-acs-system-details.md">Retrieving ACS System Details</a>.</td></tr><tr><td><picture><source srcset="../../.gitbook/assets/acs-user_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-user_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/users/"><code>acs_user</code></a></td><td>The set of users who access the entrances.<br>For more information, see <a href="user-management.md">Managing ACS Users</a>.</td></tr><tr><td><picture><source srcset="../../.gitbook/assets/acs-access-group_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-access-group_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/access-groups/"><code>acs_access_group</code></a></td><td>Some ACSs use access groups as an efficient way to grant sets of scheduled entrance access to one or more users.<br>For more information, see <a href="assigning-users-to-access-groups.md">Assigning ACS Users to Access Groups</a>.</td></tr><tr><td><picture><source srcset="../../.gitbook/assets/acs-credential_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-credential_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/credentials/"><code>acs_credential</code></a></td><td>A digital means that authorizes a user to access one or more entrances at specific days and times. Examples of credentials include RFID cards, mobile keys, and PIN codes.<br>For more information, see <a href="../../capability-guides/access-systems/managing-credentials.md">Managing Credentials</a>.</td></tr><tr><td><picture><source srcset="../../.gitbook/assets/acs-entrance_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-entrance_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/entrances/"><code>acs_entrance</code></a></td><td>The set of entrances, doors, or zones that you want to manage. You identify each entrance by the corresponding lock object.<br>For more information, see <a href="../../capability-guides/access-systems/retrieving-entrance-details.md">Retrieving Entrance Details</a>.</td></tr></tbody></table>
 
-### What is a Credential?
+{% hint style="info" %}
+You configure the access schedules for your ACS users either through access groups or credentials, depending on your specific ACS. There is no separate schedule resource in the Seam API.
+{% endhint %}
 
-An ACS generally uses digital means of access to authorize a user trying to get through a specific entrance. Examples of credentials include RFID cards, mobile keys, biometric identifiers, or PIN codes. The electronic nature of those credentials, as well as the fact that access is centralized both the rapid provisioning and rescinding of access, as well as the ability to compile access audit log.
+***
 
-<figure><img src="../../.gitbook/assets/acs-credential-types.png" alt=""><figcaption><p>Example of access control user credentials</p></figcaption></figure>
+## Basic ACS Configuration Process
+
+While there are some manufacturer-specific differences between ACSs, all ACSs share the following basic resources and relationships:
+
+*   **ACS users:** You create [ACS users](user-management.md) to represent the users in a specific ACS.
+
+    If you manage multiple ACSs and need to grant the same user access to [entrances](../../capability-guides/access-systems/retrieving-entrance-details.md) in multiple ACSs, you can also use Seam [user identities](../../api-clients/user-identities/). With user identities, you can link an application user in your own system to one or more Seam ACS users.
+* **Access permissions:** Access permissions define the allowed entrances and the days and times at which this access is valid. Depending on your ACS, you configure access permissions by [assigning ACS users to access groups](../../capability-guides/access-systems/understanding-access-control-system-differences.md#access-group-based-acs) or by [specifying access permissions for each ACS user or credential](../../capability-guides/access-systems/understanding-access-control-system-differences.md#credential-based-acs).
+*   **Credentials:** Credentials serve as the mechanism that allows your ACS users to gain access to entrances. Examples of credentials that Seam supports include RFID cards, mobile keys, and PIN codes. You create [credentials](../../capability-guides/access-systems/managing-credentials.md) and assign these credentials to your ACS users.
+
+    If you are developing a mobile app to provide access for your ACS users, you can  also use [Seam's iOS and Android SDKs](../../developer-tools/mobile-sdks/) that pair with the Seam API to create and manage [mobile keys](../mobile-access-in-development/).
 
 ***
 
 ## **Next Steps**
 
-To learn how to manage access control system components, see the following guides:
+To learn how to manage ACS components, see the following guides:
 
-* [User Management](user-management.md)
-* [Assigning Users to Access Groups](assigning-users-to-access-groups.md)
+* [Understanding ACS Differences](../../capability-guides/access-systems/understanding-access-control-system-differences.md)
+* [Retrieving ACS System Details](../../capability-guides/access-systems/retrieving-acs-system-details.md)
+* [Managing ACS Users](user-management.md)
+* [Assigning ACS Users to Access Groups](assigning-users-to-access-groups.md)
+* [Retrieving Entrance Details](../../capability-guides/access-systems/retrieving-entrance-details.md)
 * [Managing Credentials](../../capability-guides/access-systems/managing-credentials.md)
-* [Assigning Credentials to Users](../../capability-guides/access-systems/assigning-credentials-to-users.md)
-* [Suspending and Unsuspending Users](suspending-and-unsuspending-users.md)
 
 For the corresponding Seam API reference, see [Access Control Systems](../../api-clients/access-control-systems/).
