@@ -85,9 +85,21 @@ const seam = new Seam({
 
 // console.log(await seam.devices.list({device_type: "ttlock_lock"}));
 
-console.log(await seam.devices.list({
-  include_if: ["can_remotely_unlock"]
-}));
+// console.log(await seam.devices.list({
+//   include_if: ["can_remotely_unlock"]
+// }));
+
+
+// // Confirm that the device can remotely lock.
+// if ((await seam.locks.get({device_id: "59112086-537a-49c0-96dc-ce74f5abfbd7"})).can_remotely_lock) {
+//   // Perform the lock operation.
+//   console.log(await seam.locks.lockDoor({
+//     device_id: "59112086-537a-49c0-96dc-ce74f5abfbd7",
+//     waitForActionAttempt: true
+//   }))
+// };
+
+// await seam.actionAttempts.get({action_attempt_id: ""});
 
 // await seam.acs.accessGroups.addUser();
 // await seam.acs.users.addToAccessGroup();
@@ -204,3 +216,6 @@ console.log(await seam.devices.list({
 //   // acs_system_id: "11111111-1111-1111-1111-111111111111"
 // }));
 
+await seam.acs.systems.listCompatibleCredentialManagerAcsSystems({
+  acs_system_id: "f43c0c38-ae6e-4a54-911d-8c802302eced"
+});
