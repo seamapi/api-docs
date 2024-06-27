@@ -19,6 +19,7 @@ import com.seam.api.types.CustomMetadataValue;
 import com.seam.api.types.AcceptedProvider;
 import com.seam.api.types.ProviderCategory;
 import com.seam.api.types.DeviceType;
+import com.seam.api.types.Manufacturer;
 import com.seam.api.types.SelectionMode;
 import com.seam.api.types.DevicesListDeviceProvidersRequestProviderCategory;
 import com.seam.api.types.ConnectedAccount;
@@ -78,15 +79,21 @@ public class Main {
     public static void main(String[] args) {
         int randomNumber = rand.nextInt(1_000_000);
 
+        String SEAM_API_KEY = "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq";
+
         // Get a Seam Client
         // Seam seam = Seam.builder()
         //     .apiKey("seam_test2scj_2c636ceHmdU1ZJEHp5svCZgy")
         //     .url("https://connect.getseam.com")
         //     .build();
+        // Seam seam = Seam.builder()
+        //     .apiKey("seam_test8yup_77ut771wVzFPcfhce9ti5Ccq")
+        //     .url("https://connect.getseam.com")
+        //     .build();
         Seam seam = Seam.builder()
-            .apiKey("seam_test8yup_77ut771wVzFPcfhce9ti5Ccq")
-            .url("https://connect.getseam.com")
+            .apiKey(SEAM_API_KEY)
             .build();
+
 //         Seam seam = Seam.builder()
 //             // Specify PAT.
 //             .apiKey("seam_at134EHBFs3_2YuxzbTCZ5EJZcHTzy5b2Z8u")
@@ -122,24 +129,24 @@ public class Main {
 //       .build()).getPending());
 // }
 
-// Get the device.
-Device device = seam.devices()
-  .get(DevicesGetRequest.builder()
-    // .deviceId("11111111-1111-1111-1111-444444444444")
-    .deviceId("59112086-537a-49c0-96dc-ce74f5abfbd7")
-    .build());
-// Confirm that the device supports online access codes.
-// if (device.getCanProgramOnlineAccessCodes())
-if (device.getIsManaged())
-{
-  // Create the ongoing online access code.
-  seam.accessCodes()
-    .create(AccessCodesCreateRequest.builder()
-      .deviceId(device.getDeviceId())
-      .name("my ongoing code")
-      .code("1234")
-      .build());
-}
+// // Get the device.
+// Device device = seam.devices()
+//   .get(DevicesGetRequest.builder()
+//     // .deviceId("11111111-1111-1111-1111-444444444444")
+//     .deviceId("59112086-537a-49c0-96dc-ce74f5abfbd7")
+//     .build());
+// // Confirm that the device supports online access codes.
+// // if (device.getCanProgramOnlineAccessCodes())
+// if (device.getIsManaged())
+// {
+//   // Create the ongoing online access code.
+//   seam.accessCodes()
+//     .create(AccessCodesCreateRequest.builder()
+//       .deviceId(device.getDeviceId())
+//       .name("my ongoing code")
+//       .code("1234")
+//       .build());
+// }
 
 // Device device = seam.devices()
 //       .get(DevicesGetRequest.builder()
@@ -608,6 +615,21 @@ if (device.getIsManaged())
 // System.out.println(createdConnectWebview.getLoginSuccessful()); // false
 // System.out.println(createdConnectWebview.getUrl());
 
+// ConnectWebview connectWebview = seam.connectWebviews().create(ConnectWebviewsCreateRequest.builder()
+//                 .acceptedProviders(List.of(
+//                   AcceptedProvider.ECOBEE))
+//                 .build());
+// System.out.println(connectWebview.getLoginSuccessful()); // false
+// System.out.println(connectWebview.getUrl());
+
+// String connectWebviewId = "44912603-23e8-4126-8f02-29c875875a64";
+// ConnectWebview updatedConnectWebview = seam.connectWebviews().get(ConnectWebviewsGetRequest.builder()
+//   // .connectWebviewId(connectWebview.getConnectWebviewId())
+//   .connectWebviewId(connectWebviewId)
+//   .build());
+
+// System.out.println(updatedConnectWebview.getLoginSuccessful()); // true
+
 // ConnectWebview updatedConnectWebview = seam.connectWebviews().get(ConnectWebviewsGetRequest.builder()
 //                 .connectWebviewId(createdConnectWebview.getConnectWebviewId())
 //                 .build());
@@ -629,6 +651,78 @@ if (device.getIsManaged())
 
 
 // System.out.println(seam.connectedAccounts().list());
+
+// Retrieve all devices, filtered by manufacturer,
+// which is one of several filters that list() supports.
+// var all4suitesLocks = seam.devices().list(DevicesListRequest.builder()
+//   .manufacturer(Manufacturer.FOURSUITES)
+//   .build());
+var all4suitesLocks = seam.devices().list(DevicesListRequest.builder()
+  // .manufacturer(Manufacturer.YALE)
+  .manufacturer(Manufacturer.AUGUST)
+  .build());
+
+// Select the first device as an example.
+Device someLock = all4suitesLocks.get(0);
+
+// Inspect specific properties.
+System.out.println(someLock.getProperties().getOnline()); // true
+// System.out.println(someLock.getProperties().getLocked()); // true
+
+// View the entire returned device object.
+System.out.println(someLock);
+
+// // Confirm that the device can remotely unlock.
+// // if (someLock.getCanRemotelyUnlock())
+// if (someLock.getProperties().getOnline()) // WRONG! Using for now because the Java SDK does not yet have canRemotelyUnlock.
+// {
+//   // Perform the unlock operation
+//   // and return an action attempt.
+//   ActionAttempt actionAttempt = seam.locks()
+//     .unlockDoor(LocksUnlockDoorRequest.builder()
+//       .deviceId(someLock.getDeviceId())
+//       .build());
+//   System.out.println(actionAttempt.getPending());
+//   System.out.println(actionAttempt.getSuccess());
+// }
+
+// // Get the device by ID.
+// var updatedLock = seam.devices().get(DevicesGetRequest.builder()
+//   .deviceId(someLock.getDeviceId())
+//   .build());
+
+// // Inspect the locked property to confirm
+// // that the unlock operation was successful.
+// // System.out.println(updatedLock.getProperties().getLocked()); // false
+
+// // Confirm that the device supports online access codes.
+// // if (updatedLock.getCanProgramOnlineAccessCodes())
+// if (updatedLock.getProperties().getOnline()) // WRONG! Using for now because the Java SDK does not yet have getCanProgramOnlineAccessCodes.
+// {
+//   // Create an ongoing online access code.
+//   seam.accessCodes()
+//     .create(AccessCodesCreateRequest.builder()
+//       .deviceId(updatedLock.getDeviceId())
+//       .name("my ongoing code")
+//       .code("1234")
+//       .build());
+//   // Create a time-bound online access code.
+//   seam.accessCodes()
+//     .create(AccessCodesCreateRequest.builder()
+//       .deviceId(updatedLock.getDeviceId())
+//       .name("my time-bound code")
+//       .startsAt("2025-01-01T16:00:00Z")
+//       .endsAt("2025-01-22T12:00:00Z")
+//       .code("2345")
+//       .build());
+//   // List all access codes for this device.
+//   var accessCodes = seam.accessCodes()
+//     .list(AccessCodesListRequest.builder()
+//       .deviceId(updatedLock.getDeviceId())
+//       .build());
+//   System.out.println(accessCodes);
+// }
+
 
 // Map<String, CustomMetadataValue> customMetadata =
 //     Map.of("internal_account_id", CustomMetadataValue.of(Optional.of("user-1")));

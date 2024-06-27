@@ -3,17 +3,21 @@ using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.AccessControl;
+using Seam.Api;
 using Seam.Client;
 using Seam.Model;
 
 // var r = new string(Enumerable.Range(0, 10).Select(_ => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random().Next(36)]).ToArray());
 
+// var SEAM_API_KEY = "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq";
+var SEAM_API_KEY = "seam_testMyUj_6Exz7BVtFUM6GrHggvm9DFXm";
 
 // Get a Seam Client
 var seam = new SeamClient(
-    basePath: "https://connect.getseam.com",
+    // basePath: "https://connect.getseam.com",
     // apiToken: "seam_test2scj_2c636ceHmdU1ZJEHp5svCZgy"
-    apiToken: "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"
+    // apiToken: "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"
+    apiToken: SEAM_API_KEY
 
 );
 // var seam = new SeamClient(
@@ -36,6 +40,7 @@ var seam = new SeamClient(
     //   Console.WriteLine(prop);
     // };
 
+// Console.WriteLine(seam.Devices.List());
 // var devices = seam.Devices.List();
 // List<string> deviceIds = new() {
 //   "30fd243b-3054-4384-a713-5487076a3826",
@@ -62,19 +67,19 @@ var seam = new SeamClient(
 //   // Console.WriteLine(seam.Locks.LockDoor(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7"));
 // }
 
-// Get the device.
-// Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
-Device device = seam.Locks.Get(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7");
-// Confirm that the device supports online access codes.
-if (device.CanProgramOnlineAccessCodes == true) {
-  // Create the ongoing online access code.
-  seam.AccessCodes.Create(
-    deviceId: device.DeviceId,
-    name: "my ongoing code",
-    // code: "1234"
-    code: "5234"
-  );
-}
+// // Get the device.
+// // Device device = seam.Locks.Get(deviceId: "11111111-1111-1111-1111-444444444444");
+// Device device = seam.Locks.Get(deviceId: "59112086-537a-49c0-96dc-ce74f5abfbd7");
+// // Confirm that the device supports online access codes.
+// if (device.CanProgramOnlineAccessCodes == true) {
+//   // Create the ongoing online access code.
+//   seam.AccessCodes.Create(
+//     deviceId: device.DeviceId,
+//     name: "my ongoing code",
+//     // code: "1234"
+//     code: "5234"
+//   );
+// }
 
 // if (device.Properties.HasDirectPower == true)
 // {
@@ -595,6 +600,24 @@ if (device.CanProgramOnlineAccessCodes == true) {
 
 // Console.WriteLine(createdConnectWebview);
 
+// var connectWebview = seam.ConnectWebviews.Create(
+//   acceptedProviders: new() {Seam.Api.ConnectWebviews.CreateRequest.AcceptedProvidersEnum.FourSuites}
+// );
+
+// Console.WriteLine(connectWebview.LoginSuccessful); // False
+
+// // Use the Connect Webview URL to display the
+// // Connect Webview authorization flow to your user.
+// Console.WriteLine(connectWebview.Url);
+
+// var connectWebviewId = "44912603-23e8-4126-8f02-29c875875a64";
+// var updatedConnectWebview = seam.ConnectWebviews.Get(
+//   // connectWebviewId: connectWebview.connectWebviewId
+//   connectWebviewId: connectWebviewId
+// );
+
+// Console.WriteLine(updatedConnectWebview.LoginSuccessful); // True
+
 // var createdConnectWebview = seam.ConnectWebviews.Create(
 //   customRedirectUrl: "https://example.com/redirect",
 //   customRedirectFailureUrl: "https://example.com/failure-redirect",
@@ -614,6 +637,168 @@ if (device.CanProgramOnlineAccessCodes == true) {
 // {
 //   {"internal_account_id", "user-1"}
 // };
+
+// // Retrieve all devices, filtered by manufacturer,
+// // which is one of several filters that list() supports.
+// // var all4suitesLocks = seam.Devices.List(manufacturer: Seam.Api.Devices.ListRequest.ManufacturerEnum.FourSuites);
+// var all4suitesLocks = seam.Devices.List(
+//   // manufacturer: Seam.Api.Devices.ListRequest.ManufacturerEnum.Yale
+//   manufacturer: Seam.Api.Devices.ListRequest.ManufacturerEnum.August
+// );
+
+// // Select the first device as an example.
+// Device someLock = all4suitesLocks[0];
+
+// // Inspect specific properties.
+// Console.WriteLine(someLock.Properties.Online); // true
+// Console.WriteLine(someLock.Properties.Locked); // true
+
+// // View the entire returned device object.
+// Console.WriteLine(someLock);
+
+// // Confirm that the device can remotely unlock.
+// if (someLock.CanRemotelyUnlock == true) {
+//   // Perform the unlock operation
+//   // and return an action attempt.
+//   ActionAttempt actionAttempt = seam.Locks.UnlockDoor(deviceId: someLock.DeviceId);
+//   Console.WriteLine(actionAttempt);
+// }
+
+// System.Threading.Thread.Sleep(20000);
+
+// // Get the device by ID.
+// var updatedLock = seam.Devices.Get(
+//   deviceId: someLock.DeviceId
+// );
+
+// // Inspect the locked property to confirm
+// // that the unlock operation was successful.
+// Console.WriteLine(updatedLock.Properties.Locked); // false
+
+// // Confirm that the device supports online access codes.
+// if (updatedLock.CanProgramOnlineAccessCodes == true) {
+//   // Create an ongoing online access code.
+//   seam.AccessCodes.Create(
+//     deviceId: updatedLock.DeviceId,
+//     name: "my ongoing code",
+//     code: "1234"
+//   );
+//   // Create a time-bound online access code.
+//   seam.AccessCodes.Create(
+//     deviceId: updatedLock.DeviceId,
+//     name: "my time-bound code",
+//     startsAt: "2025-01-01T16:00:00Z",
+//     endsAt: "2025-01-22T12:00:00Z",
+//     code: "2345"
+//   );
+//   // List all access codes for this device.
+//   var accessCodes = seam.AccessCodes.List(
+//     deviceId: updatedLock.DeviceId
+//   );
+//   foreach (var accessCode in accessCodes)
+//   {
+//     Console.WriteLine(accessCode);
+//   }
+// }
+
+
+// // Step 1:
+// // Create the new user on the Latch ACS.
+// // janeUser is a UserIdentity that represents
+// // a user within your set of app users.
+// AcsUser buildingAResident = seam.UsersAcs.Create(
+//   acsSystemId: "11111111-1111-1111-1111-111111111111",
+//   userIdentityId: janeUser.userIdentityId,
+//   fullName: "Jane Doe",
+//   emailAddress: "jane@example.com"
+// );
+
+// // Step 2:
+// // Create a PIN code for each door for the ACS user.
+// foreach (AcsEntrance entrance in entrances)
+// {
+//   AcsCredential credential = seam.CredentialsAcs.Create(
+//     acsUserId: buildingAResident.acsUserId,
+//     // Use either acsUserId or userIdentityId.
+//     userIdentityId: janeUser.userIdentityId,
+//     accessMethod: "code",
+//     allowedAcsEntranceIds: new List<string>
+//     {
+//       // You must specify only one entrance per PIN code.
+//       entrance.acsEntranceId
+//     },
+//     startsAt: "2024-07-13T16:50:42Z",
+//     endsAt: "2024-07-18T16:50:42Z"
+//   );
+
+//   Console.WriteLine(credential);
+// }
+
+
+// var buildingA = seam.SystemsAcs.Get(
+//   acs_system_id: "f4f660da-c96a-4cf6-9f81-507ff4772b30"
+// );
+
+// var entrances = seam.EntrancesAcs.List(
+//   acs_system_id: "f4f660da-c96a-4cf6-9f81-507ff4772b30"
+// );
+
+// // Step 1:
+// // Create a user identity that corresponds to your user's app account.
+// var janeUser = seam.UserIdentities.Create(
+//   emailAddress: "jane6@example.com"
+// );
+
+// // Step 2:
+// // Retrieve a credential manager.
+// var latchCredentialManager = seam.SystemsAcs
+//   .ListCompatibleCredentialManagerAcsSystems(
+//     acsSystemId: buildingA.acsSystemId
+//   )["acs_systems"][0];
+
+// // Step 3:
+// // Set up an enrollment automation for the user identity, to enable mobile keys.
+// seam.UserIdentities.EnrollmentAutomations.Launch(
+//   userIdentityId: janeUser.userIdentityId,
+//   createCredentialManagerUser: true,
+//   credentialManagerAcsSystemId: latchCredentialManager.acsSystemId
+// );
+
+// // Step 4:
+// // Create an ACS user on the Latch ACS
+// // or assign the ACS user to the user identity.
+// AcsUser buildingAResident = seam.UsersAcs.Create(
+//   // To associate the ACS user with a user identity,
+//   // include the userIdentityId.
+//   // Resources that you create for this ACS user
+//   // are available under the associated user identity.
+//   userIdentityId: janeUser.userIdentityId,
+//   acsSystemId: buildingA.acsSystemId,
+//   fullName: "Jane Doe",
+//   emailAddress: "jane@example.com"
+// );
+
+// // Step 5:
+// // Create a mobile key for each door for the ACS user.
+// foreach (AcsEntrance entrance in entrances)
+// {
+//   AcsCredential mobileKey = seam.CredentialsAcs.Create(
+//     acsUserId: buildingAResident.acsUserId,
+//     isMultiPhoneSyncCredential: true,
+//     accessMethod: "mobile_key",
+//     allowedAcsEntranceIds: new List<string>
+//     {
+//       // You must specify only one entrance per mobile key.
+//       entrance.acsEntranceId
+//     },
+//     startsAt: "2024-07-13T16:50:42Z",
+//     endsAt: "2024-07-18T16:50:42Z"
+//   );
+
+//   Console.WriteLine(mobileKey);
+// }
+
+
 
 // var devices = seam.Devices.List(
 //   // customMetadataHas: customMetadata
@@ -702,6 +887,7 @@ if (device.CanProgramOnlineAccessCodes == true) {
 //     }
 // );
 
+
 // seam.UsersAcs.Update(
 //   // acsUserId: "33333333-3333-3333-3333-333333333333",
 //   acsUserId: "ac0b10d4-b37c-4104-8179-bb3effae917e",
@@ -762,10 +948,10 @@ if (device.CanProgramOnlineAccessCodes == true) {
 //   acsUserId: "ff44664d-e6ae-4cb4-a9a1-73a8abe6a405"
 // );
 
-// seam.UsersAcs.Unsuspend(
-//   // acsUserId: "33333333-3333-3333-3333-333333333333"
-//   acsUserId: "ff44664d-e6ae-4cb4-a9a1-73a8abe6a405"
-// );
+seam.UsersAcs.Unsuspend(
+  // acsUserId: "33333333-3333-3333-3333-333333333333"
+  acsUserId: "ff44664d-e6ae-4cb4-a9a1-73a8abe6a405"
+);
 
 
 // Console.WriteLine(seam.Devices.List(connectedAccountIds: new List<string> {"ebb67664-c6c0-4a40-9955-5d9b25af8a08", "63f3d878-58b0-46f6-a066-7be9d824b688"}));
@@ -793,3 +979,7 @@ if (device.CanProgramOnlineAccessCodes == true) {
 // Console.WriteLine(seam.Devices.List(
 //   connectedAccountIds: new List<string>(new string[] {"63f3d878-58b0-46f6-a066-7be9d824b688"})
 // ));
+
+// seam.SystemsAcs.ListCompatibleCredentialManagerAcsSystems(
+//   acsSystemId: "11111111-1111-1111-1111-111111111111"
+// );

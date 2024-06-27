@@ -6,12 +6,13 @@ import (
 	// "math/rand"
 	"os"
   // "encoding/json"
-  // "time"
+  "time"
+  // "reflect"
 
   api "github.com/seamapi/go"
 	seam "github.com/seamapi/go/client"
-  // "github.com/seamapi/go/useridentities"
-  // "github.com/seamapi/go/acs"
+  "github.com/seamapi/go/useridentities"
+  "github.com/seamapi/go/acs"
 
 
 
@@ -25,11 +26,17 @@ func main() {
 }
 
 func run() error {
+  // SEAM_API_KEY := "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"
+  // SEAM_API_KEY := "seam_testjMPq_3wh4WmfXuMRMZbAfpCmvUkUi"
+  // SEAM_API_KEY := "seam_testMyUj_6Exz7BVtFUM6GrHggvm9DFXm"
+  SEAM_API_KEY := "seam_test2P1X_2jq9k99HBroBF9zMamfdwwaZ"
+
 	client := seam.NewClient(
 		// seam.WithBaseURL(fmt.Sprintf("https://%d.fakeseamconnect.seam.vc", rand.Intn(1000000))),
 		// seam.WithApiKey("seam_apikey1_token"),
 		// seam.WithApiKey("seam_test2scj_2c636ceHmdU1ZJEHp5svCZgy"),
-		seam.WithApiKey("seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"),
+		// seam.WithApiKey("seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"),
+		seam.WithApiKey(SEAM_API_KEY),
 	)
 	// devices, err := client.Devices.List(context.Background(), nil)
 	// if err != nil {
@@ -77,31 +84,31 @@ func run() error {
 
 // return nil
 
-// Get the device.
-device, uErr := client.Locks.Get(
-  context.Background(),
-  &api.LocksGetRequest{
-    DeviceId: api.String("59112086-537a-49c0-96dc-ce74f5abfbd7"),
-  })
+// // Get the device.
+// device, uErr := client.Locks.Get(
+//   context.Background(),
+//   &api.LocksGetRequest{
+//     DeviceId: api.String("59112086-537a-49c0-96dc-ce74f5abfbd7"),
+//   })
 
-// Confirm that the device supports online access codes.
-if *device.CanProgramOnlineAccessCodes {
-  // Create the ongoing online access code.
-  client.AccessCodes.Create(
-      context.Background(),
-      &api.AccessCodesCreateRequest{
-        DeviceId: device.DeviceId,
-        Name: api.String("my ongoing code"),
-        Code: api.String("1234"),
-      },
-    )
-  }
+// // Confirm that the device supports online access codes.
+// if *device.CanProgramOnlineAccessCodes {
+//   // Create the ongoing online access code.
+//   client.AccessCodes.Create(
+//       context.Background(),
+//       &api.AccessCodesCreateRequest{
+//         DeviceId: device.DeviceId,
+//         Name: api.String("my ongoing code"),
+//         Code: api.String("1234"),
+//       },
+//     )
+//   }
 
-if uErr != nil {
-    return uErr
-}
+// if uErr != nil {
+//     return uErr
+// }
 
-return nil
+// return nil
 
 // // Get the device.
 // device, uErr := client.Locks.Get(
@@ -411,7 +418,7 @@ return nil
 //   context.Background(),
 //   &api.ConnectWebviewsCreateRequest{
 // 			AcceptedProviders: []api.AcceptedProvider{
-// 				api.AcceptedProviderEcobee,
+// 				api.AcceptedProviderFourSuites,
 // 			},
 //   },
 // )
@@ -420,6 +427,22 @@ return nil
 // }
 // fmt.Println(connectWebview.LoginSuccessful) // false
 // fmt.Println(connectWebview.Url)
+// return nil
+
+// connectWebviewId := "44912603-23e8-4126-8f02-29c875875a64";
+// updatedConnectWebview, err := client.ConnectWebviews.Get(
+//   context.Background(),
+//   &api.ConnectWebviewsGetRequest{
+//     ConnectWebviewId: connectWebviewId,
+//   },
+// )
+
+// if err != nil {
+//   return err
+// }
+
+// fmt.Println(updatedConnectWebview.LoginSuccessful) // true
+
 // return nil
 
 // updatedConnectWebview, err := client.ConnectWebviews.Get(
@@ -447,6 +470,287 @@ return nil
 // }
 // fmt.Println(connectWebviews)
 // return nil
+
+// // Retrieve all devices, filtered by manufacturer,
+// // which is one of several filters that list() supports.
+// all4suitesLocks, err := client.Devices.List(
+//   context.Background(), &api.DevicesListRequest{
+//     // Manufacturer: api.ManufacturerFourSuites.Ptr(),
+//     // Manufacturer: api.ManufacturerYale.Ptr(),
+//     Manufacturer: api.ManufacturerAugust.Ptr(),
+//   },
+// )
+
+// // Select the first device as an example.
+// someLock := all4suitesLocks[0]
+
+// if err != nil {
+//   return err
+// }
+
+// Inspect specific properties.
+// fmt.Println(someLock.Properties.Online) // true
+// fmt.Println(*someLock.Properties.Locked) // true
+
+// View the entire returned device object.
+// fmt.Println(someLock)
+
+// return nil
+
+// // Confirm that the device can remotely unlock.
+// if *someLock.CanRemotelyUnlock {
+//   // Perform the unlock operation.
+//   actionAttempt, err := client.Locks.UnlockDoor(
+//       context.Background(),
+//       &api.LocksUnlockDoorRequest{
+//         DeviceId: someLock.DeviceId,
+//       },
+//     )
+//   fmt.Println(actionAttempt)
+//   if err != nil {
+//     return err
+//   }
+// }
+
+// return nil
+
+// actionAttempt, err := client.ActionAttempts.Get(
+//   context.Background(), &api.ActionAttemptsGetRequest{
+//     ActionAttemptId: "478d43dc-b74a-48c8-8a3a-09f9d0b4f153",
+//   },
+// )
+// fmt.Println(actionAttempt)
+
+// // Get the device by ID.
+// updatedLock, err := client.Devices.Get(
+//   context.Background(), &api.DevicesGetRequest{
+//     DeviceId: api.String(someLock.DeviceId),
+//   },
+// )
+
+// if err != nil {
+//   return err
+// }
+
+// Inspect the locked property to confirm
+// that the unlock operation was successful.
+// fmt.Println(*updatedLock.Properties.Locked) // false
+
+// return nil
+
+// // Confirm that the device supports online access codes.
+// if *updatedLock.CanProgramOnlineAccessCodes {
+//   // Create an ongoing online access code.
+//   client.AccessCodes.Create(
+//     context.Background(),
+//     &api.AccessCodesCreateRequest{
+//       DeviceId: updatedLock.DeviceId,
+//       Name: api.String("my ongoing code"),
+//       Code: api.String("1234"),
+//     },
+//   )
+//   // Create a time-bound online access code.
+//   client.AccessCodes.Create(
+//     context.Background(),
+//     &api.AccessCodesCreateRequest{
+//       DeviceId: updatedLock.DeviceId,
+//       Name: api.String("my time-bound code"),
+//       StartsAt: api.String("2025-01-01T16:00:00Z"),
+//       EndsAt: api.String("2025-01-22T12:00:00Z"),
+//       Code: api.String("2345"),
+//     },
+//   )
+//   // List all access codes for this device.
+//   accessCodes, err := client.AccessCodes.List(
+//     context.Background(),
+//     &api.AccessCodesListRequest{
+//       DeviceId: updatedLock.DeviceId,
+//     },
+//   )
+//   fmt.Println(accessCodes)
+//   if err != nil {
+//     return err
+//   }
+// }
+
+// return nil
+
+// jane_user, err := client.UserIdentities.Get(
+//   context.Background(), api.NewUserIdentitiesGetRequestFromUserIdentitiesGetRequestUserIdentityId(
+//     &api.UserIdentitiesGetRequestUserIdentityId{
+//       UserIdentityId: "d2993de6-31b5-4dc7-abee-6185c95d7c2c",
+//     },
+//   ),
+// )
+// if err != nil {
+//   return err
+// }
+
+// entrances, err := client.Acs.Entrances.List(
+//   context.Background(), &acs.EntrancesListRequest{
+//     AcsSystemId: api.String("6929fa70-a6c4-4dcf-be3f-34b1a4116553"),
+//   },
+// )
+// if err != nil {
+//   return err
+// }
+
+// // Step 1:
+// // Create the new user on the Latch ACS.
+// // jane_user is a UserIdentity that represents
+// // a user within your set of app users.
+// building_a_resident, err := client.Acs.Users.Create(
+//   context.Background(), &acs.UsersCreateRequest{
+//     // AcsSystemId: "11111111-1111-1111-1111-111111111111",
+//     AcsSystemId: "6929fa70-a6c4-4dcf-be3f-34b1a4116553",
+//     UserIdentityId: api.String(jane_user.UserIdentityId),
+//     FullName: api.String("Jane Doe"),
+//     EmailAddress: api.String("jane@example.com"),
+//   },
+// )
+// if err != nil {
+//   return err
+// }
+
+// // Step 2:
+// // Create a PIN code for each door for the ACS user.
+// startsAt, err := time.Parse(time.RFC3339, "2024-07-13T16:50:42Z")
+// endsAt, err := time.Parse(time.RFC3339, "2024-07-18T16:50:42Z")
+// if err != nil {
+//   return err
+// }
+
+// for _, entrance := range entrances {
+//   // fmt.Println(entrance)
+//   credential, err := client.Acs.Credentials.Create(
+//     context.Background(), &acs.CredentialsCreateRequest{
+//       AcsUserId: building_a_resident.AcsUserId,
+//       // Use either AcsUserId or UserIdentityId.
+//       // UserIdentityId: jane_user.UserIdentityId,
+//       AccessMethod: "code",
+//       AllowedAcsEntranceIds: []string{
+//         // You must specify only one entrance per PIN code.
+//         entrance.AcsEntranceId,
+//       },
+//       StartsAt: api.Time(startsAt),
+//       EndsAt: api.Time(endsAt),
+//     },
+//   );
+//   if err != nil {
+//   return err
+//   };
+
+//   fmt.Println(credential);
+// }
+
+// return nil
+
+
+
+building_a, err := client.Acs.Systems.Get(
+    context.Background(), &acs.SystemsGetRequest{
+      AcsSystemId: "f4f660da-c96a-4cf6-9f81-507ff4772b30",
+    },
+  )
+if err != nil {
+  return err
+}
+
+entrances, err := client.Acs.Entrances.List(
+  context.Background(), &acs.EntrancesListRequest{
+    AcsSystemId: api.String("f4f660da-c96a-4cf6-9f81-507ff4772b30"),
+  },
+)
+if err != nil {
+  return err
+}
+
+// Step 1:
+// Create a user identity that corresponds to your user's app account.
+jane_user, err := client.UserIdentities.Create(
+  context.Background(), &api.UserIdentitiesCreateRequest{
+    EmailAddress: api.String("jane7@example.com"),
+  },
+)
+if err != nil {
+  return err
+}
+
+// Step 2:
+// Retrieve a credential manager.
+// latch_credential_managers, err := client.Acs.Systems.ListCompatibleCredentialManagerAcsSystems(
+latch_credential_managers, err := client.Acs.Systems.List(
+    // context.Background(), &acs.SystemsListCompatibleCredentialManagerAcsSystemsRequest{
+    context.Background(), &acs.SystemsListRequest{
+      // AcsSystemId: building_a.AcsSystemId,
+    },
+  )
+if err != nil {
+  return err
+}
+latch_credential_manager := latch_credential_managers[0]
+
+// Step 3:
+// Set up an enrollment automation for the user identity, to enable mobile keys.
+client.UserIdentities.EnrollmentAutomations.Launch(
+  context.Background(), &useridentities.EnrollmentAutomationsLaunchRequest{
+    UserIdentityId: jane_user.UserIdentityId,
+    CreateCredentialManagerUser: api.Bool(true),
+    CredentialManagerAcsSystemId: latch_credential_manager.AcsSystemId,
+  },
+)
+
+// Step 4:
+// Create an ACS user on the Latch ACS
+// or assign the ACS user to the user identity.
+building_a_resident, err := client.Acs.Users.Create(
+  context.Background(), &acs.UsersCreateRequest{
+    // To associate the ACS user with a user identity,
+    // include the UserIdentityId.
+    // Resources that you create for this ACS user
+    // are available under the associated user identity.
+    UserIdentityId: api.String(jane_user.UserIdentityId),
+    AcsSystemId: building_a.AcsSystemId,
+    FullName: api.String("Jane Doe7"),
+    EmailAddress: api.String("jane7@example.com"),
+  },
+)
+if err != nil {
+  return err
+}
+
+startsAt, err := time.Parse(time.RFC3339, "2024-07-13T16:50:42Z")
+endsAt, err := time.Parse(time.RFC3339, "2024-07-18T16:50:42Z")
+if err != nil {
+  return err
+}
+
+// Step 5:
+// Create a mobile key for each door for the ACS user.
+for _, entrance := range entrances {
+  mobile_key, err := client.Acs.Credentials.Create(
+    context.Background(), &acs.CredentialsCreateRequest{
+      AcsUserId: building_a_resident.AcsUserId,
+      AccessMethod: "mobile_key",
+      AllowedAcsEntranceIds: []string{
+        // You must specify only one entrance per mobile key.
+        entrance.AcsEntranceId,
+      },
+      StartsAt: api.Time(startsAt),
+      EndsAt: api.Time(endsAt),
+    },
+  );
+  if err != nil {
+  return err
+  };
+
+  fmt.Println(mobile_key);
+}
+
+return nil
+
+
+
 
 // devices, err := client.Devices.List(
 // 	context.Background(), nil)
@@ -1048,5 +1352,15 @@ return nil
 // }
 // fmt.Println(deletion)
 // return nil
+
+// credential_manager, uErr := client.Acs.Systems.ListCompatibleCredentialManagerAcsSystems(
+//   context.Background(), &acs.Systems.ListCompatibleCredentialManagerAcsSystemsRequest{
+//     // AcsSystemId: "55555555-5555-5555-5555-555555555555",
+//     AcsSystemId: "449c8955-4741-4c44-aa41-943c79a46368",
+//   },
+// )
+
+
+
 
 }

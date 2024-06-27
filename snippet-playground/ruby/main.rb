@@ -6,7 +6,9 @@ require 'seamapi'
 api_url = "https://connect.getseam.com"
 
 # client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test2scj_2c636ceHmdU1ZJEHp5svCZgy')
-client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test8yup_77ut771wVzFPcfhce9ti5Ccq')
+# client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test8yup_77ut771wVzFPcfhce9ti5Ccq')
+client = Seam::Client.new()
+seam = Seam::Client.new()
 # client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test8yup_77ut771wVzFPcfhce9ti5Ccq')
 # client = Seam::Client.new(api_key: 'seam_test8yup_77ut771wVzFPcfhce9ti5Ccq')
 # client = Seam::Client.new(
@@ -36,19 +38,19 @@ client = Seam::Client.new(base_uri: api_url, api_key: 'seam_test8yup_77ut771wVzF
 #   puts client.locks.lock_door("59112086-537a-49c0-96dc-ce74f5abfbd7").inspect
 # end
 
-# Get the device.
-# device = client.locks.get("11111111-1111-1111-1111-444444444444")
-device = client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")
-# Confirm that the device supports online access codes.
-# if (device.can_program_online_access_codes)
-if (device.is_managed)
-  # Create the ongoing online access code.
-  client.access_codes.create(
-    device_id: device.device_id,
-    name: "my ongoing code",
-    code: "1234"
-  )
-end
+# # Get the device.
+# # device = client.locks.get("11111111-1111-1111-1111-444444444444")
+# device = client.locks.get("59112086-537a-49c0-96dc-ce74f5abfbd7")
+# # Confirm that the device supports online access codes.
+# # if (device.can_program_online_access_codes)
+# if (device.is_managed)
+#   # Create the ongoing online access code.
+#   client.access_codes.create(
+#     device_id: device.device_id,
+#     name: "my ongoing code",
+#     code: "1234"
+#   )
+# end
 
 # puts client.devices.list_device_providers(provider_category: "stable").inspect
 # puts client.devices.get("30fd243b-3054-4384-a713-5487076a3826").inspect
@@ -256,6 +258,20 @@ end
 
 # puts created_connect_webview.inspect
 
+# connect_webview = client.connect_webviews.create(
+#   accepted_providers: ["four_suites"]
+# )
+
+# puts connect_webview.login_successful # false
+
+# # Use the Connect Webview URL to display the
+# # Connect Webview authorization flow to your user.
+# puts connect_webview.url
+
+# updated_connect_webview = client.connect_webviews.get("44912603-23e8-4126-8f02-29c875875a64")
+
+# puts updated_connect_webview.login_successful # true
+
 # created_connect_webview = client.connect_webviews.create(
 #   custom_redirect_url: "https://example.com/redirect",
 #   custom_redirect_failure_url: "https://example.com/failure-redirect",
@@ -277,6 +293,61 @@ end
 # )
 
 # puts devices.inspect
+
+# Retrieve all devices, filtered by manufacturer,
+# which is one of several filters that list() supports.
+# all_4suites_locks = seam.devices.list(manufacturer: "four_suites")
+# all_4suites_locks = seam.devices.list(manufacturer: "yale")
+all_4suites_locks = seam.devices.list(manufacturer: "august")
+
+some_lock = all_4suites_locks[0]
+
+puts some_lock.properties['online'] # true
+puts some_lock.properties['locked'] # true
+
+puts some_lock.inspect
+
+# # Confirm that the device can remotely unlock.
+# # if (some_lock.can_remotely_unlock)
+# if (some_lock.properties['online']) # WRONG! Using for now because this version of the Ruby SDK does not have can_remotely_unlock.
+#   # Perform the unlock operation.
+#   action_attempt = seam.locks.unlock_door(some_lock.device_id)
+#   puts action_attempt.inspect
+# end
+
+# # Get the device by ID.
+# updated_lock = seam.devices.get(some_lock.device_id)
+
+# # Inspect the locked property to confirm
+# # that the unlock operation was successful.
+# puts some_lock.properties['locked'] # false
+
+# # Confirm that the device supports online access codes.
+# # if (updated_lock['can_program_online_access_codes'])
+# if (updated_lock.properties['online']) # WRONG! Using for now because this version of the Ruby SDK does not have can_program_online_access_codes.
+#   # Create an ongoing online access code.
+#   seam.access_codes.create(
+#     device_id: updated_lock.device_id,
+#     name: "my ongoing code",
+#     code: "1234"
+#   )
+#   # Create a time-bound online access code.
+#   seam.access_codes.create(
+#     device_id: updated_lock.device_id,
+#     name: "my time-bound code",
+#     starts_at: "2025-01-01T16:00:00Z",
+#     ends_at: "2025-01-22T12:00:00Z",
+#     code: "2345"
+#   )
+#   # List all access codes for this device.
+#   access_codes = seam.access_codes.list(
+#       # device_id: updated_lock.device_id
+#       updated_lock.device_id
+#   )
+#   puts access_codes.inspect
+# end
+
+
 
 # device = client.devices.get("36cf1a96-196d-41b0-9804-88154387f1f9")
 # puts "Online: " + device.properties['online'].to_s
