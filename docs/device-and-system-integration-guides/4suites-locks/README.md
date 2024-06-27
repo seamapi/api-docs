@@ -22,14 +22,14 @@ This integration supports all [4SUITES locks, lock upgrades, and readers](https:
 
 We support the following features:
 
-* [Triggering web lock and unlock actions](../products/smart-locks/lock-and-unlock.md)
-* [Programming access codes](../products/smart-locks/access-codes/)
+* [Triggering web lock and unlock actions](../../products/smart-locks/lock-and-unlock.md)
+* [Programming access codes](../../products/smart-locks/access-codes/)
 
 ***
 
 ### Device Provider Key
 
-To create a [Connect Webview](../core-concepts/connect-webviews/) that enables your users to connect their 4SUITES devices to Seam, include the `four_suites` [device provider key](../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables your users to connect their 4SUITES devices to Seam, include the `four_suites` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 
@@ -38,7 +38,7 @@ To create a [Connect Webview](../core-concepts/connect-webviews/) that enables y
 To control 4SUITES devices using Seam, you must prompt owners of these devices to perform the following steps:
 
 1. Obtain the credentials that you use to log in to your [4SUITES account](https://app.4suites.nl/auth/login).
-2. Use these credentials to log in to the [Seam Connect Webview](../core-concepts/connect-webviews/) to add your 4SUITES devices to Seam.
+2. Use these credentials to log in to the [Seam Connect Webview](../../core-concepts/connect-webviews/) to add your 4SUITES devices to Seam.
 
 ***
 
@@ -46,7 +46,7 @@ To control 4SUITES devices using Seam, you must prompt owners of these devices t
 
 To purchase 4SUITES devices, request a quote using the 4SUITES **Contact Us Form**.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>4SUITES Contact Us Form</strong></td><td></td><td><a href="https://www.4suiteshq.com/contact-us/">https://www.4suiteshq.com/contact-us/</a></td><td><a href="../.gitbook/assets/4suites-logo.png">4suites-logo.png</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>4SUITES Contact Us Form</strong></td><td></td><td><a href="https://www.4suiteshq.com/contact-us/">https://www.4suiteshq.com/contact-us/</a></td><td><a href="../../.gitbook/assets/4suites-logo.png">4suites-logo.png</a></td></tr></tbody></table>
 
 ***
 

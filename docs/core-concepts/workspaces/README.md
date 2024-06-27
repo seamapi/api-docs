@@ -151,9 +151,10 @@ You can reset a sandbox workspace either manually through the [Seam Console](./#
 
 {% tabs %}
 {% tab title="JavaScript" %}
-<pre class="language-javascript"><code class="lang-javascript">// Reset the sandbox workspace associated with your API key.
-<strong>await seam.workspaces.resetSandbox()
-</strong></code></pre>
+```javascript
+// Reset the sandbox workspace associated with your API key.
+await seam.workspaces.resetSandbox()
+```
 {% endtab %}
 
 {% tab title="Python" %}

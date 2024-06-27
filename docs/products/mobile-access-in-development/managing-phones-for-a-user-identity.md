@@ -24,13 +24,14 @@ If an app user loses their phone or wants to deactivate it, you can deactivate t
 
 To revoke a phone, provide the ID of the phone. When a phone is revoked, Seam also revokes all the credentials issued to the revoked phone. Seam also removes the associated ACS credentials from the ACS.
 
-<pre class="language-python"><code class="lang-python"><strong># Endpoint in development. Coming Soon!
-</strong><strong>
-</strong><strong># Deactivate the lost phone.
-</strong>seam.phones.deactivate(
+```python
+# Endpoint in development. Coming Soon!
+
+# Deactivate the lost phone.
+seam.phones.deactivate(
   phone_id=lost_phone_id
 )
-</code></pre>
+```
 
 ***
 

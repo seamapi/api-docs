@@ -59,9 +59,10 @@ Returns a Boolean `ok` status indicator.
 
 {% tabs %}
 {% tab title="JSON" %}
-<pre class="language-json"><code class="lang-json"><strong>{
-</strong>  "ok": true
+```json
+{
+  "ok": true
 }
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}

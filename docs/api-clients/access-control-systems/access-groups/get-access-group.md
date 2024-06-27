@@ -159,8 +159,9 @@ AcsAccessGroup(
 {% endtab %}
 
 {% tab title="PHP" %}
-<pre class="language-json"><code class="lang-json"><strong>{
-</strong>  "acs_access_group_id": "44444444-4444-4444-4444-444444444444",
+```json
+{
+  "acs_access_group_id": "44444444-4444-4444-4444-444444444444",
   "name": "Lobby Access",
   "display_name": "Lobby Access",
   "access_group_type_display_name": "PTI access level",
@@ -171,7 +172,7 @@ AcsAccessGroup(
   "workspace_id": "00000000-0000-0000-0000-000000000000",
   "created_at": "2023-11-30T06:27:15.437Z"
 }
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="C#" %}

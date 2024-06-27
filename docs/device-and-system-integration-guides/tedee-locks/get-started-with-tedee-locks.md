@@ -17,7 +17,7 @@ For more details about the Seam Tedee integration, see the [Tedee locks device i
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -33,7 +33,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -83,21 +83,21 @@ go get github.com/seamapi/go
 {% endtab %}
 {% endtabs %}
 
-Once installed, [sign-up for Seam](https://console.seam.co/) to get your API key, and export it as an environment variable:
+Once installed, [sign up for Seam](https://console.seam.co/) to get your [API key](../../core-concepts/authentication/api-keys.md) and export it as an environment variable.
 
 ```
 $ export SEAM_API_KEY=seam_test2ZTo_0mEYQW2TvNDCxG5Atpj85Ffw
 ```
 
 {% hint style="info" %}
-This guide uses a sandbox Workspace. Only virtual devices can be connected. If you need to connect a real Tedee device, use a non-sandbox workspace and API key.
+This guide uses a [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces). You can only connect virtual devices in a sandbox workspace. If you need to connect a real Tedee device, use a non-sandbox workspace and API key.
 {% endhint %}
 
 ## 2 — Link Your Tedee Account with Seam
 
-To control your Tedee locks via the Seam API, you must first authorize your Seam workspace against your Tedee account. To do so, Seam provides[ Connect Webviews](../../core-concepts/connect-webviews/): pre-built UX flows that walk you through authorizing your application to control your Tedee sites.
+To control your Tedee locks using the Seam API, you must first authorize your Seam workspace against your Tedee account. To do so, Seam provides[ Connect Webviews](../../core-concepts/connect-webviews/): pre-built UX flows that walk you through authorizing your application to control your Tedee sites.
 
-#### Request a Connect Webview
+### Request a Connect Webview
 
 {% tabs %}
 {% tab title="JavaScript" %}
@@ -159,7 +159,7 @@ print($connect_webview->url);
 {% endtab %}
 {% endtabs %}
 
-#### Authorize Your Workspace
+### Authorize Your Workspace
 
 Navigate to the URL returned by the Webview object. Since you are using a sandbox workspace, complete the login flow by entering the Tedee [sandbox test accounts ](../../developer-tools/sandbox-and-sample-data/sandbox-tedee-locks.md)credentials below:
 

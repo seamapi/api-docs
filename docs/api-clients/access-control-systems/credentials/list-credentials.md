@@ -22,13 +22,14 @@ Filter the list of returned credentials by [ACS user](../../../products/access-s
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python"><strong>seam.acs.credentials.list(
-</strong>  acs_user_id="33333333-3333-3333-3333-333333333333",
+```python
+seam.acs.credentials.list(
+  acs_user_id="33333333-3333-3333-3333-333333333333",
   acs_system_id="11111111-1111-1111-1111-111111111111",
   user_identity_id="22222222-2222-2222-2222-222222222222",
   is_multi_phone_sync_credential=True
 )
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}

@@ -28,12 +28,13 @@ seam.climate_setting_schedules.list(device_id)
 {% endtab %}
 
 {% tab title="Javascript" %}
-<pre class="language-javascript"><code class="lang-javascript">await seam.climateSettingSchedules.list({
+```javascript
+await seam.climateSettingSchedules.list({
     device_id: "a83690b2-2b70-409a-9a94-426699b84c97",
 });
 
-<strong>/*
-</strong>{
+/*
+{
   "climate_setting_schedules": [
     {
       "climate_setting_schedule_id": "123e4567-e89b-12d3-a456-426614174000",
@@ -54,7 +55,7 @@ seam.climate_setting_schedules.list(device_id)
   "ok": true
 }
 */
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

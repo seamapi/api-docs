@@ -50,16 +50,17 @@ Device(
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
-<strong>curl -X 'GET' \
-</strong>  'https://connect.getseam.com/locks/get' \
+```bash
+# Use GET or POST.
+curl -X 'GET' \
+  'https://connect.getseam.com/locks/get' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
+  -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
   "device_id": "11111111-1111-1111-1111-444444444444"
 }'
-</code></pre>
+```
 
 **Response:**
 
@@ -291,8 +292,7 @@ const device = await seam.locks.get({
 if (device.can_remotely_lock) {
   // Perform the lock operation.
   await seam.locks.lockDoor({
-    device_id: device.device_id,
-    waitForActionAttempt: true
+    device_id: device.device_id
   })
 };
 ```
@@ -472,7 +472,7 @@ return nil
 
 ## Unlocking a Door
 
-You can lock a door using the [unlock\_door](../../api-clients/locks/unlock-a-lock.md) endpoint. To confirm the success of the action, see [Verifying the success of a lock or unlock action](lock-and-unlock.md#verifying-the-success-of-a-lock-or-unlock-action).
+You can unlock a door using the [unlock\_door](../../api-clients/locks/unlock-a-lock.md) endpoint. To confirm the success of the action, see [Verifying the success of a lock or unlock action](lock-and-unlock.md#verifying-the-success-of-a-lock-or-unlock-action).
 
 {% tabs %}
 {% tab title="Python" %}
@@ -560,8 +560,7 @@ const device = await seam.locks.get({
 if (device.can_remotely_unlock) {
   // Perform the unlock operation.
   await seam.locks.unlockDoor({
-    device_id: device.device_id,
-    waitForActionAttempt: true
+    device_id: device.device_id
   })
 };
 ```
@@ -799,8 +798,7 @@ curl -X 'POST' \
 
 ```javascript
 await seam.locks.lockDoor({
-  device_id: "11111111-1111-1111-1111-444444444444",
-  waitForActionAttempt: true
+  device_id: "11111111-1111-1111-1111-444444444444"
 });
 ```
 
@@ -1149,16 +1147,17 @@ Device(
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
-<strong>curl -X 'GET' \
-</strong>  'https://connect.getseam.com/locks/get' \
+```bash
+# Use GET or POST.
+curl -X 'GET' \
+  'https://connect.getseam.com/locks/get' \
   -H 'accept: application/json' \
   -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
   "device_id": "11111111-1111-1111-1111-444444444444"
 }'
-</code></pre>
+```
 
 **Response:**
 

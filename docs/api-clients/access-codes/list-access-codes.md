@@ -37,7 +37,7 @@ seam.access_codes.list(
 curl -X 'GET' \
   'https://connect.getseam.com/access_codes/list' \
   -H 'accept: application/json' \
-  -H 'Authorization: Bearer ${API_KEY}' \
+  -H "Authorization: Bearer ${API_KEY}" \
   -H 'Content-Type: application/json' \
   -d '{
     "device_id": "11111111-1111-1111-1111-444444444444"

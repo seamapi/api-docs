@@ -52,24 +52,25 @@ When issuing guest credentials, hotels need to guarantee that all previous acces
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python"><strong># Set up the mobile user account.
-</strong><strong>user_identity = seam.user_identities.create(
-</strong><strong>    user_identity_key="xxx"
-</strong><strong>)
-</strong><strong>
-</strong># Turn on the enrollment automation for this user identity
-<strong># and credential manager.
-</strong><strong>seam.enrollment_automation.launch(
-</strong><strong>    credential_manager_acs_system_id=assa_credential_services.acs_system_id,
-</strong><strong>    user_identity_id=guest_user_identity.user_identity_id,
-</strong><strong>    create_credential_manager_user: true
-</strong><strong>)
-</strong><strong>
-</strong><strong># Associate the user identity with the ACS user.
-</strong><strong>acs_user = seam.acs.users.get(
-</strong><strong>    email="jane@example.com"
-</strong><strong>)
-</strong>seam.user_identities.add_acs_user(
+```python
+# Set up the mobile user account.
+user_identity = seam.user_identities.create(
+    user_identity_key="xxx"
+)
+
+# Turn on the enrollment automation for this user identity
+# and credential manager.
+seam.enrollment_automation.launch(
+    credential_manager_acs_system_id=assa_credential_services.acs_system_id,
+    user_identity_id=guest_user_identity.user_identity_id,
+    create_credential_manager_user: true
+)
+
+# Associate the user identity with the ACS user.
+acs_user = seam.acs.users.get(
+    email="jane@example.com"
+)
+seam.user_identities.add_acs_user(
     user_identity=user_identity.user_identity_id,
     acs_user_id=acs_user.acs_user_id
 )
@@ -100,7 +101,7 @@ if has_active_endpoint(user_identity.user_identity_id):
       "is_override_key": True
     }
 )
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 
@@ -112,7 +113,8 @@ For reservations involving multiple parties, hotels often need to provide creden
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python"># Set up the mobile user account.
+```python
+# Set up the mobile user account.
 user_identity = seam.user_identities.create(
     user_identity_key="xxx"
 )
@@ -146,8 +148,8 @@ joiner2 = seam.acs.credentials.get(id="yyy")
 joiners = [joiner1, joiner2]
 
 # Create the mobile credential.
-<strong>cred = seam.acs.credentials.create({
-</strong>  acs_user_id: "xxx",
+cred = seam.acs.credentials.create({
+  acs_user_id: "xxx",
   credential_manager_acs_system_id="xxs"
   is_multi_phone_sync_credential: True,
   access_method = "mobile_key",
@@ -165,7 +167,7 @@ joiners = [joiner1, joiner2]
     ]
   }
 })
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 
@@ -210,13 +212,14 @@ To fetch only common entrances, filter entrances to include only those with a `v
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python">all_entrances = seam.acs.entrances.list(
+```python
+all_entrances = seam.acs.entrances.list(
   acs_system_id=acs_system.acs_system_id
 )
 
 # Filter for entrances with the common entrance category types.
-<strong>common_entrance_category_types = ["common", "common (PMS)"]
-</strong>
+common_entrance_category_types = ["common", "common (PMS)"]
+
 def filter_entrances_by_profile_type(entrance_list, category_types):
     common_entrances = []
     for entrance in entrance_list:
@@ -228,7 +231,7 @@ common_entrances = filter_entrances_by_profile_type(
     all_entrances,
     common_entrance_category_types
 )
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

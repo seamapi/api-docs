@@ -18,3 +18,4 @@ You can perform the following actions on `acs_system` objects:
 
 * [List systems](list-systems.md)
 * [Get a system](get-system.md)
+* [List compatible credential manager ACS systems](list-compatible-credential-manager-acs-systems.md)

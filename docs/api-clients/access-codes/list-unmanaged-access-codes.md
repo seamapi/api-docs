@@ -32,19 +32,20 @@ Filter the list of returned unmanaged access codes by device ID. You can also fi
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python">seam.access_codes.unmanaged.list(
+```python
+seam.access_codes.unmanaged.list(
   device_id="11111111-1111-1111-1111-444444444444"
 )
 
-<strong># [AccessCode(
-</strong>#   access_code_id='26d6138c-6524-4f3c-ac96-43cc3bea0a8d', 
+# [AccessCode(
+#   access_code_id='26d6138c-6524-4f3c-ac96-43cc3bea0a8d', 
 #   type='ongoing', 
 #   code='1988', 
 #   name='Code 1', 
 #   status='set'
 #   )
 #  ]
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
@@ -62,13 +63,14 @@ curl -X 'GET' \
 {% endtab %}
 
 {% tab title="JavaScript" %}
-<pre class="language-javascript"><code class="lang-javascript">await seam.accessCodes.unmanaged.list({
+```javascript
+await seam.accessCodes.unmanaged.list({
   device_id: "11111111-1111-1111-1111-444444444444"
 });
 
-<strong>/*
-</strong><strong>[
-</strong>  {
+/*
+[
+  {
     code: '1988',
     name: 'Code 1',
     status: 'set',
@@ -77,7 +79,7 @@ curl -X 'GET' \
   }
 ]
 */
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="PHP" %}

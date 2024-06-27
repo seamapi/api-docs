@@ -85,13 +85,14 @@ puts device_update.inspect
 {% endtab %}
 
 {% tab title="PHP" %}
-<pre class="language-php"><code class="lang-php"><strong>$device_update = $seam->devices->update(
-</strong>  device_id: "30fd243b-3054-4384-a713-5487076a3826",
+```php
+$device_update = $seam->devices->update(
+  device_id: "30fd243b-3054-4384-a713-5487076a3826",
   name: "My Lock",
   custom_metadata: array('internal_account_id' => 'user-1')
 )
 echo json_encode($device_update, JSON_PRETTY_PRINT);
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Java" %}

@@ -119,11 +119,12 @@ await seam.connectWebviews.create({
 {% endtab %}
 
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python">seam.connect_webviews.create(provider_category="stable")
+```python
+seam.connect_webviews.create(provider_category="stable")
 
 # ConnectWebview(workspace_id='398d80b7-3f96-47c2-b85a-6f8ba21d07be',
-<strong>#              connect_webview_id='2c852289-ee42-49d0-bddc-0410b518003d',
-</strong>#              status='pending',
+#              connect_webview_id='2c852289-ee42-49d0-bddc-0410b518003d',
+#              status='pending',
 #              url='https://connect.getseam.com/connect_webviews/view?connect_webview_id=2c852289-ee42-49d0-bddc-0410b518003d&#x26;auth_token=z7Wu2Lc85gYUbNUhdvCWaEhmQv61FziA',
 #              login_successful=False,
 #              device_selection_mode='none',
@@ -162,7 +163,7 @@ await seam.connectWebviews.create({
 #              selected_provider=None,
 #              wait_for_device_creation=True,
 #              automatically_manage_new_devices=True)
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Ruby" %}

@@ -38,8 +38,9 @@ pprint("Online: " + str(device.properties.online))
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"><strong># Use GET or POST.
-</strong>curl -X 'GET' \
+```bash
+# Use GET or POST.
+curl -X 'GET' \
   'https://connect.getseam.com/devices/get' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
@@ -47,7 +48,7 @@ pprint("Online: " + str(device.properties.online))
   -d '{
     "device_id": "36cf1a96-196d-41b0-9804-88154387f1f9"
 }' | jq -r '"Online: " + (.device.properties.online | tostring)'
-</code></pre>
+```
 
 **Response:**
 
@@ -211,9 +212,10 @@ pprint(device_connected_events)
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"><strong># Use GET or POST.
-</strong><strong>curl -X 'GET' \
-</strong>  'https://connect.getseam.com/devices/list' \
+```bash
+# Use GET or POST.
+curl -X 'GET' \
+  'https://connect.getseam.com/devices/list' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
   -H 'Content-Type: application/json' \
@@ -222,7 +224,7 @@ pprint(device_connected_events)
   "event_type": "device.connected",
   "since": "2024-01-01T00:00:00Z"
 }'
-</code></pre>
+```
 
 **Response:**
 

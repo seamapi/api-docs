@@ -4,6 +4,8 @@ description: Guide for using the Latch Access Control System with Seam
 
 # Latch Access Control System
 
+<figure><picture><source srcset="../../.gitbook/assets/latch-manufacturer-page-cover-dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/latch-manufacturer-page-cover-light.png" alt="Connect and control your Latch ACS using the Seam API."></picture><figcaption><p>Connect and control your Latch ACS using the Seam API.</p></figcaption></figure>
+
 ## Overview
 
 Seam integrates seamlessly with the [Latch](https://www.latch.com/) management platform. Property managers and owners use the Latch [access control system](../../products/access-systems/) (ACS) to control access across their properties. Latch enables them to manage who has access to which spaces and when, view access history, and set up and manage multiple users and guests.
@@ -39,15 +41,20 @@ We support the following features:
 * [Managing access systems](../../products/access-systems/)
 * [Issuing mobile access credentials](../../products/mobile-access-in-development/)
 
-{% hint style="info" %}
-The Latch ACS does not support remote unlock functionality. Unlock operations must occur through a mobile app.
-{% endhint %}
-
 ***
 
 ### Device Provider Key
 
 To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables you to connect your Latch ACS to Seam, include the `latch` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+
+***
+
+## Brand-Specific Restrictions
+
+Note the following restrictions on using Seam to manage your Latch ACS:
+
+* The Latch ACS does not support remote unlock functionality. Unlock operations must occur through a mobile app.
+* You cannot sync in existing users and access permissions from a Latch ACS. You can only use Seam to manage the ACS users and credentials that you create through Seam.
 
 ***
 

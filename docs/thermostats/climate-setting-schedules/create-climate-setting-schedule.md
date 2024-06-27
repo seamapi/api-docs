@@ -8,10 +8,11 @@
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python">seam.climate_setting_schedules.create(
-<strong>    "123e4567-e89b-12d3-a456-426614174001",
-</strong><strong>    name="Guest #1234",
-</strong>    schedule_starts_at="2022-07-01T10:40:00Z",
+```python
+seam.climate_setting_schedules.create(
+    "123e4567-e89b-12d3-a456-426614174001",
+    name="Guest #1234",
+    schedule_starts_at="2022-07-01T10:40:00Z",
     schedule_ends_at="2022-07-10T10:40:00Z",
     automatic_heating_enabled=True,
     automatic_cooling_enabled=True,
@@ -34,7 +35,7 @@
 #    cooling_set_point_fahrenheit: 75 
 #    heating_set_point_fahrenheit: 65
 #    manual_override_allowed: False
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Javascript" %}

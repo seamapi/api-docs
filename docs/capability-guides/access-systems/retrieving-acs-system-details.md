@@ -324,7 +324,7 @@ $seam->acs->systems->get(
 **Request:**
 
 ```csharp
-seam.AcsSystems.Get(
+seam.SystemsAcs.Get(
   acsSystemId: "11111111-1111-1111-1111-111111111111"
 );
 ```

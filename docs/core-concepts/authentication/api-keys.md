@@ -28,10 +28,10 @@ If you need to access multiple workspaces, create a [Personal Access Token](pers
 6. Copy the newly-created API key and store it for future use.
 
 {% hint style="info" %}
-Production API keys do not include the `test` token, while API keys for sandbox workspaces do include this `test` token. In addition, if you accidentally commit your API key to a GitHub repo, the `seam_` prefix is detected, and you are notified.
+Production API keys do not include `test`, while API keys for sandbox workspaces do include `test`. In addition, if you accidentally commit your API key to a GitHub repo, the `seam_` prefix is detected, and you are notified.
 {% endhint %}
 
-{% @supademo/embed demoid="vLRzYM2Nwoi4j_cH9WCNQ" url="https://app.supademo.com/demo/vLRzYM2Nwoi4j_cH9WCNQ" %}
+{% @supademo/embed demoId="vLRzYM2Nwoi4j_cH9WCNQ" url="https://app.supademo.com/demo/vLRzYM2Nwoi4j_cH9WCNQ" %}
 
 ## Export an API Key
 
@@ -40,8 +40,10 @@ Once you have created an API key, it is useful to export this key as an environm
 Open a terminal window and enter the following command to export your API key:
 
 ```sh
-$ export SEAM_API_KEY=seam_test2bMS_94SrGUXuNR2JmJkjtvBQDg5c
+$ export SEAM_API_KEY=my_seam_api_key
 ```
+
+Where `my_seam_api_key` is your API key.
 
 ## Test an API Key
 
@@ -50,8 +52,10 @@ Test an API key by [exporting the key](api-keys.md#export-an-api-key) as an envi
 First, export the API key, as follows:
 
 ```sh
-$ export SEAM_API_KEY=seam_test2ZTo_0mEYQW2TvNDCxG5Atpj85Ffw
+$ export SEAM_API_KEY=my_seam_api_key
 ```
+
+Where `my_seam_api_key` is your API key.
 
 Then, run the following code to test the API key:
 
@@ -80,7 +84,7 @@ console.log(workspace);
 
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 # Seam automatically uses the SEAM_API_KEY environment variable if you
 # do not provide an api_key to `Seam()`.
@@ -113,7 +117,7 @@ puts workspace
 ```php
 use Seam\SeamClient;
 
-$seam = new SeamClient("YOUR_API_KEY");
+$seam = new SeamClient();
 
 $workspace = $seam->workspaces->get();
 echo json_encode($workspace, JSON_PRETTY_PRINT);

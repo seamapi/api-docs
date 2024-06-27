@@ -15,7 +15,7 @@ Seam provides a universal API to connect and control many brands of devices such
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -31,7 +31,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -100,7 +100,7 @@ To control your Google Nest device using the Seam API, you must first authorize 
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 seam = Seam()
 
 webview = seam.connect_webviews.create(accepted_providers=["google_nest"])
@@ -521,8 +521,9 @@ For example, use the following code samples to set your thermostat to heat mode 
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python"><strong>heat_request = seam.thermostats.heat(
-</strong>  device = "054765c8-a2fc-4599-b486-14c19f462c45",
+```python
+heat_request = seam.thermostats.heat(
+  device = "054765c8-a2fc-4599-b486-14c19f462c45",
   heating_set_point_celsius = 20
 )
 pprint(heat_request)
@@ -544,7 +545,7 @@ pprint(fan_on_request)
 #              status='success',
 #              result={},
 #              error=None)
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="JavaScript" %}

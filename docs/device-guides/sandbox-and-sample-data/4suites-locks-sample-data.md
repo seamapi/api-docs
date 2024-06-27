@@ -1,6 +1,6 @@
-# 4SUITES Locks Sample Data
+# Sandbox 4SUITES Locks
 
-Use either of the following sets of credentials to add virtual [4SUITES locks](../4suites-locks.md) to your Seam [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces):
+Use either of the following sets of credentials to add virtual [4SUITES locks](../../device-and-system-integration-guides/4suites-locks/) to your Seam [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces):
 
 | Email Address    | Password |
 | ---------------- | -------- |

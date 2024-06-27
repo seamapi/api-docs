@@ -2,7 +2,7 @@
 
 ## 1. Install the Seam SDK
 
-The Seam SDK is [available for download on request](mailto:support@getseam.com), and is [fully documented](../../../developer-tools/mobile-sdks/android-sdk.md).
+The Seam SDK is [available for download on request](mailto:support@seam.co), and is [fully documented](../../../developer-tools/mobile-sdks/android-sdk.md).
 
 {% hint style="info" %}
 You must also use the Seam API to perform server-side actions. Consequently, [install a Seam server-side SDK](../../../api-clients/installation.md) in the language of your choice if you have not done so already.
@@ -12,19 +12,21 @@ You must also use the Seam API to perform server-side actions. Consequently, [in
 {% tab title="Android Kotlin" %}
 To install the Seam Android SDK, add `seam-phone-sdk-android` to the `dependencies` block of your [`app/build.gradle`](https://developer.android.com/studio/build/dependencies) file.
 
-<pre class="language-kotlin" data-title="build.gradle.kts" data-overflow="wrap"><code class="lang-kotlin">plugins {
+{% code title="build.gradle.kts" %}
+```kotlin
+plugins {
     id("com.android.application")
 }
 
 android { ... }
-<strong>
-</strong><strong>dependencies {
-</strong>    // ...
+
+dependencies {
+    // ...
 
     // Add the Seam Android SDK.
     implementation(project(":seam-phone-sdk-android"))
 }
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="iOS Swift" %}
@@ -229,8 +231,9 @@ curl -X 'POST' \
 {% endtab %}
 
 {% tab title="JavaScript" %}
-<pre class="language-javascript"><code class="lang-javascript"><strong>// Launch the enrollment automation.
-</strong>await seam.userIdentities.enrollmentAutomations.launch({
+```javascript
+// Launch the enrollment automation.
+await seam.userIdentities.enrollmentAutomations.launch({
     // Use the acs_system_id for the credential manager.
     credential_manager_acs_system_id: "6737e186-8d54-48ce-a7da-a0be4d252172",
     user_identity_id: user_identity.user_identity_id,
@@ -238,7 +241,7 @@ curl -X 'POST' \
     // or specify the desired existing credential_manager_acs_user_id.
     create_credential_manager_user: true
 });
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Ruby" %}
@@ -345,8 +348,9 @@ Any failures during the background process will produce errors. These errors can
 
 {% tabs %}
 {% tab title="Android Kotlin" %}
-<pre class="language-kotlin"><code class="lang-kotlin"><strong>fun (
-</strong>    seam: Seam,
+```kotlin
+fun (
+    seam: Seam,
     event: SeamEvent
 ) {
     // If the event is under the phone namespace, the phone state may have changed.
@@ -376,11 +380,12 @@ val seam = SeamClient(
   seamEventHandler = eventHandler,
   // ...
 )
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="iOS Swift" %}
-<pre class="language-swift"><code class="lang-swift">func (
+```swift
+func (
     seam: Seam,
     event: SeamEvent
 ) {
@@ -405,9 +410,9 @@ val seam = SeamClient(
 }
 
 let seam = SeamClient(
-<strong>  seamEventHandler = eventHandler,
-</strong>  // ...
+  seamEventHandler = eventHandler,
+  // ...
 )
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}

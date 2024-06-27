@@ -17,7 +17,7 @@ To learn more about other smart lock brands supported by Seam such as August, Ya
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -33,7 +33,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -102,7 +102,7 @@ To control your Schlage lock via the Seam API, you must first authorize your Sea
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 seam = Seam()
 
@@ -133,10 +133,11 @@ console.log(connectWebview.url)
 {% endtab %}
 
 {% tab title="Ruby" %}
-<pre class="language-ruby"><code class="lang-ruby">require "seamapi"
+```ruby
+require "seamapi"
 
-<strong>seam = Seam::Client.new(api_key: "MY_API_KEY")
-</strong>
+seam = Seam::Client.new(api_key: "MY_API_KEY")
+
 webview = seam.connect_webviews.create(
   accepted_providers: ["schlage"]
 )
@@ -145,7 +146,7 @@ puts webview.login_successful # false
 
 # Send the webview URL to your user 
 puts webview.url
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 
@@ -157,7 +158,7 @@ Navigate to the URL returned by the Webview object. Since you are using a sandbo
 * **password:** 1234
 * **2-factor-auth:** 123456
 
-<figure><img src="../.gitbook/assets/connect-flow-screens (1).png" alt=""><figcaption><p>Seam Connect Webview flow to connect Schlage account with Seam</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/schlage-connect-flow-screens.png" alt=""><figcaption><p>Seam Connect Webview flow to connect Schlage account with Seam</p></figcaption></figure>
 
 Confirm the Connect Webview was successful by querying its status:
 
@@ -278,15 +279,15 @@ Next, you can perform the basic action of locking and unlocking the door.
 [openapi.json](../.gitbook/assets/openapi.json)
 {% endswagger %}
 
-{% swagger method="post" path="/locks/unlock_door" baseUrl="https://connect.getseam.com" summary="Unlock a door" %}
-{% swagger-description %}
+## Unlock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/unlock_door`
 
-{% swagger-parameter in="body" name="device_id" required="false" %}
+#### Request Body
 
-{% endswagger-parameter %}
-{% endswagger %}
+| Name       | Type   | Description |
+| ---------- | ------ | ----------- |
+| device\_id | String |             |
 
 {% tabs %}
 {% tab title="Python" %}

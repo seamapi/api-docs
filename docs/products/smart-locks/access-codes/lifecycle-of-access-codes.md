@@ -16,7 +16,7 @@ The access code flow begins when you use Seam to make a request to create an acc
 
 This is the initial state of an access code. At this stage, the code is created in the system but has not yet been sent to or recognized by the smart device. It's essentially in a queue, waiting for its turn to be programmed.
 
-For natively-scheduled codes, Seam will preload the access code onto the device **72 hours ahead** of the `starts_at` time. Seam will also emit an `access_code.scheduled_on_device` event, which indicates a natively-scheduled code has been programmed on the device, and is awaiting its designated activation time. You'll observe that the access code remains in an `unset` state until the `starts_at` time, at which point it will activate and transition to the `set` status.
+For [natively-scheduled](./#native-scheduling) codes, Seam will preload the access code onto the device **72 hours ahead** of the `starts_at` time. Seam will also emit an `access_code.scheduled_on_device` event, which indicates a natively-scheduled code has been programmed on the device, and is awaiting its designated activation time. You'll observe that the access code remains in an `unset` state until the `starts_at` time, at which point it will activate and transition to the `set` status.
 
 ## 2. `setting` - Programming in progress
 

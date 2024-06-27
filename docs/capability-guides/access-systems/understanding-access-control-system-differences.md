@@ -22,9 +22,9 @@ Seam supports connecting to ACSs that are either cloud-based or on-premises.
 
 Cloud-based ACSs are hosted on the internet and are accessible by Seam over a secure connection.
 
-On-premise ACSs can also be connected to the internet but are typically protected by a firewall. To integrate with these systems, Seam requires the [Seam Bridge](../../products/seam-bridge-in-development.md), an application installed on a local computer. Once installed, the [Seam Bridge](../../products/seam-bridge-in-development.md) acts as a secure intermediary, handling network requests between Seam and the on-premises network, and enables secure communication through the firewall.
+On-premise ACSs can also be connected to the internet but are typically protected by a firewall. To integrate with these systems, Seam requires the [Seam Bridge](../seam-bridge.md), an application installed on a local computer. Once installed, the [Seam Bridge](../seam-bridge.md) acts as a secure intermediary, handling network requests between Seam and the on-premises network, and enables secure communication through the firewall.
 
-For detailed information about installing the Seam Bridge and connecting an on-premises ACS to Seam, see [Seam Bridge](../../products/seam-bridge-in-development.md).
+For detailed information about installing the Seam Bridge and connecting an on-premises ACS to Seam, see [Seam Bridge](../seam-bridge.md).
 
 ***
 

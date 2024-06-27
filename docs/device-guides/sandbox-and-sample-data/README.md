@@ -1,7 +1,7 @@
 ---
 description: >-
   Test your device integration without needing any physical devices using a
-  Sandbox environment.
+  sandbox environment.
 ---
 
 # Sandbox Devices and Systems

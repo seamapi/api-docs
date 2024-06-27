@@ -78,11 +78,13 @@ Note the following igloohome-specific offline access code constraints:
 
 **General igloohome Offline Access Code Constraints**
 
-| Constraint                            | Description                                                                                                                                    |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Total maximum number of offline codes | 199 PINs, including online and offline PINs.                                                                                                   |
-| Activation requirements               | For codes that last longer than 24 hours, algoPINs have a 24-hour activation window. Use the code within the first 24 hours of the start time. |
-| Revocation                            | To delete algoPINs, you must be within Bluetooth® range of the lock.                                                                           |
+| Constraint                            | Description                                                                                                                                              |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Total maximum number of offline codes | 199 PINs, including online and offline PINs.                                                                                                             |
+| Creation                              | You cannot set a custom code for an offline access code that represents an algoPIN.                                                                      |
+| Update                                | You cannot modify an offline access code that represents an algoPIN.                                                                                     |
+| Activation                            | For codes that last longer than 24 hours, algoPINs have a 24-hour activation window. Use the code within the first 24 hours of the start time.           |
+| Revocation                            | To delete algoPINs, you must be within Bluetooth® range of the lock. You cannot use the Seam API to delete offline access codes that represent algoPINs. |
 
 **Hourly-Bound Offline Access Code Constraints**
 

@@ -15,7 +15,7 @@ The Seam Online Command Line Interface (CLI) is a fully interactive CLI version 
 * Inspect the results of your API commands.
 * Access Seam API functionality that is not currently available in the Seam Console.
 
-<table data-card-size="large" data-view="cards"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Seam Online CLI Demo</strong></td><td></td><td></td><td><a href="../../.gitbook/assets/seam-online-cli.png">seam-online-cli.png</a></td><td><a href="https://youtu.be/GGmQQ57jBn0">https://youtu.be/GGmQQ57jBn0</a></td></tr></tbody></table>
+<table data-card-size="large" data-view="cards" data-full-width="false"><thead><tr><th></th><th data-hidden></th><th data-hidden></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Seam Online CLI Demo</strong></td><td></td><td></td><td><a href="../../.gitbook/assets/seam-online-cli.png">seam-online-cli.png</a></td><td><a href="https://youtu.be/GGmQQ57jBn0">https://youtu.be/GGmQQ57jBn0</a></td></tr></tbody></table>
 
 ## Access the Seam Online CLI
 

@@ -99,12 +99,13 @@ seam.thermostats.list()
 {% endtab %}
 
 {% tab title="Javascript" %}
-<pre class="language-typescript"><code class="lang-typescript">await seam.thermostats.list()
+```javascript">
+await seam.thermostats.list()
 
 /*
 [
-<strong>  {
-</strong>    "device_id": "a83690b2-2b70-409a-9a94-426699b84c97",
+  {
+    "device_id": "a83690b2-2b70-409a-9a94-426699b84c97",
     "device_type": "ecobee_thermostat",
     "capabilities_supported": ["thermostat"],
     "properties": {
@@ -169,7 +170,7 @@ seam.thermostats.list()
   }
 ]
 */
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

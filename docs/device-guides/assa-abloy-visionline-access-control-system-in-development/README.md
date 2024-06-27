@@ -30,7 +30,7 @@ To create a [Connect Webview](../../core-concepts/connect-webviews/) that enable
 ## Setup Instructions
 
 {% hint style="info" %}
-Before connecting your Visionline ACS to Seam, you must first install and connect your Seam Bridge. For detailed instructions, see [Seam Bridge](../../products/seam-bridge-in-development.md).
+Before connecting your Visionline ACS to Seam, you must first install and connect your Seam Bridge. For detailed instructions, see [Seam Bridge](../../capability-guides/seam-bridge.md).
 
 To issue mobile keys, you must also connect ASSA ABLOY Credential Services to Seam for credential management. For detailed instructions, see [ASSA ABLOY Credential Services](../assa-abloy-credential-services-credential-manager-in-development.md).
 {% endhint %}
@@ -57,7 +57,7 @@ To issue mobile keys, you must also connect ASSA ABLOY Credential Services to Se
 4. Create a [Connect Webview](../../core-concepts/connect-webviews/), including `visionline` in the set of [`accepted_providers`](../../api-clients/connect-webviews/#connect\_webview-properties).
 5. Display the Connect Webview and perform the following steps:
    * If presented with multiple brand options within the Connect Webview, select **Visionline**.
-   *   Select your [Seam Bridge](../../products/seam-bridge-in-development.md) that is connected to the Visionline system to which you want to connect.
+   *   Select your [Seam Bridge](../../capability-guides/seam-bridge.md) that is connected to the Visionline system to which you want to connect.
 
        <figure><img src="../../.gitbook/assets/connect-webview-sel-on-prem-proxy.png" alt="In the Connect Webview, select your Seam Bridge." width="233"><figcaption></figcaption></figure>
    *   Specify the following values to add your ASSA ABLOY Visionline account to Seam:

@@ -19,7 +19,7 @@ To get started quickly with Seam, follow the [Quick Start](quickstart.md) to cre
 Use one of the following methods to install the Seam software development kit (SDK) in the programming language of your choice:
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -35,7 +35,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}

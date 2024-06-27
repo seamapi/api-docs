@@ -110,8 +110,9 @@ To programmatically access events, you can use `events.list` . This will return 
 
 {% tabs %}
 {% tab title="Javascript" %}
-<pre class="language-javascript"><code class="lang-javascript"><strong>await seam.events.list()
-</strong>
+```javascript
+await seam.events.list()
+
 /*
 [
   {
@@ -132,7 +133,7 @@ To programmatically access events, you can use `events.list` . This will return 
   }
 ]
 */
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Python" %}

@@ -41,8 +41,9 @@ seam.acs.credentials.create(
 
 A new mobile key automatically overrides a previously issued mobile credential.
 
-<pre class="language-python"><code class="lang-python"><strong>acs_user = seam.acs.user.get(acs_user_id="xxx")
-</strong>
+```python
+acs_user = seam.acs.user.get(acs_user_id="xxx")
+
 new_guest_room = seam.acs.entrances.list(
   acs_system_id=hotel_acs_system_id
 )[0]
@@ -65,12 +66,13 @@ seam.acs.credentials.create(
     "is_override_key": True
   }
 )
-</code></pre>
+```
 
 ### Multiple Guests in Multiple Rooms
 
-<pre class="language-python"><code class="lang-python"><strong>guest_room_1 = seam.acs.entrances.list(
-</strong>  acs_system_id=hotel_acs_system_id
+```python
+guest_room_1 = seam.acs.entrances.list(
+  acs_system_id=hotel_acs_system_id
 )[0]
 
 guest_room_2 = seam.acs.entrances.list(
@@ -122,7 +124,7 @@ seam.acs.credentials.create(
     "joiner_acs_credential_ids": [first_credential.acs_credential_id]
   }
 )
-</code></pre>
+```
 
 ***
 
@@ -134,10 +136,11 @@ This section describes how to issue joiner credentials of various types.&#x20;
 
 You can select either the multi-phone sync credential or its child credentials. Make sure to grab the `acs_credential_id` to include in the `joiner_acs_credential_ids` list.
 
-<pre class="language-python"><code class="lang-python"><strong>joiners = [joiner_mobile_parent_sync_credential, joiner_mobile_child_credential]
-</strong><strong>
-</strong><strong># Create the mobile credential.
-</strong>cred = seam.acs.credentials.create({
+```python
+joiners = [joiner_mobile_parent_sync_credential, joiner_mobile_child_credential]
+
+# Create the mobile credential.
+cred = seam.acs.credentials.create({
   acs_user_id: "xxx",
   credential_manager_acs_system_id="xxs"
   is_multi_phone_sync_credential: True,
@@ -152,7 +155,7 @@ You can select either the multi-phone sync credential or its child credentials. 
     ]
   }
 })
-</code></pre>
+```
 
 ### Join to a Plastic Card
 

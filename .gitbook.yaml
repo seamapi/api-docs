@@ -16,4 +16,11 @@ redirects:
   core-concepts/workspaces/personal-access-tokens: core-concepts/authentication/personal-access-tokens.md
   core-concepts/workspaces/client-session-tokens: core-concepts/authentication/client-session-tokens/README.md
   core-concepts/workspaces/client-session-tokens/implementing-client-sessions-for-device-management-in-the-backend: core-concepts/authentication/client-session-tokens/implementing-client-sessions-for-device-management-in-the-backend.md
+  products/access-systems/user-management: capability-guides/access-systems/user-management/README.md
+  capability-guides/access-systems/managing-credentials: capability-guides/access-systems/managing-credentials/README.md
+  capability-guides/access-systems/assigning-credentials-to-users: capability-guides/access-systems/managing-credentials/assigning-credentials-to-users.md
+  products/access-systems/suspending-and-unsuspending-users: capability-guides/access-systems/user-management/suspending-and-unsuspending-users.md
+  products/seam-bridge-in-development: capability-guides/seam-bridge.md
+  core-concepts/connect-webviews: core-concepts/connect-webviews/README.md
+  device-guides/4suites-locks: device-and-system-integration-guides/4suites-locks/README.md
   

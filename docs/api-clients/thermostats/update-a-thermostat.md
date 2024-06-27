@@ -46,16 +46,17 @@ seam.thermostats.update(
 {% endtab %}
 
 {% tab title="Javascript" %}
-<pre class="language-javascript"><code class="lang-javascript">await seam.thermostats.update({
+```javascript
+await seam.thermostats.update({
   device_id: "a83690b2-2b70-409a-9a94-426699b84c97",
   default_climate_setting: {
     "automatic_heating_enabled": true,
     "heating_set_point_fahrenheit": 70
   },
-<strong>});
-</strong>
+});
+
 //{}
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

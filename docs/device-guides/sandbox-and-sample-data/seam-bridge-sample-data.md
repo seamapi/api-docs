@@ -1,6 +1,6 @@
 # Sandbox Seam Bridge
 
-Use the following set of credentials to add the [Seam Bridge](../../products/seam-bridge-in-development.md) to your Seam [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces):
+Use the following set of credentials to add the [Seam Bridge](../../capability-guides/seam-bridge.md) to your Seam [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces):
 
 | Pairing Code                         | Bridge Name                       |
 | ------------------------------------ | --------------------------------- |

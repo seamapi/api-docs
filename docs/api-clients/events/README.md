@@ -36,10 +36,10 @@ In addition to the common event properties, and common device event properties, 
 
 In addition to the common event properties, and common device event properties, the following properties are available for events that pertain to lock actions:
 
-|                  |                                                 |                                                                                                                                                                     |
-| ---------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `method`         | `keycode` or `manual` or `unknown` or `seamapi` | Present on all of the `lock.*` events. Specifies the method used to perform the lock action.                                                                        |
-| `access_code_id` | String                                          | Specifies the unique identifier of the access code used to trigger this event. Seam includes this ID in the event if the affected device returns this information.  |
+|                  |                                                 |                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `method`         | `keycode` or `manual` or `unknown` or `seamapi` | Present on all of the `lock.*` events. Specifies the method used to perform the lock action.                                                                                                                                                                                                                                                                                                                        |
+| `access_code_id` | String                                          | <p>Specifies the unique identifier of the access code used to trigger this event. Seam includes this ID in the event if the affected device returns this information.<br>For a list of device manufacturers that send the <code>access_code_id</code> in lock events, see <a href="../../products/smart-locks/access-codes/#linking-unlock-events-and-access-codes">Linking Unlock Events and Access Codes</a>.</p> |
 
 ### Device Battery Events
 
@@ -73,7 +73,6 @@ Noise sensors emit an event whenever a predefined noise threshold has been excee
 | ---------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | `noise_threshold_id`   | String                                    | Identifier for the noise threshold, pass to `/noise_sensors/noise_thresholds/get`                                |
 | `noise_threshold_name` | String e.g. `"builtin_first_disturbance"` | Name of the threshold, this can be set via `/noise_sensors/noise_thresholds/create` or by the user in their app. |
-|                        |                                           |                                                                                                                  |
 
 ## Event Types
 

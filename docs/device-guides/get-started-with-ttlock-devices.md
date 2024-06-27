@@ -15,7 +15,7 @@ Seam provides a universal API to connect and control many brands of locks, inclu
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -31,7 +31,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -100,7 +100,7 @@ To control your TTLock locks via the Seam API, you must first authorize your Sea
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 seam = Seam()
 
@@ -312,15 +312,15 @@ Next, you can perform the basic action of locking and unlocking a door.
 [openapi (1).json](<../.gitbook/assets/openapi (1).json>)
 {% endswagger %}
 
-{% swagger method="post" path="/locks/unlock_door" baseUrl="https://connect.getseam.com" summary="Unlock a door" %}
-{% swagger-description %}
+## Unlock a door
 
-{% endswagger-description %}
+<mark style="color:green;">`POST`</mark> `https://connect.getseam.com/locks/unlock_door`
 
-{% swagger-parameter in="body" name="device_id" required="false" %}
+#### Request Body
 
-{% endswagger-parameter %}
-{% endswagger %}
+| Name       | Type   | Description |
+| ---------- | ------ | ----------- |
+| device\_id | String |             |
 
 {% tabs %}
 {% tab title="Python" %}

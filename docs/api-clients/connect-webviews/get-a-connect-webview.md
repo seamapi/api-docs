@@ -29,8 +29,9 @@ seam.connect_webviews.get("123e4567-e89b-12d3-a456-426614174000")
 {% endtab %}
 
 {% tab title="Javascript" %}
-<pre class="language-typescript"><code class="lang-typescript"><strong>await seam.connectWebviews.get(
-</strong>    "d8e981cb-5f67-461f-9ab8-f7716e8aef4a"
+```javascript
+await seam.connectWebviews.get(
+    "d8e981cb-5f67-461f-9ab8-f7716e8aef4a"
 );
   
 // {
@@ -49,7 +50,7 @@ seam.connect_webviews.get("123e4567-e89b-12d3-a456-426614174000")
 //   status: 'authorized',
 //   connected_account_id: '137db755-0b63-47d6-a2de-3ff673a77e5a'
 // }
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Ruby" %}

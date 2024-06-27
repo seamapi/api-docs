@@ -20,8 +20,9 @@ but Seam does not remove the access code from the device.
 {% tabs %}
 {% tab title="Python" %}
 
-<pre class="language-python"><code class="lang-python"><strong>seam.connected_accounts.delete("f891acfd-d228-4bb2-8399-c0f7e24e6b16")
-</strong></code></pre>
+```python
+seam.connected_accounts.delete("f891acfd-d228-4bb2-8399-c0f7e24e6b16")
+```
 
 {% endtab %}
 
@@ -45,11 +46,11 @@ curl -X 'POST' \
 {% endtab %}
 
 {% tab title="JavaScript" %}
-
-<pre class="language-javascript"><code class="lang-javascript"><strong>await seam.connectedAccounts.delete({
-</strong>  connected_account_id: "f891acfd-d228-4bb2-8399-c0f7e24e6b16"
+```javascript
+await seam.connectedAccounts.delete({
+  connected_account_id: "f891acfd-d228-4bb2-8399-c0f7e24e6b16"
 })
-</code></pre>
+```
 
 {% endtab %}
 

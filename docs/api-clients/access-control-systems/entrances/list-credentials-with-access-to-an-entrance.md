@@ -26,10 +26,11 @@ You can also use a manufacturer-specific filter for entrances in a [Visionline A
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python"><strong>seam.acs.entrances.list_credentials_with_access(
-</strong>  acs_entrance_id="55555555-5555-5555-5555-555555555555"
+```python
+seam.acs.entrances.list_credentials_with_access(
+  acs_entrance_id="55555555-5555-5555-5555-555555555555"
 )
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}

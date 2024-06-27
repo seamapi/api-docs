@@ -174,9 +174,10 @@ Returns an `acs_access_groups` array, in which each returned `acs_access_group` 
 {% endtab %}
 
 {% tab title="PHP" %}
-<pre class="language-json"><code class="lang-json">[
-<strong>  {
-</strong>    "acs_access_group_id": "44444444-4444-4444-4444-444444444444",
+```json
+[
+  {
+    "acs_access_group_id": "44444444-4444-4444-4444-444444444444",
     "name": "Lobby Access",
     "display_name": "Lobby Access",
     "access_group_type_display_name": "PTI access level",
@@ -189,7 +190,7 @@ Returns an `acs_access_groups` array, in which each returned `acs_access_group` 
   },
   ...
 ]
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="C#" %}

@@ -22,13 +22,14 @@ To filter the list of returned ACS users by a specific [access control system](.
 
 {% tabs %}
 {% tab title="Python" %}
-<pre class="language-python"><code class="lang-python"><strong>seam.acs.users.list(
-</strong>  user_identity_id="22222222-2222-2222-2222-222222222222",
+```python
+seam.acs.users.list(
+  user_identity_id="22222222-2222-2222-2222-222222222222",
   user_identity_phone_number="+15555550100",
   user_identity_email_address="jane@example.com",
   acs_system_id="11111111-1111-1111-1111-111111111111"
 )
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="cURL (bash)" %}

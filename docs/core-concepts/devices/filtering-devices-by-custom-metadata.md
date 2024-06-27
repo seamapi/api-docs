@@ -75,14 +75,15 @@ curl -X 'POST' \
 {% tab title="JavaScript" %}
 **Request:**
 
-<pre class="language-javascript"><code class="lang-javascript"><strong>const devices = await seam.devices.list({
-</strong>  custom_metadata_has: {
+```javascript
+const devices = await seam.devices.list({
+  custom_metadata_has: {
     "internal_account_id": "user-1"
   }
 });
 
 console.log(devices);
-</code></pre>
+```
 
 **Response:**
 
@@ -128,12 +129,13 @@ puts devices.inspect
 {% tab title="PHP" %}
 **Request:**
 
-<pre class="language-php"><code class="lang-php"><strong>$devices = $seam->devices->list(
-</strong>  custom_metadata_has: array('internal_account_id' => 'user-1')
+```php
+$devices = $seam->devices->list(
+  custom_metadata_has: array('internal_account_id' => 'user-1')
 );
 
 echo json_encode($devices);
-</code></pre>
+```
 
 **Response:**
 

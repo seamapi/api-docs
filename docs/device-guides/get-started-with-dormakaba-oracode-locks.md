@@ -19,7 +19,7 @@ Note that dormakaba offers multiple lines of products, including Lyazon, Sapphir
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -35,7 +35,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -108,7 +108,7 @@ This guide discusses using a Seam sandbox workspace with virtual devices. Howeve
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 seam = Seam()
 
@@ -428,6 +428,6 @@ In addition, if you'd like to explore other aspects of Seam, check out the follo
 * [Yale Getting Started Guide](get-started-with-yale-locks.md)
 * [SmartThings Getting Started Guide](get-started-with-smartthings-hubs-+-smart-locks.md)
 * [Configuring webhooks](../core-concepts/webhooks.md) for [device events](../api-clients/events/list-events.md)
-* [Core Concepts](broken-reference)
+* [Core Concepts](broken-reference/)
 
 If you have any questions or want to report an issue, email us at [support@seam.co](mailto:support@seam.co).

@@ -18,16 +18,17 @@ description: Create an access code for a device by ID
 {% tab title="Python" %}
 **Request:**
 
-<pre class="language-python"><code class="lang-python">device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
+```python
+device_id = "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
 
-<strong>created_access_code = seam.access_codes.create(
-</strong>  device = device_id,
+created_access_code = seam.access_codes.create(
+  device = device_id,
   name = "my ongoing code",
   code = "1234"
 )
 
 pprint(created_access_code)
-</code></pre>
+```
 
 **Response:**
 

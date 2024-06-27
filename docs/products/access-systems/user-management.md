@@ -411,10 +411,11 @@ To [list all ACS users](../../api-clients/access-control-systems/users/list-user
 {% tab title="Python" %}
 **Request:**
 
-<pre class="language-python"><code class="lang-python"><strong>seam.acs.users.list(
-</strong>  acs_system_id="11111111-1111-1111-1111-111111111111"
+```python
+seam.acs.users.list(
+  acs_system_id="11111111-1111-1111-1111-111111111111"
 )
-</code></pre>
+```
 
 **Response:**
 

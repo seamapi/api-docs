@@ -61,9 +61,10 @@ To programmatically access a single event, you can use `events.get` . This will 
 
 {% tabs %}
 {% tab title="Javascript" %}
-<pre class="language-javascript"><code class="lang-javascript"><strong>await seam.events.get('87b2dcda-90ff-4602-8ccc-efb2f4a3d7c2')
-</strong><strong>
-</strong>/*
+```javascript
+await seam.events.get('87b2dcda-90ff-4602-8ccc-efb2f4a3d7c2')
+
+/*
 {
   event_id: '87b2dcda-90ff-4602-8ccc-efb2f4a3d7c2',
   event_type: 'device.low_battery',
@@ -73,7 +74,7 @@ To programmatically access a single event, you can use `events.get` . This will 
   battery_level: 0.48
 }
 */
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

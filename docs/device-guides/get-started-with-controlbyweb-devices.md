@@ -15,7 +15,7 @@ Seam provides a universal API to connect and control many brands of smart device
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -31,7 +31,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -100,7 +100,7 @@ To control your ControlByWeb relay device via the Seam API, you must first autho
 {% tabs %}
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 seam = Seam()
 
@@ -131,10 +131,11 @@ console.log(connectWebview.url)
 {% endtab %}
 
 {% tab title="Ruby" %}
-<pre class="language-ruby"><code class="lang-ruby">require "seamapi"
+```ruby
+require "seamapi"
 
-<strong>seam = Seam::Client.new(api_key: "MY_API_KEY")
-</strong>
+seam = Seam::Client.new(api_key: "MY_API_KEY")
+
 webview = seam.connect_webviews.create(
   accepted_providers: ["controlbyweb"]
 )
@@ -143,7 +144,7 @@ puts webview.login_successful # false
 
 # Send the webview URL to your user
 puts webview.url
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

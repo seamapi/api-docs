@@ -11,7 +11,7 @@ description: >-
 
 To get started with Seam, first connect a set of devices.
 
-1. In a web browser, navigate to the [Seam Console](core-concepts/seam-console/) at [**console.seam.co**](https://console.seam.co/) and create an account.\
+1. In a web browser, go to the [Seam Console](core-concepts/seam-console/) at [https://console.seam.co/](https://console.seam.co/) and create an account.\
    Once you have logged in to the Seam Console, you are working in the default [sandbox workspace](core-concepts/workspaces/#sandbox-workspaces).
 2.  In the upper-right corner of the **Devices** page, click **+ Add Devices**.
 
@@ -49,7 +49,7 @@ Install one of the Seam SDKs in the programming language of your choice.
 Seam provides client libraries for many languages, such as JavaScript, Python, Ruby, PHP, and others, as well as a Postman collection and [OpenAPI](https://connect.getseam.com/openapi.json) spec.
 
 * JavaScript / TypeScript ([npm](https://www.npmjs.com/package/seam), [GitHub](https://github.com/seamapi/javascript))
-* Python ([pip](https://pypi.org/project/seamapi/), [GitHub](https://github.com/seamapi/python))
+* Python ([pip](https://pypi.org/project/seam/), [GitHub](https://github.com/seamapi/python))
 * Ruby Gem ([rubygem](https://rubygems.org/gems/seamapi), [GitHub](https://github.com/seamapi/ruby))
 * PHP ([packagist](https://packagist.org/packages/seamapi/seam), [GitHub](https://github.com/seamapi/php))
 * Java ([GitHub](https://github.com/seamapi/java))
@@ -65,7 +65,7 @@ npm i seam
 
 {% tab title="Python" %}
 ```bash
-pip install seamapi
+pip install seam
 # For some development environments, use pip3 in this command instead of pip.
 ```
 {% endtab %}
@@ -156,7 +156,7 @@ if (someLock.properties.locked) {
 
 {% tab title="Python" %}
 ```python
-from seamapi import Seam
+from seam import Seam
 
 # SEAM_API_KEY environment variable picked up here.
 seam = Seam()
@@ -248,6 +248,6 @@ If you are creating an application (app) to control your users' devices, see [Co
 
 ### Learn about Devices and Capabilities
 
-Seam supports many device categories. Each device can be broken down into [device capabilities](broken-reference/). A capability indicates what the device can do, what properties it has, and what events it emits. To learn more about specific capabilities, such as access codes or thermostats, see the following guides:
+Seam supports many device categories. Each device can be broken down into [device capabilities](capability-guides/device-and-system-capabilities.md). A capability indicates what the device can do, what properties it has, and what events it emits. To learn more about specific capabilities, such as access codes or thermostats, see the following guides:
 
 <table data-card-size="large" data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden><select></select></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Door Locks API</strong></td><td>Get started →</td><td><a href=".gitbook/assets/smart-locks-16-9.png">smart-locks-16-9.png</a></td><td></td><td><a href="products/smart-locks/">smart-locks</a></td></tr><tr><td><strong>Thermostats API</strong></td><td>Get started →</td><td><a href=".gitbook/assets/thermostats-16-9.png">thermostats-16-9.png</a></td><td></td><td><a href="products/thermostats/">thermostats</a></td></tr><tr><td><strong>Noise</strong> <strong>Sensors API</strong></td><td>Get started →</td><td><a href=".gitbook/assets/sensors-16-9.png">sensors-16-9.png</a></td><td></td><td><a href="products/noise-sensors/">noise-sensors</a></td></tr><tr><td><strong>Access Control Systems API</strong></td><td>Get started →</td><td><a href=".gitbook/assets/acs-cover.png">acs-cover.png</a></td><td></td><td><a href="products/access-systems/">access-systems</a></td></tr></tbody></table>

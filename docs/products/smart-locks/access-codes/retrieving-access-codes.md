@@ -72,16 +72,17 @@ pprint(access_codes)
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
-<strong>curl -X 'GET' \
-</strong>  'https://connect.getseam.com/access_codes/list' \
+```bash
+# Use GET or POST.
+curl -X 'GET' \
+  'https://connect.getseam.com/access_codes/list' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
   -H 'Content-Type: application/json' \
   -d '{
   "device_id": "6aae9d08-fed6-4ca5-8328-e36849ab48fe"
 }'
-</code></pre>
+```
 
 **Response:**
 
@@ -440,9 +441,10 @@ pprint(access_codes)
 {% tab title="cURL (bash)" %}
 **Request:**
 
-<pre class="language-bash"><code class="lang-bash"># Use GET or POST.
-<strong>curl -X 'GET' \
-</strong>  'https://connect.getseam.com/access_codes/list' \
+```bash
+# Use GET or POST.
+curl -X 'GET' \
+  'https://connect.getseam.com/access_codes/list' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer ${API_KEY}' \
   -H 'Content-Type: application/json' \
@@ -452,7 +454,7 @@ pprint(access_codes)
     "d2047ba8-8849-467f-a07a-efab6c3673bc"
   ]
 }'
-</code></pre>
+```
 
 **Response:**
 

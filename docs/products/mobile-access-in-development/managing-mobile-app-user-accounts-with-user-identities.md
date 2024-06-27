@@ -140,14 +140,15 @@ To [link an ACS user with a user identity](../../api-clients/user-identities/add
 {% tab title="Python" %}
 **Request:**
 
-<pre class="language-python"><code class="lang-python"><strong>user_identity = seam.user_identities.get(email_address="jean@example.com")
-</strong>acs_user = seam.acs.users.get(email_address="jean@example.com")
+```python
+user_identity = seam.user_identities.get(email_address="jean@example.com")
+acs_user = seam.acs.users.get(email_address="jean@example.com")
 
 seam.user_identities.add_acs_user(
   user_identity_id=user_identity.user_identity_id,
   acs_user_id=acs_user.acs_user_id
 )
-</code></pre>
+```
 
 **Response:**
 

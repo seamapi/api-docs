@@ -83,14 +83,15 @@ curl -X 'POST' \
 {% tab title="JavaScript" %}
 **Request:**
 
-<pre class="language-javascript"><code class="lang-javascript"><strong>const connected_accounts = await seam.connectedAccounts.list({
-</strong>  custom_metadata_has: {
+```javascript
+const connected_accounts = await seam.connectedAccounts.list({
+  custom_metadata_has: {
     "internal_account_id": "user-1"
   }
 });
 
 console.log(connected_accounts);
-</code></pre>
+```
 
 **Response:**
 

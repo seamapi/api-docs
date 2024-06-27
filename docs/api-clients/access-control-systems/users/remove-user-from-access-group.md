@@ -84,13 +84,14 @@ seam.UsersAcs.RemoveFromAccessGroup(
 {% endtab %}
 
 {% tab title="Go" %}
-<pre class="language-go"><code class="lang-go"><strong>remove, uErr := client.Acs.Users.RemoveFromAccessGroup(
-</strong>  context.Background(), &#x26;acs.UsersRemoveFromAccessGroupRequest{
+```go
+remove, uErr := client.Acs.Users.RemoveFromAccessGroup(
+  context.Background(), &#x26;acs.UsersRemoveFromAccessGroupRequest{
     AcsUserId: "33333333-3333-3333-3333-333333333333",
     AcsAccessGroupId: "44444444-4444-4444-4444-444444444444",
   },
 )
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
 

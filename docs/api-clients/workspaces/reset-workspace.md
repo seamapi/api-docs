@@ -58,10 +58,11 @@ await seam.workspaces.resetSandbox()
 {% endtab %}
 
 {% tab title="Ruby" %}
-<pre class="language-ruby"><code class="lang-ruby">seam.workspaces.reset_sandbox
+```ruby
+seam.workspaces.reset_sandbox
 
-<strong># {"message"=>"Successfully reset workspace sandbox", "ok"=>true}
-</strong></code></pre>
+# {"message"=>"Successfully reset workspace sandbox", "ok"=>true}
+```
 {% endtab %}
 {% endtabs %}
 

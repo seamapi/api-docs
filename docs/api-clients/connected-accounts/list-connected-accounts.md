@@ -46,8 +46,9 @@ await seam.connectedAccounts.list();
 {% endtab %}
 
 {% tab title="Ruby" %}
-<pre class="language-ruby"><code class="lang-ruby"><strong>seam.connected_accounts.list()
-</strong></code></pre>
+```ruby
+seam.connected_accounts.list()
+```
 {% endtab %}
 
 {% tab title="PHP" %}

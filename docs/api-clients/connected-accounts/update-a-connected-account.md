@@ -84,13 +84,14 @@ puts connected_account_update.inspect
 {% endtab %}
 
 {% tab title="PHP" %}
-<pre class="language-php"><code class="lang-php"><strong>$connected_account_update = $seam->connected_accounts->update(
-</strong>  connected_account_id: "6e1cad57-b244-40ca-b4f3-30a46c8000d4",
+```php
+$connected_account_update = $seam->connected_accounts->update(
+  connected_account_id: "6e1cad57-b244-40ca-b4f3-30a46c8000d4",
   automatically_manage_new_devices: true,
   custom_metadata: array('internal_account_id' => 'user-1')
 )
 echo json_encode($connected_account_update, JSON_PRETTY_PRINT);
-</code></pre>
+```
 {% endtab %}
 
 {% tab title="Java" %}
@@ -115,9 +116,10 @@ Returns a Boolean `ok` status indicator.
 
 {% tabs %}
 {% tab title="JSON" %}
-<pre class="language-json"><code class="lang-json"><strong>{
-</strong>  "ok": true
+```json
+{
+  "ok": true
 }
-</code></pre>
+```
 {% endtab %}
 {% endtabs %}
