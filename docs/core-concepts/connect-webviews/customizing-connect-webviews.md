@@ -39,17 +39,14 @@ It is important to note that any changes you make to the customization features 
 
 ## Customize the Brands to Display in Your Connect Webviews
 
-You can customize the device brands (manufacturers) that a Connect Webview should display. You specify the brands to display when you are creating the Connect Webview. Consequently, you can customize this list of brands to display for each of your Connect Webviews.
+You can customize the device brands that a Connect Webview should display. You specify the brands to display when you are creating the Connect Webview. Consequently, you can customize this list of brands to display for each of your Connect Webviews.
 
-To display a subset of providers in your Connect Webview, specify one of the following properties for the `connect_webview` that you are creating:
-
-* `accepted_providers`: A list of accepted providers (brands) to display
-* `selected_provider`: A single provider (brand) to display
+To display a subset of providers in your Connect Webview, include the desired `accepted_providers` in the [Create Connect Webview](../../api-clients/connect-webviews/create-a-connect-webview.md) command. In this parameter, specify a list of accepted providers (brands) to display.
 
 For a complete list of available providers, see [Device Provider Keys](../../api-clients/connect-webviews/#device-provider-keys).
 
 {% hint style="info" %}
-If you supply neither of these two properties, the Connect Webview displays all of the stable providers that Seam supports, by default. For more information, see [Accepted Provider Category Keys](../../api-clients/connect-webviews/#accepted-provider-category-keys).
+If you omit this parameter, the Connect Webview displays all of the stable providers that Seam supports, by default. For more information, see [Accepted Provider Category Keys](../../api-clients/connect-webviews/#accepted-provider-category-keys).
 {% endhint %}
 
 For example, the following Connect Webview creation request specifies that the Connect Webview should only display August and Schlage:

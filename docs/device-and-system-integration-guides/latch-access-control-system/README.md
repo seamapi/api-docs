@@ -18,7 +18,7 @@ Latch enables you to install wireless door locks and intercom systems in your bu
 
 ## Latch ACS Resources
 
-The Seam ACS schema consists of a series of resources that interact intuitively, enabling you to use the [Seam API](broken-reference) to manage your Latch ACS in a logical, efficient manner. Latch is a [credential-based ACS](../../capability-guides/access-systems/understanding-access-control-system-differences.md#credential-based-acs), so you create ACS users and then grant them access permissions using credentials. When you create a credential, you specify the ACS user to which to assign the credential, as well as the allowed entrances and the start and end times for the access schedule.&#x20;
+The Seam ACS schema consists of a series of resources that interact intuitively, enabling you to use the [Seam API](broken-reference) to manage your Latch ACS in a logical, efficient manner. Latch is a [credential-based ACS](../../capability-guides/access-systems/understanding-access-control-system-differences.md#credential-based-access-control-systems), so you create ACS users and then grant them access permissions using credentials. When you create a credential, you specify the ACS user to which to assign the credential, as well as the allowed entrances and the start and end times for the access schedule.&#x20;
 
 The following diagram shows the Seam resources for a Latch ACS and the relationships between these resources:
 
@@ -28,7 +28,7 @@ The following table provides a brief description of each of the Seam resources f
 
 <table><thead><tr><th width="233">Seam Resource</th><th>Description</th></tr></thead><tbody><tr><td><picture><source srcset="../../.gitbook/assets/acs-user_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-user_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/users/"><code>acs_user</code></a></td><td>Individual who has been granted access to specific entrance within a building. A user could be a resident or temporary guest.</td></tr><tr><td><picture><source srcset="../../.gitbook/assets/acs-entrance_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-entrance_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/entrances/"><code>acs_entrance</code></a></td><td>Physical points of entry within a property that are secured with Latch's smart access devices.</td></tr><tr><td><picture><source srcset="../../.gitbook/assets/acs-credential_latch_dark.png" media="(prefers-color-scheme: dark)"><img src="../../.gitbook/assets/acs-credential_latch_light.png" alt="" data-size="line"></picture> <a href="../../api-clients/access-control-systems/credentials/"><code>acs_credential</code></a></td><td>PIN codes or mobile keys. You can only assign one entrance to a key code-based credential. You can assign multiple entrances to mobile keys.</td></tr></tbody></table>
 
-For more information about managing your Latch ACS through Seam, see [Credential-based ACS](../../capability-guides/access-systems/understanding-access-control-system-differences.md#credential-based-acs) and [Access Control Systems](../../products/access-systems/).
+For more information about managing your Latch ACS through Seam, see [Credential-based Access Control Systems](../../capability-guides/access-systems/understanding-access-control-system-differences.md#credential-based-access-control-systems) and [Access Control Systems](../../products/access-systems/).
 
 ***
 
@@ -45,7 +45,7 @@ We support the following features:
 
 ### Device Provider Key
 
-To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables you to connect your Latch ACS to Seam, include the `latch` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables you to connect your Latch ACS to Seam, include the `latch` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 

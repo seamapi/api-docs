@@ -34,7 +34,7 @@ We support the following features:
 
 ### Device Provider Key
 
-To create a [Connect Webview](../core-concepts/connect-webviews/) that enables you to connect your Brivo Access platform and devices to Seam, include the `brivo` [device provider key](../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../core-concepts/connect-webviews/) that enables you to connect your Brivo Access platform and devices to Seam, include the `brivo` [device provider key](../api-clients/connect-webviews/#device-provider-keys) in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 
@@ -60,7 +60,7 @@ To control Brivo-connected devices using Seam, you must prompt owners of these d
 
 Contact the Brivo Sales team using the contact information on the Brivo **Contact Us** page.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>Brivo Contact Us Page</strong></td><td></td><td><a href="https://www.brivo.com/about/contact-us/">https://www.brivo.com/about/contact-us/</a></td><td><a href="../.gitbook/assets/brivo-logo.svg">brivo-logo.svg</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>Brivo Contact Us Page</strong></td><td></td><td><a href="https://www.brivo.com/about/contact-us/">https://www.brivo.com/about/contact-us/</a></td><td><a href="../.gitbook/assets/brivo-logo.png">brivo-logo.png</a></td></tr></tbody></table>
 
 ***
 

@@ -130,102 +130,380 @@ The Seam SDK that you have installed automatically uses this API key once you ha
 Next, use the following code to retrieve one of the devices that you connected in [Step 1](quickstart.md#step-1-connect-devices), inspect the supported capabilities of the device, and use the Seam API to unlock the door:
 
 {% tabs %}
-{% tab title="JavaScript" %}
-```javascript
-import { Seam } from "seam";
-const seam = new Seam(); // SEAM_API_KEY environment variable picked up here.
+{% tab title="Python" %}
+**Code:**
 
-// Retrieve all authorized locks and select the first lock.
-const [someLock] = await seam.locks.list();
+```python
+from seam import Seam
 
-// Inspect this device to see which capabilities it supports.
-console.log(someLock.capabilities_supported);
-/*
-  [ 'access_code', 'lock' ] 
-*/
+seam = Seam()  # Seam automatically uses your exported SEAM_API_KEY.
 
-// This device supports the 'lock' capability, so you can use the Seam API to
-// unlock the lock if it is locked or to lock it if it is unlocked.
-if (someLock.properties.locked) {
-  await seam.locks.unlockDoor(someLock.device_id);
-} else {
-  await seam.locks.lockDoor(someLock.device_id);
+# Retrieve all devices, filtered by manufacturer,
+# which is one of several filters that list() supports.
+all_august_locks = seam.devices.list(manufacturer="august")
+
+# Select the first device as an example.
+front_door = all_august_locks[0]
+
+# Confirm that the device can remotely unlock.
+# You're using a capability flag here!
+if front_door.can_remotely_unlock:
+  # Perform the unlock operation
+  # and return an action attempt.
+  action_attempt=seam.locks.unlock_door(device_id=front_door.device_id)
+```
+
+**Output:**
+
+```
+ActionAttempt(
+  status='pending',
+  action_type='UNLOCK_DOOR',
+  action_attempt_id='11111111-2222-3333-4444-555555555555',
+  result=None,
+  error={}
+)
+```
+{% endtab %}
+
+{% tab title="cURL (bash)" %}
+**Code:**
+
+```bash
+# Retrieve all devices, filtered by manufacturer, which is
+# one of several filters that the list endpoint supports.
+all_august_locks=$(
+  # Use GET or POST.
+  curl -X 'GET' \
+    'https://connect.getseam.com/devices/list' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${SEAM_API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{
+    "manufacturer": "august"
+  }')
+
+# Select the first device as an example.
+front_door=$(jq -r '.devices[0]' <<< ${all_august_locks})
+
+# Confirm that the device can remotely unlock.
+# You're using a capability flag here!
+if  $(jq -r '.can_remotely_lock' <<< ${front_door}); then \
+  # Perform the unlock operation
+  # and return an action attempt.
+  curl -X 'POST' \
+    'https://connect.getseam.com/locks/unlock_door' \
+    -H 'accept: application/json' \
+    -H "Authorization: Bearer ${SEAM_API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d "{
+      \"device_id\": \"$(jq -r '.device_id' <<< ${front_door})\"
+  }";
+fi
+```
+
+**Output:**
+
+```json
+{
+  "action_attempt": {
+    "status":"pending",
+    "action_type":"UNLOCK_DOOR",
+    "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+    "result":null,
+    "error":null
+  },
+  "ok":true
 }
 ```
 {% endtab %}
 
-{% tab title="Python" %}
-```python
-from seam import Seam
+{% tab title="JavaScript" %}
+**Code:**
 
-# SEAM_API_KEY environment variable picked up here.
-seam = Seam()
+```javascript
+import { Seam } from "seam";
 
-# Retrieve all authorized locks and select the first lock.
-some_lock = seam.locks.list()[0]
+const seam = new Seam(); // Seam automatically uses your exported SEAM_API_KEY.
 
-# Inspect this device to see which capabilities it supports.
-print(some_lock.capabilities_supported)
-# ['access_code', 'lock']
+// Retrieve all devices, filtered by manufacturer,
+// which is one of several filters that list() supports.
+const allAugustLocks = await seam.devices.list({manufacturer: "august"});
 
-# This device supports the 'lock' capability, so you can use the Seam API to
-# unlock the lock if it is locked or to lock it if it is unlocked.
-if some_lock.properties["locked"]:
-    seam.locks.unlock_door(some_lock)
-else:
-    seam.locks.lock_door(some_lock)
+// Select the first device as an example.
+const frontDoor = allAugustLocks[0];
+
+// Confirm that the device can remotely unlock.
+// You're using a capability flag here!
+if (frontDoor.can_remotely_unlock) {
+  // Perform the unlock operation
+  // and return an action attempt.
+  const actionAttempt = await seam.locks.unlockDoor({
+    device_id: frontDoor.device_id
+  });
+};
+```
+
+**Output:**
+
+```json
+{
+  actionAttempt: {
+    status: 'success',
+    action_attempt_id: '11111111-2222-3333-4444-555555555555',
+    action_type: 'UNLOCK_DOOR',
+    result: {},
+    error: null
+  }
+}
 ```
 {% endtab %}
 
 {% tab title="Ruby" %}
+**Code:**
+
 ```ruby
 require "seamapi"
 
-# SEAM_API_KEY environment variable picked up here.
-seam = Seam::Client.new()
+seam = Seam::Client.new() # Seam automatically uses your exported SEAM_API_KEY.
 
-# Retrieve all authorized locks and select the first lock.
-some_lock = seam.locks.list().first
-# Note the capabilities that this device supports.
-# capabilities_supported=["access_code", "lock"]
+# Retrieve all devices, filtered by manufacturer,
+# which is one of several filters that list() supports.
+all_august_locks = seam.devices.list(manufacturer: "august")
 
-# This device supports the "lock" capability, so you can use the Seam API to
-# unlock the lock if it is locked or to lock it if it is unlocked.
-if some_lock.properties["locked"]
-    seam.locks.unlock_door(some_lock.device_id)
-else
-    seam.locks.lock_door(some_lock.device_id)
+# Select the first device as an example.
+front_door = all_august_locks[0]
+
+# Confirm that the device can remotely unlock.
+# You're using a capability flag here!
+if (front_door.can_remotely_unlock)
+  # Perform the unlock operation
+  # and return an action attempt.
+  action_attempt = seam.locks.unlock_door(front_door.device_id)
 end
+```
+
+**Output:**
+
+```
+<Seam::ActionAttempt:0x00438
+  status="pending"
+  action_type="UNLOCK_DOOR"
+  action_attempt_id="11111111-2222-3333-4444-555555555555"
+  result=nil>
 ```
 {% endtab %}
 
 {% tab title="PHP" %}
+**Code:**
+
 ```php
 <?php
 require 'vendor/autoload.php';
 
-use Seam\SeamClient;
+$seam = new Seam\SeamClient(); // Seam automatically uses your exported SEAM_API_KEY.
 
-# SEAM_API_KEY environment variable picked up here.
-$seam = new SeamClient("YOUR_API_KEY");
+// Retrieve all devices, filtered by manufacturer,
+// which is one of several filters that list() supports.
+$all_august_locks = $seam->devices->list(manufacturer: "august");
 
-# Retrieve all authorized locks and select the first lock.
-$some_lock = $seam->locks->list()[0];
+// Select the first device as an example.
+$front_door = $all_august_locks[0];
 
-# Inspect this device to see which capabilities it supports.
-echo json_encode($some_lock->capabilities_supported, JSON_PRETTY_PRINT);
-# [
-#     "access_code",
-#     "lock"
-# ]
-
-# This device supports the "lock" capability, so you can use the Seam API to
-# unlock the lock if it is locked or to lock it if it is unlocked.
-if ($some_lock->properties->locked) {
-  $seam->locks->unlock_door($some_lock->device_id);
-} else {
-  $seam->locks->lock_door($some_lock->device_id);
+// Confirm that the device can remotely unlock.
+// You're using a capability flag here!
+if ($front_door->can_remotely_unlock) {
+  // Perform the unlock operation
+  // and return an action attempt.
+  $action_attempt = $seam->locks->unlock_door(device_id: $front_door->device_id);
 }
+```
+
+**Output:**
+
+```json
+{
+  "action_attempt_id":"11111111-2222-3333-4444-555555555555",
+  "action_type":"UNLOCK_DOOR",
+  "error":null,
+  "result":{},
+  "status":"success"
+}
+```
+{% endtab %}
+
+{% tab title="C#" %}
+**Code:**
+
+```csharp
+using Seam.Client;
+
+var seam = new SeamClient(apiToken: SEAM_API_KEY);
+
+// Retrieve all devices, filtered by manufacturer,
+// which is one of several filters that list() supports.
+var allAugustLocks = seam.Devices.List(
+  manufacturer: Seam.Api.Devices.ListRequest.ManufacturerEnum.August
+);
+
+// Select the first device as an example.
+Device frontDoor = allAugustLocks[0];
+
+// Confirm that the device can remotely unlock.
+// You're using a capability flag here!
+if (frontDoor.CanRemotelyUnlock == true) {
+  // Perform the unlock operation
+  // and return an action attempt.
+  ActionAttempt actionAttempt = seam.Locks.UnlockDoor(deviceId: frontDoor.DeviceId);
+}
+```
+
+**Output:**
+
+```json
+{
+  "status": "pending",
+  "action_type": "UNLOCK_DOOR",
+  "action_attempt_id": "11111111-2222-3333-4444-555555555555"
+}
+```
+{% endtab %}
+
+{% tab title="Java" %}
+**Code:**
+
+```java
+import java.io.Console;
+import java.util.*;
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.seam.api.Seam;
+import com.seam.api.core.ObjectMappers;
+import com.seam.api.types.Device;
+import com.seam.api.types.Manufacturer;
+import com.seam.api.types.ActionAttempt;
+import com.seam.api.resources.devices.requests.DevicesListRequest;
+import com.seam.api.resources.locks.requests.LocksUnlockDoorRequest;
+
+public class Main {
+
+  public static void main(String[] args) {
+
+    Seam seam = Seam.builder()
+      .apiKey(SEAM_API_KEY)
+      .build();
+
+    // Retrieve all devices, filtered by manufacturer,
+    // which is one of several filters that list() supports.
+    var allAugustLocks = seam.devices().list(DevicesListRequest.builder()
+      .manufacturer(Manufacturer.AUGUST)
+      .build());
+    
+    // Select the first device as an example.
+    Device frontDoor = allAugustLocks.get(0);
+    
+    // Confirm that the device can remotely unlock.
+    // You're using a capability flag here!
+    if (frontDoor.getCanRemotelyUnlock())
+    {
+      // Perform the unlock operation
+      // and return an action attempt.
+      ActionAttempt actionAttempt = seam.locks()
+        .unlockDoor(LocksUnlockDoorRequest.builder()
+          .deviceId(frontDoor.getDeviceId())
+          .build());
+    }
+  }
+}
+```
+
+**Output:**
+
+```json
+Optional[
+  {
+    "action_type" : "UNLOCK_DOOR",
+    "action_attempt_id" : "11111111-2222-3333-4444-555555555555",
+    "status" : "pending"
+  }
+]
+```
+{% endtab %}
+
+{% tab title="Go" %}
+**Code:**
+
+```go
+package main
+
+import (
+  "context"
+  "fmt"
+  "os"
+
+  api "github.com/seamapi/go"
+  seam "github.com/seamapi/go/client"
+)
+
+func main() {
+  if err := run(); err != nil {
+    _, _ = fmt.Fprintln(os.Stderr, err.Error())
+    os.Exit(1)
+  }
+}
+
+func run() error {
+  client := seam.NewClient(
+    seam.WithApiKey(SEAM_API_KEY),
+  )
+  
+  // Retrieve all devices, filtered by manufacturer,
+  // which is one of several filters that list() supports.
+  allAugustLocks, err := client.Devices.List(
+    context.Background(), &api.DevicesListRequest{
+      Manufacturer: api.ManufacturerAugust.Ptr(),
+    },
+  )
+  
+  // Select the first device as an example.
+  frontDoor := allAugustLocks[0]
+  
+  if err != nil {
+    return err
+  }
+
+  // Confirm that the device can remotely unlock.
+  // You're using a capability flag here!
+  if *frontDoor.CanRemotelyUnlock {
+    // Perform the unlock operation.
+    actionAttempt, err := client.Locks.UnlockDoor(
+      context.Background(),
+      &api.LocksUnlockDoorRequest{
+        DeviceId: frontDoor.DeviceId,
+      },
+    )
+  
+    if err != nil {
+      return err
+    }
+  }
+  
+  return nil
+}
+```
+
+**Output:**
+
+```json
+&{pending <nil>
+  {
+    "status": "pending",
+    "action_type": "UNLOCK_DOOR",
+    "action_attempt_id": "11111111-2222-3333-4444-555555555555",
+    "result": null,
+    "error": null
+  }
+<nil>} <nil>
 ```
 {% endtab %}
 {% endtabs %}

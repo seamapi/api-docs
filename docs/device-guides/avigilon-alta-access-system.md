@@ -32,7 +32,7 @@ We support the following features:
 
 ### Device Provider Key
 
-To create a [Connect Webview](../core-concepts/connect-webviews/) that enables you to connect your Avigilon Alta access system and devices to Seam, include the `avigilon_alta` [device provider key](../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../core-concepts/connect-webviews/) that enables you to connect your Avigilon Alta access system and devices to Seam, include the `avigilon_alta` [device provider key](../api-clients/connect-webviews/#device-provider-keys) in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 
@@ -56,7 +56,7 @@ To control Avigilon Alta-connected devices using Seam, you must prompt owners of
 
 To purchase the Avigilon Alta access system and devices, request a quote from Avigilon.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>Avigilon Quote Request</strong></td><td></td><td><a href="https://www.avigilon.com/quote">https://www.avigilon.com/quote</a></td><td><a href="../.gitbook/assets/avigilon-logo.png">avigilon-logo.png</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>Avigilon Quote Request</strong></td><td></td><td><a href="https://www.avigilon.com/quote">https://www.avigilon.com/quote</a></td><td><a href="../.gitbook/assets/avigilon-alta-logo.png">avigilon-alta-logo.png</a></td></tr></tbody></table>
 
 ***
 

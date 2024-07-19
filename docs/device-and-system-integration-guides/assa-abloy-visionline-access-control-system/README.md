@@ -23,7 +23,7 @@ We support the following features:
 
 ### Device Provider Key
 
-To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables you to connect your Visionline ACS to Seam, include the `visionline` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables you to connect your Visionline ACS to Seam, include the `visionline` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 
@@ -32,7 +32,7 @@ To create a [Connect Webview](../../core-concepts/connect-webviews/) that enable
 {% hint style="info" %}
 Before connecting your Visionline ACS to Seam, you must first install and connect your Seam Bridge. For detailed instructions, see [Seam Bridge](../../capability-guides/seam-bridge.md).
 
-To issue mobile keys, you must also connect ASSA ABLOY Credential Services to Seam for credential management. For detailed instructions, see [ASSA ABLOY Credential Services](../assa-abloy-credential-services-credential-manager-in-development.md).
+To issue mobile keys, you must also connect ASSA ABLOY Credential Services to Seam for credential management. For detailed instructions, see [ASSA ABLOY Credential Services](../../device-guides/assa-abloy-credential-services-credential-manager-in-development.md).
 {% endhint %}
 
 1. Log in to the Visionline application and note your username and password.\
@@ -74,11 +74,11 @@ To issue mobile keys, you must also connect ASSA ABLOY Credential Services to Se
 {% hint style="info" %}
 When connecting a Visionline ACS in your sandbox test environment, you can use the following test credentials:
 
-[Sandbox ASSA ABLOY Visionline Access Control System](../sandbox-and-sample-data/assa-abloy-visionline-access-management-system-sample-data.md)
+[Sandbox ASSA ABLOY Visionline Access Control System](../../device-guides/sandbox-and-sample-data/assa-abloy-visionline-access-management-system-sample-data.md)
 
 To issue mobile keys in your sandbox test environment, you must also use the sandbox ASSA ABLOY Credential Services for credential management. You can use the following test credential manager credentials:
 
-[Sandbox ASSA ABLOY Credential Services](../sandbox-and-sample-data/assa-abloy-credential-service-sample-data.md)
+[Sandbox ASSA ABLOY Credential Services](../../device-guides/sandbox-and-sample-data/assa-abloy-credential-service-sample-data.md)
 {% endhint %}
 
 ***

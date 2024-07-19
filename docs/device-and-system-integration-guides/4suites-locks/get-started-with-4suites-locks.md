@@ -112,10 +112,8 @@ Next, go to [https://console.seam.co/](https://console.seam.co/) and [sign up fo
 Then, export your API key as an environment variable.
 
 ```bash
-$ export SEAM_API_KEY=my_seam_api_key
+$ export SEAM_API_KEY=seam_test2bMS_94SrGUXuNR2JmJkjtvBQDg5c
 ```
-
-Where `my_seam_api_key` is your API key.
 
 {% hint style="info" %}
 This guide uses a [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces). You can only connect virtual devices and systems in this type of workspace. If you want to connect a real 4SUITES lock, use a [non-sandbox workspace](../../core-concepts/workspaces/#production-workspaces) and API key.

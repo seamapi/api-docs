@@ -35,7 +35,7 @@ We support the following features:
 
 ### Device Provider Key
 
-To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables your users to connect their Tedee devices to Seam, include the `tedee` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../../core-concepts/connect-webviews/) that enables your users to connect their Tedee devices to Seam, include the `tedee` [device provider key](../../api-clients/connect-webviews/#device-provider-keys) in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 
@@ -71,7 +71,7 @@ Tedee imposes the following PIN code requirements:
 
 To purchase Tedee devices, visit the Tedee online store.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>Tedee Online Store</strong></td><td></td><td><a href="https://tedee.com/shop/">https://tedee.com/shop/</a></td><td><a href="../../.gitbook/assets/tedee-manufacturer-square-cover (1).png">tedee-manufacturer-square-cover (1).png</a></td></tr></tbody></table>
+<table data-view="cards"><thead><tr><th></th><th></th><th></th><th data-hidden data-card-target data-type="content-ref"></th><th data-hidden data-card-cover data-type="files"></th></tr></thead><tbody><tr><td></td><td><strong>Tedee Online Store</strong></td><td></td><td><a href="https://tedee.com/shop/">https://tedee.com/shop/</a></td><td><a href="../../.gitbook/assets/tedee-logo.png">tedee-logo.png</a></td></tr></tbody></table>
 
 ***
 

@@ -33,7 +33,7 @@ The Seam platform cannot determine the PIN codes for access codes that were crea
 
 ### Device Provider Key
 
-To create a [Connect Webview](../core-concepts/connect-webviews/) that enables your users to connect their Kwikset devices to Seam, include the `kwikset` [device provider key](../api-clients/connect-webviews/#device-provider-keys) as the `selected_provider` or in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
+To create a [Connect Webview](../core-concepts/connect-webviews/) that enables your users to connect their Kwikset devices to Seam, include the `kwikset` [device provider key](../api-clients/connect-webviews/#device-provider-keys) in the `accepted_providers` list. For more information, see [Customize the Brands to Display in Your Connect Webview](../core-concepts/connect-webviews/customizing-connect-webviews.md#customize-the-brands-to-display-in-your-connect-webviews).
 
 ***
 
@@ -54,6 +54,22 @@ Enabling MFA in the Kwikset App can block the Seam login process from performing
 {% endhint %}
 
 4. Note your login credentials for the Kwikset App, and use these credentials to log in to the Seam Connect Webview to add your devices to Seam.
+
+***
+
+## Brand-Specific Events
+
+Seam supports the following events and event property values for Kwikset devices:
+
+### Kwikset Auto-Lock
+
+Kwikset devices have an auto-lock feature that automatically locks the device after a configurable period of time, for example, 30 seconds. The Seam API reports these auto-lock occurrences by emitting a [`lock.locked` event](../api-clients/events/#event-types) with `automatic` as the value for the [`method` property](../api-clients/events/#lock-events).
+
+### Kwikset Access Denied Event
+
+The Seam API emits a [`lock.access_denied` event](../api-clients/events/#event-types) when an incorrect access code is entered three times in a row on a Kwikset device. The Kwikset device also emits warning beeps for approximately 15 seconds, and the keypad is locked during this time. The keypad remains locked for one minute after the warning beeps end.
+
+***
 
 ## Where to Order
 

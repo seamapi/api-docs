@@ -23,4 +23,12 @@ redirects:
   products/seam-bridge-in-development: capability-guides/seam-bridge.md
   core-concepts/connect-webviews: core-concepts/connect-webviews/README.md
   device-guides/4suites-locks: device-and-system-integration-guides/4suites-locks/README.md
+  device-guides/assa-abloy-visionline-access-control-system-in-development: device-and-system-integration-guides/assa-abloy-visionline-access-control-system/README.md
+  device-guides/assa-abloy-visionline-access-control-system-in-development/credential-types: device-and-system-integration-guides/assa-abloy-visionline-access-control-system/credential-types.md
+  device-and-system-integration-guides/assa-abloy-visionline-access-control-system-in-development/visionline-credential-metadata: device-and-system-integration-guides/assa-abloy-visionline-access-control-system/visionline-credential-metadata.md
+  device-guides/assa-abloy-visionline-access-control-system-in-development/common-use-cases: device-and-system-integration-guides/assa-abloy-visionline-access-control-system/common-use-cases.md
+  device-and-system-integration-guides/assa-abloy-visionline-access-control-system-in-development/special-requirements-for-android-mobile-access-sdk-development: device-and-system-integration-guides/assa-abloy-visionline-access-control-system/special-requirements-for-android-mobile-access-sdk-development.md
+  device-and-system-integration-guides/assa-abloy-visionline-access-control-system-in-development/special-requirements-for-ios-mobile-access-sdk-development: device-and-system-integration-guides/assa-abloy-visionline-access-control-system/special-requirements-for-ios-mobile-access-sdk-development.md
+  capability-guides/access-systems/understanding-acs-differences: capability-guides/access-systems/understanding-access-control-system-differences.md
+  
   

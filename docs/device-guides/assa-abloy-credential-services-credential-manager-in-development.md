@@ -6,7 +6,7 @@ description: Guide for using ASSA ABLOY Credential Services with Seam
 
 ## Setup Instructions
 
-1. To develop integrate with ASSA ABLOY Credential Services, you must register for the ASSA ABLOY partnership program. Note that if you plan to integrate with the [ASSA ABLOY Visionline ACS](assa-abloy-visionline-access-control-system-in-development/), you must also register for this program. For details, see [https://www.abloy.com/global/en/partnership-and-integrations](https://www.abloy.com/global/en/partnership-and-integrations).
+1. To develop integrate with ASSA ABLOY Credential Services, you must register for the ASSA ABLOY partnership program. Note that if you plan to integrate with the [ASSA ABLOY Visionline ACS](../device-and-system-integration-guides/assa-abloy-visionline-access-control-system/), you must also register for this program. For details, see [https://www.abloy.com/global/en/partnership-and-integrations](https://www.abloy.com/global/en/partnership-and-integrations).
 2. Identify your ASSA ABLOY tenant account username and password, as well as your application ID.\
    ASSA ABLOY should have provided this information to you when you registered your application with the ASSA ABLOY partnerships program.\
    You can also locate this information in the ASSA ABLOY Global Solutions Technology Partner Portal, as follows:

@@ -1,7 +1,7 @@
 ---
 description: >-
-  Learn how to manage your ACS users and sync tenants and visitors from your
-  property management platform.
+  Learn how to manage your ACS users to grant or revoke physical access for
+  people.
 ---
 
 # Managing ACS Users
@@ -188,11 +188,11 @@ acs_systems, uErr := client.Acs.Systems.List(
 
 ## Create an ACS User
 
-To [create an ACS user](../../api-clients/access-control-systems/users/create-user.md), provide the `acs_system_id` of the ACS system and the attributes of the user, such as the `full_name`, `email_address`, `phone_number`, and so on.&#x20;
+To [create an ACS user](../../api-clients/access-control-systems/users/create-user.md), provide the `acs_system_id` of the ACS system and the attributes of the user, such as the `full_name`, `email_address`, `phone_number`, and so on.
 
 Also, if your [ACS architecture](../../capability-guides/access-systems/understanding-access-control-system-differences.md) supports access groups, you can also assign an ACS user to one or more access groups. To do so, when you create the user, include the IDs of the access group to which you want add the user. The `acs_access_group_ids` parameter accepts an array of strings.
 
-In addition, if your ACS architecture supports assigning access schedules directly to ACS users, you can specify an `access_schedule` for the user, including a `starts_at` and `ends_at` date and time. &#x20;
+In addition, if your ACS architecture supports assigning access schedules directly to ACS users, you can specify an `access_schedule` for the user, including a `starts_at` and `ends_at` date and time.
 
 Further, you can use the `user_identity_id` parameter to associate a new ACS user with a [user identity](../../api-clients/user-identities/). You can use a user identity to link an ACS user with an app user in your system, such as a [mobile access app user](../mobile-access-in-development/managing-mobile-app-user-accounts-with-user-identities.md#what-is-a-user-identity) or an app user who needs access to multiple ACSs.
 

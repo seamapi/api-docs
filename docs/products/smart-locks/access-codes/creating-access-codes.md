@@ -622,7 +622,7 @@ AccessCode(
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
-### Request:
+#### Request:
 
 ```sh
 # Get the device.
@@ -655,7 +655,7 @@ if  $(jq -r '.device.can_program_online_access_codes' <<< ${device}); then \
 fi
 ```
 
-### Response:
+#### Response:
 
 ```json
 {

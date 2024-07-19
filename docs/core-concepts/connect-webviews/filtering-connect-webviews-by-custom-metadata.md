@@ -161,7 +161,6 @@ echo json_encode($webviews);
   ...
 ]
 ```
-{% endcode %}
 {% endtab %}
 
 {% tab title="C#" %}

@@ -1,6 +1,6 @@
 # Sandbox ASSA ABLOY Visionline Access Control System
 
-Use the following set of credentials to add virtual [ASSA ABLOY Visionline Access Control System](../assa-abloy-visionline-access-control-system-in-development/)-connected devices to your Seam [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces):
+Use the following set of credentials to add virtual [ASSA ABLOY Visionline Access Control System](../../device-and-system-integration-guides/assa-abloy-visionline-access-control-system/)-connected devices to your Seam [sandbox workspace](../../core-concepts/workspaces/#sandbox-workspaces):
 
 {% hint style="info" %}
 To use the virtual Visionline Access Control System (ACS) with the virtual [Seam Bridge](../../capability-guides/seam-bridge.md):&#x20;

@@ -14,6 +14,7 @@ You can use the HTML Iframe to display a connect webview url.
 ```html
 <iframe
   style="border: none;min-height: 600px;height: 100%;width: 100%"
+  allow="clipboard-write"
   src="<your connect_webview.url>"
 />
 ```

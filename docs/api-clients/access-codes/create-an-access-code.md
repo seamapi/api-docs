@@ -324,7 +324,7 @@ AccessCode(access_code_id='1bbd1eba-e4a2-4f96-b1b9-8498a5405b2b',
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
-#### Request:
+**Request:**
 
 ```sh
 curl -X 'POST' \
@@ -341,7 +341,7 @@ curl -X 'POST' \
 }'
 ```
 
-#### Response:
+**Response:**
 
 ```json
 {
@@ -607,7 +607,7 @@ AccessCode(access_code_id='f078dce8-3c5e-4bc4-bd08-3ad013ee8be6',
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
-#### Request:
+**Request:**
 
 ```sh
 curl -X 'POST' \
@@ -624,7 +624,7 @@ curl -X 'POST' \
 }'
 ```
 
-#### Response:
+**Response:**
 
 ```json
 {
@@ -758,7 +758,7 @@ AccessCode(access_code_id='7cac9c2c-4313-4a94-a034-ceee2a4bd9ef',
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
-#### Request:
+**Request:**
 
 ```sh
 curl -X 'POST' \
@@ -777,7 +777,7 @@ curl -X 'POST' \
 }'
 ```
 
-#### Response:
+**Response:**
 
 ```json
 {
@@ -910,7 +910,7 @@ AccessCode(access_code_id='995957b0-5db5-43f2-ac64-e8ad076c09cf',
 {% endtab %}
 
 {% tab title="cURL (bash)" %}
-#### Request:
+**Request:**
 
 ```sh
 curl -X 'POST' \
@@ -927,7 +927,7 @@ curl -X 'POST' \
 }'
 ```
 
-#### Response:
+**Response:**
 
 ```json
 {
@@ -973,8 +973,8 @@ curl -X 'POST' \
 | ----------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `name`                        | <p>type: string<br>Optional</p>  | Name of Access Code                                                                                                                                                                                                                                                            |
 | `starts_at`                   | <p>type: string<br>Optional</p>  | From when is the code valid                                                                                                                                                                                                                                                    |
-| `ends_at`                     | <p>type: string<br>Optional</p>  | Code expiry                                                                                                                                                                                                                                                                    |
-| `code`                        | <p>type: string<br>Optional</p>  | Access code of Device                                                                                                                                                                                                                                                          |
+| `ends_at`                     | <p>type: string<br>Optional</p>  | Code expiry. Must be a timestamp in the future and after `starts_at`.                                                                                                                                                                                                          |
+| `code`                        | <p>type: string<br>Optional</p>  | Access code of device                                                                                                                                                                                                                                                          |
 | `use_backup_access_code_pool` | <p>type: boolean<br>Optional</p> | Use a [backup access code pool](https://docs.seam.co/latest/core-concepts/access-codes#backup-access-codes) provided by Seam. This allows you to use [/access\_codes/pull\_backup\_access\_code](https://docs.seam.co/latest/api-clients/access-codes/pull-backup-access-code) |
 | `common_code_key`             | <p>type: string<br>Optional</p>  | any two access codes with the same `common_code_key` are guaranteed to have the same code                                                                                                                                                                                      |
 | `prefer_native_scheduling`    | <p>type: boolean<br>Optional</p> | Whether [native scheduling](../../products/smart-locks/access-codes/#native-scheduling) should be used for time-bound codes when supported by the provider (defaults to true)                                                                                                  |

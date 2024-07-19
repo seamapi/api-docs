@@ -4,16 +4,20 @@ description: Retrieve the Workspace that is associated with an API Key
 
 # Get Workspace
 
-{% swagger method="get" path="/workspaces/get" baseUrl="https://connect.getseam.com" summary="Get one workspace connected to account" %}
-{% swagger-description %}
+## Get one workspace connected to account
+
+<mark style="color:blue;">`GET`</mark> `https://connect.getseam.com/workspaces/get`
+
 Retrieve a Workspace using its ID.
-{% endswagger-description %}
 
-{% swagger-parameter in="header" name="Authorization" required="true" %}
-Bearer <API_KEY>
-{% endswagger-parameter %}
+#### Headers
 
-{% swagger-response status="200: OK" description="Workspace retrieved" %}
+| Name                                            | Type   | Description        |
+| ----------------------------------------------- | ------ | ------------------ |
+| Authorization<mark style="color:red;">\*</mark> | String | Bearer \<API\_KEY> |
+
+{% tabs %}
+{% tab title="200: OK Workspace retrieved" %}
 ```javascript
 {
   "workspace": {
@@ -25,8 +29,8 @@ Bearer <API_KEY>
   "ok": true
 }
 ```
-{% endswagger-response %}
-{% endswagger %}
+{% endtab %}
+{% endtabs %}
 
 ### Code Example
 
@@ -39,7 +43,7 @@ seam.workspaces.get()
 #    workspace_id='123e4567-e89b-12d3-a456-426614174000',
 #    name='Sandbox',
 #    is_sandbox=True
-# )\
+# )
 ```
 {% endtab %}
 
