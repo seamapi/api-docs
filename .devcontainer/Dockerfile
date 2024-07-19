@@ -29,7 +29,6 @@ COPY --from=golang /usr/local/go /usr/local/go
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 RUN gem install seamapi
-RUN pip install seamapi --break-system-packages
 RUN pip install seam --break-system-packages
 
 USER node

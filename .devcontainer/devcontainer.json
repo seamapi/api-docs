@@ -19,6 +19,6 @@
       ]
     }
   },
-  "postCreateCommand": "npm install -g seam-cli && seam config set fake-server && cd /workspaces/api-docs/snippet-playground/javascript && npm i seam@latest && cd /workspaces/api-docs/snippet-playground/javascript-next && npm i seam@latest && cd /workspaces/api-docs/snippet-playground/csharp && ./init.sh && cd /workspaces/api-docs/snippet-playground/go && ./init.sh && cd /workspaces/api-docs/snippet-playground/php && composer update",
+  "postCreateCommand": "npm install -g seam-cli && seam config set fake-server && cd /workspaces/api-docs/snippet-playground/javascript && npm i seam@latest && cd /workspaces/api-docs/snippet-playground/csharp && ./init.sh && cd /workspaces/api-docs/snippet-playground/go && ./init.sh && cd /workspaces/api-docs/snippet-playground/php && composer update",
   "remoteUser": "node"
 }
