@@ -9,8 +9,8 @@ using Seam.Model;
 
 // var r = new string(Enumerable.Range(0, 10).Select(_ => "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"[new Random().Next(36)]).ToArray());
 
-// var SEAM_API_KEY = "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq";
-var SEAM_API_KEY = "seam_testMyUj_6Exz7BVtFUM6GrHggvm9DFXm";
+var SEAM_API_KEY = "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq";
+// var SEAM_API_KEY = "seam_testMyUj_6Exz7BVtFUM6GrHggvm9DFXm";
 
 // Get a Seam Client
 var seam = new SeamClient(
@@ -600,6 +600,17 @@ var seam = new SeamClient(
 
 // Console.WriteLine(createdConnectWebview);
 
+// Retrieve all devices for the connectedAccountId.
+var connectedDevices = seam.Devices.List(
+  // connectedAccountId: "11111111-1111-1111-1111-222222222222"
+  connectedAccountId: "486466da-a19f-48b3-824d-b9aa30b936c9"
+);
+
+foreach (Device connectedDevice in connectedDevices)
+{
+  Console.WriteLine(connectedDevice);
+}
+
 // var connectWebview = seam.ConnectWebviews.Create(
 //   acceptedProviders: new() {Seam.Api.ConnectWebviews.CreateRequest.AcceptedProvidersEnum.FourSuites}
 // );
@@ -948,10 +959,10 @@ var seam = new SeamClient(
 //   acsUserId: "ff44664d-e6ae-4cb4-a9a1-73a8abe6a405"
 // );
 
-seam.UsersAcs.Unsuspend(
-  // acsUserId: "33333333-3333-3333-3333-333333333333"
-  acsUserId: "ff44664d-e6ae-4cb4-a9a1-73a8abe6a405"
-);
+// seam.UsersAcs.Unsuspend(
+//   // acsUserId: "33333333-3333-3333-3333-333333333333"
+//   acsUserId: "ff44664d-e6ae-4cb4-a9a1-73a8abe6a405"
+// );
 
 
 // Console.WriteLine(seam.Devices.List(connectedAccountIds: new List<string> {"ebb67664-c6c0-4a40-9955-5d9b25af8a08", "63f3d878-58b0-46f6-a066-7be9d824b688"}));

@@ -11,7 +11,7 @@ require __DIR__ . '/vendor/autoload.php';
 //   "https://connect.getseam.com"
 // );
 
-// $SEAM_API_KEY = "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq";
+$SEAM_API_KEY = "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq";
 
 // use Seam\SeamClient;
 
@@ -19,7 +19,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 $seam = new Seam\SeamClient(
   // "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq",
-  // $SEAM_API_KEY
+  $SEAM_API_KEY
   // "https://connect.getseam.com"
 );
 // $seam = new Seam\SeamClient(
@@ -66,6 +66,30 @@ $seam = new Seam\SeamClient(
 // echo json_encode($seam->action_attempts->get(action_attempt_id: "b1607dc9-929c-4800-95d4-c97e34bb7778"));
 
 // echo $seam->connected_accounts->delete("25aa45e4-ee1d-44a6-91a0-b53e8c06a6d5");
+
+// $created_connect_webview = $seam->connect_webviews->create(
+//   custom_redirect_url: "https://example.com/redirect",
+//   custom_redirect_failure_url: "https://example.com/failure-redirect",
+//   provider_category: "stable",
+//   wait_for_device_creation: true
+// );
+
+// echo json_encode($created_connect_webview, JSON_PRETTY_PRINT);
+
+// $updated_connect_webview = $seam->connect_webviews->get(
+//   connect_webview_id: "8319b6de-1bf0-4478-a244-4de9d7f29dd7"
+// );
+// echo json_encode($updated_connect_webview, JSON_PRETTY_PRINT);
+
+// echo json_encode($seam->events->list(since: "2024-07-16T00:00:00Z"), JSON_PRETTY_PRINT);
+
+// Retrieve all devices for the connected_account_id.
+$connected_devices = $seam->devices->list(
+  // connected_account_id: "11111111-1111-1111-1111-222222222222"
+  connected_account_id: "486466da-a19f-48b3-824d-b9aa30b936c9"
+);
+echo json_encode($connected_devices, JSON_PRETTY_PRINT);
+
 
 // $connect_webview = $seam->connect_webviews->create(
 //   provider_category: "stable"
@@ -229,65 +253,65 @@ $seam = new Seam\SeamClient(
 // }
 
 
-$building_a = $seam->acs->systems->get(
-  acs_system_id: "f4f660da-c96a-4cf6-9f81-507ff4772b30"
-);
+// $building_a = $seam->acs->systems->get(
+//   acs_system_id: "f4f660da-c96a-4cf6-9f81-507ff4772b30"
+// );
 
-$entrances =  $seam->acs->entrances->list(
-  acs_system_id: "f4f660da-c96a-4cf6-9f81-507ff4772b30"
-);
+// $entrances =  $seam->acs->entrances->list(
+//   acs_system_id: "f4f660da-c96a-4cf6-9f81-507ff4772b30"
+// );
 
-// Step 1:
-// Create a user identity that corresponds to your user's app account.
-$jane_user = $seam->user_identities->create(
-  email_address: "jane5@example.com"
-);
+// // Step 1:
+// // Create a user identity that corresponds to your user's app account.
+// $jane_user = $seam->user_identities->create(
+//   email_address: "jane5@example.com"
+// );
 
-// Step 2:
-// Retrieve a credential manager.
-$latch_credential_manager = $seam->acs->systems->list_compatible_credential_manager_acs_systems(
-  acs_system_id: $building_a->acs_system_id
-)[0];
+// // Step 2:
+// // Retrieve a credential manager.
+// $latch_credential_manager = $seam->acs->systems->list_compatible_credential_manager_acs_systems(
+//   acs_system_id: $building_a->acs_system_id
+// )[0];
 
-// Step 3:
-// Set up an enrollment automation for the user identity, to enable mobile keys.
-$seam->user_identities->enrollment_automations->launch(
-  user_identity_id: $jane_user->user_identity_id,
-  create_credential_manager_user: true,
-  credential_manager_acs_system_id: $latch_credential_manager->acs_system_id
-);
+// // Step 3:
+// // Set up an enrollment automation for the user identity, to enable mobile keys.
+// $seam->user_identities->enrollment_automations->launch(
+//   user_identity_id: $jane_user->user_identity_id,
+//   create_credential_manager_user: true,
+//   credential_manager_acs_system_id: $latch_credential_manager->acs_system_id
+// );
 
-// Step 4:
-// Create an ACS user on the Latch ACS
-// or assign the ACS user to the user identity.
-$building_a_resident = $seam->acs->users->create(
-  // To associate the ACS user with a user identity,
-  // include the user_identity_id.
-  // Resources that you create for this ACS user
-  // are available under the associated user identity.
-  user_identity_id: $jane_user->user_identity_id,
-  acs_system_id: $building_a->acs_system_id,
-  full_name: "Jane Doe5",
-  email_address: "jane5@example.com"
-);
+// // Step 4:
+// // Create an ACS user on the Latch ACS
+// // or assign the ACS user to the user identity.
+// $building_a_resident = $seam->acs->users->create(
+//   // To associate the ACS user with a user identity,
+//   // include the user_identity_id.
+//   // Resources that you create for this ACS user
+//   // are available under the associated user identity.
+//   user_identity_id: $jane_user->user_identity_id,
+//   acs_system_id: $building_a->acs_system_id,
+//   full_name: "Jane Doe5",
+//   email_address: "jane5@example.com"
+// );
 
-// Step 5:
-// Create a mobile key for each door for the ACS user.
-foreach ($entrances as $entrance) {
-  $mobile_key = $seam->acs->credentials->create(
-    acs_user_id: $building_a_resident->acs_user_id,
-    is_multi_phone_sync_credential: true,
-    access_method: "mobile_key",
-    allowed_acs_entrance_ids: [
-      // You must specify only one entrance per mobile key.
-      $entrance->acs_entrance_id
-    ],
-    starts_at: "2024-07-13T16:50:42.072Z",
-    ends_at: "2024-07-18T16:50:42.072Z"
-  );
+// // Step 5:
+// // Create a mobile key for each door for the ACS user.
+// foreach ($entrances as $entrance) {
+//   $mobile_key = $seam->acs->credentials->create(
+//     acs_user_id: $building_a_resident->acs_user_id,
+//     is_multi_phone_sync_credential: true,
+//     access_method: "mobile_key",
+//     allowed_acs_entrance_ids: [
+//       // You must specify only one entrance per mobile key.
+//       $entrance->acs_entrance_id
+//     ],
+//     starts_at: "2024-07-13T16:50:42.072Z",
+//     ends_at: "2024-07-18T16:50:42.072Z"
+//   );
 
-  echo json_encode($mobile_key, JSON_PRETTY_PRINT);
-}
+//   echo json_encode($mobile_key, JSON_PRETTY_PRINT);
+// }
 
 
 // $device = $seam->devices->get("c2cc3831-f347-444e-b83b-d1f14dbb5893");

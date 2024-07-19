@@ -292,20 +292,27 @@ seam = Seam::Client.new()
 #   # }
 # )
 
+# Retrieve all devices for the connectedAccountId.
+connected_devices = seam.devices.list(
+  # connected_account_id: "11111111-1111-1111-1111-222222222222"
+  connected_account_id: "486466da-a19f-48b3-824d-b9aa30b936c9"
+)
+puts connected_devices.inspect
+
 # puts devices.inspect
 
 # Retrieve all devices, filtered by manufacturer,
 # which is one of several filters that list() supports.
 # all_4suites_locks = seam.devices.list(manufacturer: "four_suites")
 # all_4suites_locks = seam.devices.list(manufacturer: "yale")
-all_4suites_locks = seam.devices.list(manufacturer: "august")
+# all_4suites_locks = seam.devices.list(manufacturer: "august")
 
-some_lock = all_4suites_locks[0]
+# some_lock = all_4suites_locks[0]
 
-puts some_lock.properties['online'] # true
-puts some_lock.properties['locked'] # true
+# puts some_lock.properties['online'] # true
+# puts some_lock.properties['locked'] # true
 
-puts some_lock.inspect
+# puts some_lock.inspect
 
 # # Confirm that the device can remotely unlock.
 # # if (some_lock.can_remotely_unlock)

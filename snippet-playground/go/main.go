@@ -5,14 +5,14 @@ import (
 	"fmt"
 	// "math/rand"
 	"os"
-  // "encoding/json"
-  "time"
-  // "reflect"
+//   "encoding/json"
+//   "time"
+//   "reflect"
 
   api "github.com/seamapi/go"
 	seam "github.com/seamapi/go/client"
-  "github.com/seamapi/go/useridentities"
-  "github.com/seamapi/go/acs"
+  // "github.com/seamapi/go/useridentities"
+  // "github.com/seamapi/go/acs"
 
 
 
@@ -26,10 +26,10 @@ func main() {
 }
 
 func run() error {
-  // SEAM_API_KEY := "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"
+  SEAM_API_KEY := "seam_test8yup_77ut771wVzFPcfhce9ti5Ccq"
   // SEAM_API_KEY := "seam_testjMPq_3wh4WmfXuMRMZbAfpCmvUkUi"
   // SEAM_API_KEY := "seam_testMyUj_6Exz7BVtFUM6GrHggvm9DFXm"
-  SEAM_API_KEY := "seam_test2P1X_2jq9k99HBroBF9zMamfdwwaZ"
+  // SEAM_API_KEY := "seam_test2P1X_2jq9k99HBroBF9zMamfdwwaZ"
 
 	client := seam.NewClient(
 		// seam.WithBaseURL(fmt.Sprintf("https://%d.fakeseamconnect.seam.vc", rand.Intn(1000000))),
@@ -414,6 +414,40 @@ func run() error {
 // fmt.Println(connectWebview)
 // return nil
 
+// createdConnectWebview, err := client.ConnectWebviews.Create(
+//     context.Background(),
+//     &api.ConnectWebviewsCreateRequest{
+//       CustomRedirectUrl: api.String("https://example.com/redirect"),
+//       CustomRedirectFailureUrl: api.String("https://example.com/failure-redirect"),
+//       ProviderCategory: api.ProviderCategoryStable.Ptr(),
+//       WaitForDeviceCreation: api.Bool(true),
+//     },
+//   )
+
+// if err != nil {
+//   return err
+// }
+
+// fmt.Println(createdConnectWebview)
+// return nil
+
+// Retrieve all devices for the ConnectedAccountId.
+connectedDevices, err := client.Devices.List(
+  context.Background(), &api.DevicesListRequest{
+    // ConnectedAccountId: api.String("11111111-1111-1111-1111-222222222222"),
+    ConnectedAccountId: api.String("486466da-a19f-48b3-824d-b9aa30b936c9"),
+  },
+)
+
+if err != nil {
+  return err
+}
+
+fmt.Println(connectedDevices)
+
+return nil
+
+
 // connectWebview, err := client.ConnectWebviews.Create(
 //   context.Background(),
 //   &api.ConnectWebviewsCreateRequest{
@@ -647,107 +681,107 @@ func run() error {
 
 
 
-building_a, err := client.Acs.Systems.Get(
-    context.Background(), &acs.SystemsGetRequest{
-      AcsSystemId: "f4f660da-c96a-4cf6-9f81-507ff4772b30",
-    },
-  )
-if err != nil {
-  return err
-}
+// building_a, err := client.Acs.Systems.Get(
+//     context.Background(), &acs.SystemsGetRequest{
+//       AcsSystemId: "f4f660da-c96a-4cf6-9f81-507ff4772b30",
+//     },
+//   )
+// if err != nil {
+//   return err
+// }
 
-entrances, err := client.Acs.Entrances.List(
-  context.Background(), &acs.EntrancesListRequest{
-    AcsSystemId: api.String("f4f660da-c96a-4cf6-9f81-507ff4772b30"),
-  },
-)
-if err != nil {
-  return err
-}
+// entrances, err := client.Acs.Entrances.List(
+//   context.Background(), &acs.EntrancesListRequest{
+//     AcsSystemId: api.String("f4f660da-c96a-4cf6-9f81-507ff4772b30"),
+//   },
+// )
+// if err != nil {
+//   return err
+// }
 
-// Step 1:
-// Create a user identity that corresponds to your user's app account.
-jane_user, err := client.UserIdentities.Create(
-  context.Background(), &api.UserIdentitiesCreateRequest{
-    EmailAddress: api.String("jane7@example.com"),
-  },
-)
-if err != nil {
-  return err
-}
+// // Step 1:
+// // Create a user identity that corresponds to your user's app account.
+// jane_user, err := client.UserIdentities.Create(
+//   context.Background(), &api.UserIdentitiesCreateRequest{
+//     EmailAddress: api.String("jane7@example.com"),
+//   },
+// )
+// if err != nil {
+//   return err
+// }
 
-// Step 2:
-// Retrieve a credential manager.
-// latch_credential_managers, err := client.Acs.Systems.ListCompatibleCredentialManagerAcsSystems(
-latch_credential_managers, err := client.Acs.Systems.List(
-    // context.Background(), &acs.SystemsListCompatibleCredentialManagerAcsSystemsRequest{
-    context.Background(), &acs.SystemsListRequest{
-      // AcsSystemId: building_a.AcsSystemId,
-    },
-  )
-if err != nil {
-  return err
-}
-latch_credential_manager := latch_credential_managers[0]
+// // Step 2:
+// // Retrieve a credential manager.
+// // latch_credential_managers, err := client.Acs.Systems.ListCompatibleCredentialManagerAcsSystems(
+// latch_credential_managers, err := client.Acs.Systems.List(
+//     // context.Background(), &acs.SystemsListCompatibleCredentialManagerAcsSystemsRequest{
+//     context.Background(), &acs.SystemsListRequest{
+//       // AcsSystemId: building_a.AcsSystemId,
+//     },
+//   )
+// if err != nil {
+//   return err
+// }
+// latch_credential_manager := latch_credential_managers[0]
 
-// Step 3:
-// Set up an enrollment automation for the user identity, to enable mobile keys.
-client.UserIdentities.EnrollmentAutomations.Launch(
-  context.Background(), &useridentities.EnrollmentAutomationsLaunchRequest{
-    UserIdentityId: jane_user.UserIdentityId,
-    CreateCredentialManagerUser: api.Bool(true),
-    CredentialManagerAcsSystemId: latch_credential_manager.AcsSystemId,
-  },
-)
+// // Step 3:
+// // Set up an enrollment automation for the user identity, to enable mobile keys.
+// client.UserIdentities.EnrollmentAutomations.Launch(
+//   context.Background(), &useridentities.EnrollmentAutomationsLaunchRequest{
+//     UserIdentityId: jane_user.UserIdentityId,
+//     CreateCredentialManagerUser: api.Bool(true),
+//     CredentialManagerAcsSystemId: latch_credential_manager.AcsSystemId,
+//   },
+// )
 
-// Step 4:
-// Create an ACS user on the Latch ACS
-// or assign the ACS user to the user identity.
-building_a_resident, err := client.Acs.Users.Create(
-  context.Background(), &acs.UsersCreateRequest{
-    // To associate the ACS user with a user identity,
-    // include the UserIdentityId.
-    // Resources that you create for this ACS user
-    // are available under the associated user identity.
-    UserIdentityId: api.String(jane_user.UserIdentityId),
-    AcsSystemId: building_a.AcsSystemId,
-    FullName: api.String("Jane Doe7"),
-    EmailAddress: api.String("jane7@example.com"),
-  },
-)
-if err != nil {
-  return err
-}
+// // Step 4:
+// // Create an ACS user on the Latch ACS
+// // or assign the ACS user to the user identity.
+// building_a_resident, err := client.Acs.Users.Create(
+//   context.Background(), &acs.UsersCreateRequest{
+//     // To associate the ACS user with a user identity,
+//     // include the UserIdentityId.
+//     // Resources that you create for this ACS user
+//     // are available under the associated user identity.
+//     UserIdentityId: api.String(jane_user.UserIdentityId),
+//     AcsSystemId: building_a.AcsSystemId,
+//     FullName: api.String("Jane Doe7"),
+//     EmailAddress: api.String("jane7@example.com"),
+//   },
+// )
+// if err != nil {
+//   return err
+// }
 
-startsAt, err := time.Parse(time.RFC3339, "2024-07-13T16:50:42Z")
-endsAt, err := time.Parse(time.RFC3339, "2024-07-18T16:50:42Z")
-if err != nil {
-  return err
-}
+// startsAt, err := time.Parse(time.RFC3339, "2024-07-13T16:50:42Z")
+// endsAt, err := time.Parse(time.RFC3339, "2024-07-18T16:50:42Z")
+// if err != nil {
+//   return err
+// }
 
-// Step 5:
-// Create a mobile key for each door for the ACS user.
-for _, entrance := range entrances {
-  mobile_key, err := client.Acs.Credentials.Create(
-    context.Background(), &acs.CredentialsCreateRequest{
-      AcsUserId: building_a_resident.AcsUserId,
-      AccessMethod: "mobile_key",
-      AllowedAcsEntranceIds: []string{
-        // You must specify only one entrance per mobile key.
-        entrance.AcsEntranceId,
-      },
-      StartsAt: api.Time(startsAt),
-      EndsAt: api.Time(endsAt),
-    },
-  );
-  if err != nil {
-  return err
-  };
+// // Step 5:
+// // Create a mobile key for each door for the ACS user.
+// for _, entrance := range entrances {
+//   mobile_key, err := client.Acs.Credentials.Create(
+//     context.Background(), &acs.CredentialsCreateRequest{
+//       AcsUserId: building_a_resident.AcsUserId,
+//       AccessMethod: "mobile_key",
+//       AllowedAcsEntranceIds: []string{
+//         // You must specify only one entrance per mobile key.
+//         entrance.AcsEntranceId,
+//       },
+//       StartsAt: api.Time(startsAt),
+//       EndsAt: api.Time(endsAt),
+//     },
+//   );
+//   if err != nil {
+//   return err
+//   };
 
-  fmt.Println(mobile_key);
-}
+//   fmt.Println(mobile_key);
+// }
 
-return nil
+// return nil
 
 
 

@@ -649,6 +649,12 @@ public class Main {
 //                 .connectedAccountId("f8538776-3b5e-4c48-9796-9fdea38617de")
 //                 .build());
 
+// Retrieve all devices for the connectedAccountId.
+var connectedDevices = seam.devices().list(DevicesListRequest.builder()
+  // .connectedAccountId("11111111-1111-1111-1111-222222222222")
+  .connectedAccountId("486466da-a19f-48b3-824d-b9aa30b936c9")
+  .build());
+System.out.println(connectedDevices);
 
 // System.out.println(seam.connectedAccounts().list());
 
@@ -657,20 +663,20 @@ public class Main {
 // var all4suitesLocks = seam.devices().list(DevicesListRequest.builder()
 //   .manufacturer(Manufacturer.FOURSUITES)
 //   .build());
-var all4suitesLocks = seam.devices().list(DevicesListRequest.builder()
-  // .manufacturer(Manufacturer.YALE)
-  .manufacturer(Manufacturer.AUGUST)
-  .build());
+// var all4suitesLocks = seam.devices().list(DevicesListRequest.builder()
+//   // .manufacturer(Manufacturer.YALE)
+//   .manufacturer(Manufacturer.AUGUST)
+//   .build());
 
-// Select the first device as an example.
-Device someLock = all4suitesLocks.get(0);
+// // Select the first device as an example.
+// Device someLock = all4suitesLocks.get(0);
 
-// Inspect specific properties.
-System.out.println(someLock.getProperties().getOnline()); // true
-// System.out.println(someLock.getProperties().getLocked()); // true
+// // Inspect specific properties.
+// System.out.println(someLock.getProperties().getOnline()); // true
+// // System.out.println(someLock.getProperties().getLocked()); // true
 
-// View the entire returned device object.
-System.out.println(someLock);
+// // View the entire returned device object.
+// System.out.println(someLock);
 
 // // Confirm that the device can remotely unlock.
 // // if (someLock.getCanRemotelyUnlock())
