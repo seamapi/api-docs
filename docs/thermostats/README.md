@@ -28,8 +28,3 @@ When you have `heat_cool` turned on, where both heating and cooling systems are 
 | ----------------------------------------------------------------------------------------------- |
 | [List Thermostats](list-thermostats.md)                                                         |
 | [Set Default Climate Setting](../api-clients/thermostats/update-a-thermostat.md)                |
-| [Get Climate Setting Schedule](climate-setting-schedules/get-climate-setting-schedule.md)       |
-| [List Climate Setting Schedules](climate-setting-schedules/list-climate-setting-schedules.md)   |
-| [Create Climate Setting Schedule](climate-setting-schedules/create-climate-setting-schedule.md) |
-| [Update Climate Setting Schedule](climate-setting-schedules/update-climate-setting-schedule.md) |
-| [Delete Climate Setting Schedule](climate-setting-schedules/delete-climate-setting-schedule.md) |

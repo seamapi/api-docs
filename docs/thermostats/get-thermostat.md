@@ -184,7 +184,6 @@ This section shows the JSON response returned by the API. Since each language en
             },
             "image_url": "https://connect.getseam.com/assets/images/devices/ecobee_3-lite_front.png",
             "image_alt_text": "Ecobee 3 Lite Thermostat",
-            "is_climate_setting_schedule_active": false,
             "min_heating_set_point_fahrenheit": 45,
             "max_heating_set_point_fahrenheit": 79,
             "min_cooling_set_point_fahrenheit": 65,

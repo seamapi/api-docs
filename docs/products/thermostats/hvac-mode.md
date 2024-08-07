@@ -68,7 +68,7 @@ The following example shows a thermostat that supports both heating and cooling:
 The `can_enable_automatic_heating` and `can_enable_automatic_cooling` settings indicate whether the thermostat supports heating and cooling modes, respectively. If `can_enable_automatic_heating` is `true`, the thermostat supports heating. Similarly, if `can_enable_automatic_cooling` is `true`, the thermostat supports cooling. When both of these settings are `true`, the thermostat supports heat-cool (auto) mode. The availability of heating or cooling options depends on the connected systems. If the thermostat is not connected to a specific system, the corresponding options may be absent.
 
 {% hint style="info" %}
-Note that you configure either `hvac_mode_setting` or `automatic_heating_enabled` and `automatic_cooling_enabled`, and Seam automatically adjusts the other property/pair correspondingly. For more information, see [Default Climate Setting](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/setting-the-default-climate-setting.md) and [Climate Setting Schedules](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/thermostats-climate-setting-schedules.md).
+Note that you configure either `hvac_mode_setting` or `automatic_heating_enabled` and `automatic_cooling_enabled`, and Seam automatically adjusts the other property/pair correspondingly. For more information, see [Default Climate Setting](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/setting-the-default-climate-setting.md).
 {% endhint %}
 
 The following example shows a thermostat connected to both heating and cooling systems:

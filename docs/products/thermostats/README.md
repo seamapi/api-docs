@@ -15,7 +15,6 @@ The Seam API enables you to manage your smart thermostats from a central console
 Leverage the Seam API for the following smart thermostat-related applications:
 
 * **Adjusting current settings:** Modify the current climate and fan modes based on your immediate needs, whether you are on location or away.
-* **Scheduling climate settings for the future \[in development]:** Plan ahead by setting temperature preferences for future dates and times. For example, if you plan to have a guest at a rental home, you can schedule the house to warm up just before their arrival.
 * **Default energy savings:** Program the thermostat to use a climate setting as a "vacation mode" or "energy savings mode" to minimize energy consumption when your property is unoccupied.
 
 ***
@@ -26,8 +25,7 @@ Using the Seam API, you can configure the following groups of climate settings o
 
 * [**Current climate setting**](configure-current-climate-settings.md)**:** The current heating and cooling settings on a smart thermostat, including the [HVAC mode](hvac-mode.md) and its corresponding [set points](set-points.md).
 * [**Fan mode**](configure-current-climate-settings.md)**:** Whether the fan operates all the time (on) or only when needed (auto).&#x20;
-* [**Default climate setting**](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/setting-the-default-climate-setting.md) **\[in development]:** The set of default HVAC settings on a smart thermostat that applies when a [climate setting schedule](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/thermostats-climate-setting-schedules.md) ends—such as when the room, unit, or home becomes vacant.
-* [**Climate setting schedules**](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/thermostats-climate-setting-schedules.md) **\[in development]:** Smart thermostat schedules that control the climate for specific periods of time in users' homes or businesses.
+* [**Default climate setting**](../../capability-guides/thermostats/managing-scheduled-climate-settings-in-development/setting-the-default-climate-setting.md) **\[in development]:** The set of default HVAC settings on a smart thermostat.
 
 ***
 
