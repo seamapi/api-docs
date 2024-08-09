@@ -6,18 +6,18 @@
 ### Request Parameters
 
 {{#each request.parameters}}
-**{{this.name}}**  
-*Type:* `{{this.type}}`  
-*Required:* {{#if this.required}}Yes{{else}}No{{/if}}  
+**{{this.name}}**
+*Type:* `{{this.type}}`
+*Required:* {{#if this.required}}Yes{{else}}No{{/if}}
 
-{{this.description}}  
+{{this.description}}
 {{/each}}
 
 ### Response Properties
 
 {{#each response.properties}}
-**{{this.name}}**  
-{{this.description}}  
+**{{this.name}}**
+{{this.description}}
 {{/each}}
 
 ## Samples

@@ -1,0 +1,25 @@
+<header>
+  <h1>{{resource.name}}</h1>
+</header>
+
+<hr>
+
+{{#each resource.properties}}
+<header>
+  <h3>{{name}}</h3>
+</header>
+<div>
+  <p>{{description}}</p>
+  {{#if format}}
+  <div>
+    <span>Format:</span>
+    <span>{{format}}</span>
+  </div>
+  {{/if}}
+  {{#if isDeprecated}}
+  <p>This property is deprecated.</p>
+  {{/if}}
+</div>
+
+<hr>
+{{/each}}

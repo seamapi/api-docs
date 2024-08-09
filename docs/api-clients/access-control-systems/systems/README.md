@@ -1,21 +1,224 @@
----
-description: Systems for managing and monitoring access to physical spaces
----
+<header>
+  <h1>acs_system</h1>
+</header>
 
-# Systems
+<hr>
 
-The `acs_system` object represents an [Access Control System](../../../products/access-systems/) (ACS).
+<header>
+  <h3>acs_system_id</h3>
+</header>
+<div>
+  <p>ID of the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
 
-## `acs_system` Properties
+<hr>
+<header>
+  <h3>can_add_acs_users_to_acs_access_groups</h3>
+</header>
+<div>
+  <p>Indicates whether the `acs_system` supports [adding users to access groups](../../../capability-guides/access-systems/assigning-users-to-access-groups#add-an-acs-user-to-an-access-group.md). See also [Access Group-based Access Control Systems](../../../capability-guides/access-systems/understanding-access-control-system-differences#access-group-based-access-control-systems.md).</p>
+  <div>
+    <span>Format:</span>
+    <span>boolean</span>
+  </div>
+</div>
 
-The `acs_system` object has the following properties:
+<hr>
+<header>
+  <h3>can_automate_enrollment</h3>
+</header>
+<div>
+  <p>Indicates whether it is possible to [launch enrollment automations](../../../capability-guides/mobile-access-in-development/issuing-mobile-credentials-from-an-access-control-system#prepare-the-phones-for-a-user-identity-to-start-receiving-mobile-credentials-using-an-enrollment-aut.md) for the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>boolean</span>
+  </div>
+</div>
 
-<table><thead><tr><th width="306">Property</th><th width="114">Type</th><th>Description</th></tr></thead><tbody><tr><td><code>acs_system_id</code></td><td>String (UUID)<br><em>Required</em></td><td>ID of the access control system</td></tr><tr><td><code>external_type</code></td><td>Enum (string)<br><em>Required</em></td><td>Brand-specific terminology for the access control system type</td></tr><tr><td><code>external_type_display_name</code></td><td>String<br><em>Optional</em></td><td>Display name that corresponds to the brand-specific terminology for the access control system type</td></tr><tr><td><code>name</code></td><td>String<br><em>Required</em></td><td>Name of the access control system</td></tr><tr><td><code>created_at</code></td><td>String<br><em>Required</em></td><td>Date and time at which the access control system was created</td></tr><tr><td><code>workspace_id</code></td><td>String (UUID)<br><em>Required</em></td><td>ID of the <a href="../../../core-concepts/workspaces/">workspace</a> that contains the access control system</td></tr><tr><td><code>connected_account_ids</code></td><td>Array of strings (UUIDs)<br><em>Required</em></td><td>Array of <a href="../../connected-accounts/">connected account</a> IDs associated with the access control system</td></tr><tr><td><code>image_url</code></td><td>String<br><em>Required</em></td><td>URL for the image that represents the access control system</td></tr><tr><td><code>image_alt_text</code></td><td>String<br><em>Required</em></td><td>Alternative text for the access control system image</td></tr></tbody></table>
+<hr>
+<header>
+  <h3>can_create_acs_access_groups</h3>
+</header>
+<div>
+  <p>Indicates whether the `acs_system` supports creating [access groups](../../../capability-guides/access-systems/assigning-users-to-access-groups.md). See also [Access Group-based Access Control Systems](../../../capability-guides/access-systems/understanding-access-control-system-differences#access-group-based-access-control-systems.md).</p>
+  <div>
+    <span>Format:</span>
+    <span>boolean</span>
+  </div>
+</div>
 
-## `acs_system` Methods
+<hr>
+<header>
+  <h3>can_remove_acs_users_from_acs_access_groups</h3>
+</header>
+<div>
+  <p>Indicates whether the `acs_system` supports [removing users from access groups](../../../capability-guides/access-systems/assigning-users-to-access-groups#remove-an-acs-user-from-an-access-group.md). See also [Access Group-based Access Control Systems](../../../capability-guides/access-systems/understanding-access-control-system-differences#access-group-based-access-control-systems.md).</p>
+  <div>
+    <span>Format:</span>
+    <span>boolean</span>
+  </div>
+</div>
 
-You can perform the following actions on `acs_system` objects:
+<hr>
+<header>
+  <h3>connected_account_ids</h3>
+</header>
+<div>
+  <p>IDs of the [connected accounts](../../../core-concepts/connected-accounts.md) associated with the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>list</span>
+  </div>
+</div>
 
-* [List systems](list-systems.md)
-* [Get a system](get-system.md)
-* [List compatible credential manager ACS systems](list-compatible-credential-manager-acs-systems.md)
+<hr>
+<header>
+  <h3>created_at</h3>
+</header>
+<div>
+  <p>Date and time at which the `acs_system` was created.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>errors</h3>
+</header>
+<div>
+  <p>Errors associated with the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>list</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>external_type</h3>
+</header>
+<div>
+  <p>Brand-specific terminology for the `acs_system` type.</p>
+  <div>
+    <span>Format:</span>
+    <span>enum</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>external_type_display_name</h3>
+</header>
+<div>
+  <p>Display name that corresponds to the brand-specific terminology for the `acs_system` type.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>image_alt_text</h3>
+</header>
+<div>
+  <p>Alternative text for the `acs_system` image.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>image_url</h3>
+</header>
+<div>
+  <p>URL for the image that represents the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>name</h3>
+</header>
+<div>
+  <p>Name of the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>system_type</h3>
+</header>
+<div>
+  <p></p>
+  <div>
+    <span>Format:</span>
+    <span>enum</span>
+  </div>
+  <p>This property is deprecated.</p>
+</div>
+
+<hr>
+<header>
+  <h3>system_type_display_name</h3>
+</header>
+<div>
+  <p></p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+  <p>This property is deprecated.</p>
+</div>
+
+<hr>
+<header>
+  <h3>visionline_metadata</h3>
+</header>
+<div>
+  <p></p>
+  <div>
+    <span>Format:</span>
+    <span>record</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>warnings</h3>
+</header>
+<div>
+  <p></p>
+  <div>
+    <span>Format:</span>
+    <span>list</span>
+  </div>
+</div>
+
+<hr>
+<header>
+  <h3>workspace_id</h3>
+</header>
+<div>
+  <p>ID of the [workspace](../../../core-concepts/workspaces.md) that contains the `acs_system`.</p>
+  <div>
+    <span>Format:</span>
+    <span>string</span>
+  </div>
+</div>
+
+<hr>

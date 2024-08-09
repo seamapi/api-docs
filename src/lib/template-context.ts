@@ -1,4 +1,38 @@
-import type { Blueprint, Endpoint } from '@seamapi/blueprint'
+import type { Blueprint, Endpoint, Route } from '@seamapi/blueprint'
+
+export interface EndpointTemplateContext {
+  description: string
+  title: string
+  path: string
+  request: {
+    preferredMethod: string
+    parameters: Array<{
+      name: string
+      required: boolean
+      description: string
+    }>
+  }
+  response: {
+    description: string
+    resourceType: string | null
+    properties: null | Array<{
+      name: string
+      description: string
+    }>
+  }
+  codeSamples: Array<{
+    title: string
+    description: string
+    code: Record<
+      string,
+      {
+        title: string
+        request: string
+        response: string
+      }
+    >
+  }>
+}
 
 export function setEndpointTemplateContext(
   file: Partial<EndpointTemplateContext>,
@@ -42,36 +76,52 @@ export function setEndpointTemplateContext(
   }))
 }
 
-export interface EndpointTemplateContext {
-  description: string
-  title: string
-  path: string
-  request: {
-    preferredMethod: string
-    parameters: Array<{
+export interface ResourceTemplateContext {
+  resource: {
+    name: string
+    properties: Array<{
       name: string
-      required: boolean
+      type: string
       description: string
+      format: string
+      isDeprecated: boolean
     }>
   }
-  response: {
-    description: string
-    resourceType: string | null
-    properties: null | Array<{
-      name: string
-      description: string
-    }>
+}
+
+export function setApiResourceTemplateContext(
+  file: Partial<ResourceTemplateContext>,
+  route: Route,
+  blueprint: Blueprint,
+): void {
+  const endpointWithResourceType = route.endpoints.find(
+    (e) =>
+      e.response.responseType === 'resource' ||
+      e.response.responseType === 'resource_list',
+  )
+
+  if (
+    endpointWithResourceType == null ||
+    !('resourceType' in endpointWithResourceType.response)
+  ) {
+    return
   }
-  codeSamples: Array<{
-    title: string
-    description: string
-    code: Record<
-      string,
-      {
-        title: string
-        request: string
-        response: string
-      }
-    >
-  }>
+
+  const resourceName = endpointWithResourceType.response.resourceType
+  const resource = blueprint.resources[resourceName]
+
+  if (resource == null) return
+
+  file.resource = {
+    name: resourceName,
+    properties: resource.properties.map(
+      ({ name, jsonType, description, format, isDeprecated }) => ({
+        name,
+        type: jsonType,
+        description,
+        format,
+        isDeprecated,
+      }),
+    ),
+  }
 }

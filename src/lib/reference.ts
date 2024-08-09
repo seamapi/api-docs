@@ -3,6 +3,8 @@ import type Metalsmith from 'metalsmith'
 
 import {
   type EndpointTemplateContext,
+  type ResourceTemplateContext,
+  setApiResourceTemplateContext,
   setEndpointTemplateContext,
 } from './template-context.js'
 
@@ -12,7 +14,8 @@ const baseUrl = 'https://docs.seam.co/latest/'
 
 type Metadata = Partial<Pick<Blueprint, 'routes' | 'resources'>>
 
-type File = EndpointTemplateContext & { layout: string }
+type File = EndpointTemplateContext &
+  ResourceTemplateContext & { layout: string }
 
 export const reference = (
   files: Metalsmith.Files,
@@ -26,6 +29,14 @@ export const reference = (
   }
 
   for (const route of metadata.routes ?? []) {
+    const k = `api-clients${route.path.replace('acs', 'access-control-systems')}/README.md`
+    files[k] = {
+      contents: Buffer.from('\n'),
+    }
+    const file = files[k] as unknown as File
+    file.layout = 'api-resource.hbs'
+    setApiResourceTemplateContext(file, route, metadata)
+
     for (const endpoint of route.endpoints) {
       const k = `api${endpoint.path}.md`
       files[k] = {
